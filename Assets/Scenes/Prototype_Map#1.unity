@@ -439,8 +439,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 576736043}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000000030489367, y: -0.122183256, z: 0.0000000037534122,
-    w: 0.9925076}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.380629, y: 35.25421, z: -57.307587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -466,7 +465,7 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 1000
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 0}
+  m_LookAt: {fileID: 543450651633697777}
   m_Follow: {fileID: 543450651633697777}
   m_Lens:
     FieldOfView: 90
@@ -808,8 +807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1830322865}
   - component: {fileID: 1830322868}
-  - component: {fileID: 1830322867}
-  - component: {fileID: 1830322866}
+  - component: {fileID: 1830322874}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -832,43 +830,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 576736044}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1830322866
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830322864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4c41ac9245b87c4192012080077d830, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Damping: 0
---- !u!114 &1830322867
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830322864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 0, z: 0}
-  ShoulderOffset: {x: 0, y: 10, z: -30}
-  VerticalArmLength: -4
-  CameraSide: 1
-  CameraDistance: 4
-  CameraCollisionFilter:
-    serializedVersion: 2
-    m_Bits: 0
-  IgnoreTag: 
-  CameraRadius: 0.2
-  DampingIntoCollision: 0
-  DampingFromCollision: 2
 --- !u!114 &1830322868
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -881,6 +842,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1830322874
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830322864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Damping: {x: 0, y: 0, z: 0.5}
+  ShoulderOffset: {x: 0, y: 10, z: -30}
+  VerticalArmLength: -4
+  CameraSide: 1
+  CameraDistance: 4
+  CameraCollisionFilter:
+    serializedVersion: 2
+    m_Bits: 0
+  IgnoreTag: 
+  CameraRadius: 0.2
+  DampingIntoCollision: 0
+  DampingFromCollision: 2
 --- !u!4 &543450651633697777
 Transform:
   m_ObjectHideFlags: 0
@@ -1028,43 +1013,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694bdcd23ff89464fb94247cb3de1269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Roll: 8000
-  Min_Low_Roll: 6000
-  Min_Moderate_Roll: 8000
-  Min_High_Roll: 10000
-  Max_Low_Roll: 8000
-  Max_Moderate_Roll: 10000
-  Max_High_Roll: 12000
-  Min_To_Max_Duartion_Roll: 2
-  Pitch: 4000
-  Min_Low_Pitch: 2000
-  Min_Moderate_Pitch: 4000
-  Min_High_Pitch: 6000
-  Max_Low_Pitch: 4000
-  Max_Moderate_Pitch: 6000
-  Max_High_Pitch: 8000
-  Min_To_Max_Duartion_Pitch: 2
-  Yaw: 4000
-  Min_Low_Yaw: 2000
-  Min_Moderate_Yaw: 4000
-  Min_High_Yaw: 6000
-  Max_Low_Yaw: 4000
-  Max_Moderate_Yaw: 6000
-  Max_High_Yaw: 8000
-  Min_To_Max_Duartion_Yaw: 2
-  Mass: 200
-  Low_Linear_Drag: 2.5
-  Moderate_Linear_Drag: 1.5
-  High_Linear_Drag: 1
-  Low_Angular_Drag: 2.5
-  Moderate_Angular_Drag: 1.5
-  High_Angular_Drag: 1
-  Throttle: 8000
-  Max_Low_Throttle: 10000
-  Max_Moderate_Throttle: 20000
-  Max_High_Throttle: 40000
-  Min_To_Max_Duartion_Throttle: 5
   Rb: {fileID: 3469287837698608214}
+  SpaceShipValues: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
+  Positive_Vertical_Camera_Offset:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1512141075}
+        m_TargetAssemblyTypeName: Cube_Instantiater, Assembly-CSharp
+        m_MethodName: randomfunction
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Negative_Vertical_Camera_Offset:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

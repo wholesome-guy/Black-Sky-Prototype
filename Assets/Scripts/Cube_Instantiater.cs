@@ -15,4 +15,9 @@ public class Cube_Instantiater : MonoBehaviour
         }
     }
 
+    public void randomfunction()
+    {
+        Debug.Log("Fired");
+    }
+
 }
