@@ -40,10 +40,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     [SerializeField] private Rigidbody Rb;
     [SerializeField] private SpaceShipValues SpaceShipValues;
 
-    public UnityEvent Positive_Vertical_Camera_Offset;
-    public UnityEvent Negative_Vertical_Camera_Offset;
-
-    private float X_Angle;
+    
 
     
    
@@ -55,8 +52,6 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         {
             Debug.LogError("Mouse_Input_Manager singleton is missing");
         }
-        
-        
     }
      
 
