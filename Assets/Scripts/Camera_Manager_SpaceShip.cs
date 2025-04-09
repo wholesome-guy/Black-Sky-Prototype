@@ -30,8 +30,7 @@ public class Camera_Manager_SpaceShip : MonoBehaviour
         if (!Is_Camera_Offseted && (Angle_Calculator(Angle_X) <= Positive_Vertical_Angle_X_Lower_Value && Angle_Calculator(Angle_X) >= Positive_Vertical_Angle_X_Higher_Value))
         {
             Positive_Vertical_Camera_Offset.Invoke();
-            Is_Camera_Offseted = true;
-            Debug.Log(" Positive Angle Exceeded");
+            Is_Camera_Offseted = true;  
             StartCoroutine(Bool_Flag_Reseter());
         }
     }
@@ -41,7 +40,6 @@ public class Camera_Manager_SpaceShip : MonoBehaviour
         {
             Negative_Vertical_Camera_Offset.Invoke();
             Is_Camera_Offseted = true;
-            Debug.Log(" Negative Angle Exceeded");
             StartCoroutine(Bool_Flag_Reseter());
         }
     }

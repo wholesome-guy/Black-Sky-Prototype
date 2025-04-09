@@ -33,6 +33,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     private bool Is_Rotation_Locked;
 
+    
+
     private Vector2 Keyboard_Input;
 
     private SpaceShipControls Spaceship_Contols;
@@ -77,15 +79,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.mass = SpaceShipValues.Mass;
         Is_Rotation_Locked = false;
 
-        Max_Throttle = SpaceShipValues.Max_Moderate_Throttle;
-        Rb.drag = SpaceShipValues.High_Linear_Drag;
-        Min_Roll = SpaceShipValues.Min_High_Roll;
-        Min_Pitch = SpaceShipValues.Min_High_Pitch;
-        Min_Yaw = SpaceShipValues.Min_High_Yaw;
-        Max_Roll = SpaceShipValues.Max_High_Roll;
-        Max_Pitch = SpaceShipValues.Max_High_Pitch;
-        Max_Yaw = SpaceShipValues.Max_High_Yaw;
-        Rb.angularDrag = SpaceShipValues.High_Angular_Drag;
+        
     }
 
    
@@ -110,12 +104,12 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     }
     */
 
-    private void Low_Throttle()
+    public void Low_Throttle()
     {
         Max_Throttle = SpaceShipValues.Max_Low_Throttle;
         Rb.drag = SpaceShipValues.Low_Linear_Drag;
     }
-    private void Low_Handling()
+    public void Low_Handling()
     {
         Min_Roll = SpaceShipValues.Min_Low_Roll;
         Min_Pitch = SpaceShipValues.Min_Low_Pitch;
@@ -125,12 +119,12 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Max_Yaw = SpaceShipValues.Max_Low_Yaw;
         Rb.angularDrag = SpaceShipValues.Low_Angular_Drag;
     }
-    private void Moderate_Throttle()
+    public void Moderate_Throttle()
     {
         Max_Throttle = SpaceShipValues.Max_Moderate_Throttle;
         Rb.drag = SpaceShipValues.Moderate_Linear_Drag;
     }
-    private void Moderate_Handling()
+    public void Moderate_Handling()
     {
         Min_Roll = SpaceShipValues.Min_Moderate_Roll;
         Min_Pitch = SpaceShipValues.Min_Moderate_Pitch;
@@ -140,12 +134,12 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Max_Yaw = SpaceShipValues.Max_Moderate_Yaw;
         Rb.angularDrag = SpaceShipValues.Moderate_Angular_Drag;
     }
-    private void High_Throttle()
+    public void High_Throttle()
     {
         Max_Throttle = SpaceShipValues.Max_High_Throttle;
         Rb.drag = SpaceShipValues.High_Linear_Drag;
     }
-    private void High_Handling()
+    public void High_Handling()
     {
         Min_Roll = SpaceShipValues.Min_High_Roll;
         Min_Pitch = SpaceShipValues.Min_High_Pitch;
@@ -177,11 +171,13 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input.y * Throttle, ForceMode.Force);
         if (Keyboard_Input.y != 0)
         {
-            StartCoroutine(Lerping_Routine(Min_Throttle, Max_Throttle, SpaceShipValues.Min_To_Max_Duartion_Throttle, (float Value) => Throttle = Value));
+            
+          StartCoroutine(Lerping_Routine(Min_Throttle, Max_Throttle, SpaceShipValues.Min_To_Max_Duartion_Throttle, (float Value) => Throttle = Value));
         }
         else
         {
-            Throttle = Min_Throttle;
+           
+           Throttle = Min_Throttle;
         }
     }
     private void Roll_Function()
@@ -189,10 +185,12 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input.x * Roll, ForceMode.Force);
         if (Keyboard_Input.x != 0)
         {
+            
             StartCoroutine(Lerping_Routine(Min_Roll, Max_Roll, SpaceShipValues.Min_To_Max_Duartion_Roll, (float Value) => Roll = Value));
         }
         else
         {
+            
             Roll = Min_Roll;
         }
     }
@@ -202,10 +200,11 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.right) * Mouse_Input_Manager.instance.Normalised_Mouse_Input.y * Pitch * -1 * Mouse_Input_Manager.instance.Mouse_Sensitivity, ForceMode.Force);
         if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.y != 0)
         {
-            StartCoroutine(Lerping_Routine(Min_Pitch, Max_Pitch, SpaceShipValues.Min_To_Max_Duartion_Pitch, (float Value) => Pitch = Value));
+          StartCoroutine(Lerping_Routine(Min_Pitch, Max_Pitch, SpaceShipValues.Min_To_Max_Duartion_Pitch, (float Value) => Pitch = Value));
         }
         else
         {
+
             Pitch = Min_Pitch;
         }
     }
@@ -214,14 +213,16 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.up) * Mouse_Input_Manager.instance.Normalised_Mouse_Input.x * Yaw * Mouse_Input_Manager.instance.Mouse_Sensitivity, ForceMode.Force);
         if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.x != 0)
         {
+           
             StartCoroutine(Lerping_Routine(Min_Yaw, Max_Yaw, SpaceShipValues.Min_To_Max_Duartion_Yaw, (float Value) => Yaw = Value));
         }
         else
         {
+
             Yaw = Min_Yaw;
         }
     }
-
+   
 
     IEnumerator Lerping_Routine(float Min_Value,float Max_Value,float duration, System.Action<float> Lerped_Value)
     {
