@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 4f4c06fb87d5e114fac6f30956c868da, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: f531e09e2ad2fb440b4eed7605863143, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 543450651633697777}
   m_Follow: {fileID: 543450651633697777}
   m_Lens:
-    FieldOfView: 90
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -292,7 +292,7 @@ Transform:
   m_GameObject: {fileID: 279092893}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.380629, y: 15.2542095, z: -43.307587}
+  m_LocalPosition: {x: 13.380629, y: 0.25420952, z: -57.307587}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -360,7 +360,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 90
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -387,7 +387,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.380629, y: 35.25421, z: -57.307587}
+  m_LocalPosition: {x: 16.380629, y: 35.25421, z: -77.30759}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -456,7 +456,7 @@ MonoBehaviour:
   m_UpdateMethod: 2
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
-    m_Style: 3
+    m_Style: 1
     m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0.5}
-  ShoulderOffset: {x: 0, y: -10, z: -16}
+  ShoulderOffset: {x: -3, y: -25, z: -30}
   VerticalArmLength: -4
   CameraSide: 1
   CameraDistance: 4
@@ -570,7 +570,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -628,13 +628,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 18.010838, y: 1.9276664, z: -24.684015}
+  m_LocalRotation: {x: -0.3583683, y: 0, z: 0, w: 0.9335803}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1410614796}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 678, y: 0, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,7 +861,7 @@ Transform:
   m_GameObject: {fileID: 576736043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.380629, y: 35.25421, z: -57.307587}
+  m_LocalPosition: {x: 16.380629, y: 35.25421, z: -77.30759}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -889,7 +889,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 543450651633697777}
   m_Follow: {fileID: 543450651633697777}
   m_Lens:
-    FieldOfView: 90
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0.5}
-  ShoulderOffset: {x: -2.5, y: 25, z: -15}
+  ShoulderOffset: {x: -2.5, y: 38, z: -4}
   VerticalArmLength: -4
   CameraSide: 1
   CameraDistance: 4
@@ -1961,7 +1961,7 @@ Transform:
   m_GameObject: {fileID: 1818297772}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.880629, y: 50.25421, z: -42.307587}
+  m_LocalPosition: {x: 13.880629, y: 63.25421, z: -31.307589}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1989,7 +1989,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 543450651633697777}
   m_Follow: {fileID: 543450651633697777}
   m_Lens:
-    FieldOfView: 90
+    FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
@@ -2065,7 +2065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0, y: 0, z: 0.5}
-  ShoulderOffset: {x: 0, y: 10, z: -30}
+  ShoulderOffset: {x: 0, y: 10, z: -50}
   VerticalArmLength: -4
   CameraSide: 1
   CameraDistance: 4
@@ -2314,7 +2314,7 @@ GameObject:
   - component: {fileID: 3469287837698608214}
   - component: {fileID: 3469287837698608215}
   - component: {fileID: 3469287837698608216}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpaceShip#1_BlackSky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2341,7 +2341,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6de24c83d67ed1e4cbe54b1918f29bbc, type: 2}
+  - {fileID: 2100000, guid: a8febe3420ead5d458443e874aba01ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2370,7 +2370,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147898685771}
-  m_Mesh: {fileID: -4324423175626717085, guid: 5d1ff5e4a8f27eb40927562d3bd918ce, type: 3}
+  m_Mesh: {fileID: -4324423175626717085, guid: 02d99d5fb1dd5e245b5080d7e3f0d98a, type: 3}
 --- !u!64 &3469287837698608213
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2491,10 +2491,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  Positive_Vertical_Angle_X_Lower_Value: -35
+  Positive_Vertical_Angle_X_Lower_Value: -25
   Positive_Vertical_Angle_X_Higher_Value: -170
-  Negative_Vertical_Angle_X_Lower_Value: 65
-  Negative_Vertical_Angle_X_Higher_Value: 100
+  Negative_Vertical_Angle_X_Lower_Value: 40
+  Negative_Vertical_Angle_X_Higher_Value: 140
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2502,9 +2502,9 @@ SceneRoots:
   - {fileID: 1410614796}
   - {fileID: 1695797645}
   - {fileID: 1684993256}
+  - {fileID: 2016601744}
+  - {fileID: 233464091}
+  - {fileID: 1510439046}
   - {fileID: 543450651633697777}
   - {fileID: 805014618}
   - {fileID: 1512141076}
-  - {fileID: 233464091}
-  - {fileID: 1510439046}
-  - {fileID: 2016601744}
