@@ -50,10 +50,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     {
         // Get the C# Script youu generated, ie the action map Script 
         Spaceship_Contols = new SpaceShipControls();
-        if (Mouse_Input_Manager.instance == null)
-        {
-            Debug.LogError("Mouse_Input_Manager singleton is missing");
-        }
+        
     }
      
 
@@ -78,8 +75,11 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     {
         Rb.mass = SpaceShipValues.Mass;
         Is_Rotation_Locked = false;
+        if (Mouse_Input_Manager.instance == null)
+        {
+            Debug.LogError("Mouse_Input_Manager singleton is missing");
+        }
 
-        
     }
 
    
