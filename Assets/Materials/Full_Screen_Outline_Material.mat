@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Full Screen Outline Material
+  m_Name: Full_Screen_Outline_Material
   m_Shader: {fileID: -6465566751694194690, guid: 3de3375fc21d1714c8971e8ff2908a27,
     type: 3}
   m_Parent: {fileID: 0}

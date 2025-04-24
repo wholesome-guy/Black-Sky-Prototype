@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07080ee345f3c7b42850a8569c2d58b2, type: 3}
-  m_Name: SpaceShip Values #1
+  m_Name: SpaceShip_Values #1
   m_EditorClassIdentifier: 
   Min_Low_Roll: 6000
   Min_Moderate_Roll: 8000
@@ -44,3 +44,7 @@ MonoBehaviour:
   Low_Angular_Drag: 2.5
   Moderate_Angular_Drag: 1.5
   High_Angular_Drag: 1
+  Max_Fuel: 50000
+  Low_Throttle_Fuel_Consumption: 250
+  Moderate_Throttle_Fuel_Consumption: 500
+  High_Throttle_Fuel_Consumption: 1000

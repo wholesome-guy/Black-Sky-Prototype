@@ -31,63 +31,34 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private float Min_Throttle = 0;
     private float Max_Throttle;
 
-    private bool Is_Rotation_Locked;
 
-    
-
-    private Vector2 Keyboard_Input;
-
-    private SpaceShipControls Spaceship_Contols;
 
     [SerializeField] private Rigidbody Rb;
     [SerializeField] private SpaceShipValues SpaceShipValues;
 
-    
+    private bool Is_Fuel_Exhuasted;
 
     
-   
-    void Awake()
-    {
-        // Get the C# Script youu generated, ie the action map Script 
-        Spaceship_Contols = new SpaceShipControls();
-        
-    }
-     
-
-    /// <summary>
-    /// Enable the  action map script 'OnEnable' and Subscribe to the Movement Action
-    /// Disable the action map script 'OnDisable' and Unsubscribe to the Movemnent Action
-    /// </summary>
-    
-    
-    private void OnEnable()
-    {
-        Spaceship_Contols.Enable();
-        Spaceship_Contols.SpaceShip_Controls.RotationLock.performed += Rotation_Locker;
-      
-    }
-    private void OnDisable()
-    {
-        Spaceship_Contols.Disable();
-        Spaceship_Contols.SpaceShip_Controls.RotationLock.performed -= Rotation_Locker;
-    }
     private void Start()
     {
-        Rb.mass = SpaceShipValues.Mass;
-        Is_Rotation_Locked = false;
+        Rb.mass = SpaceShipValues.Mass;    
         if (Mouse_Input_Manager.instance == null)
         {
             Debug.LogError("Mouse_Input_Manager singleton is missing");
         }
-
+        Is_Fuel_Exhuasted = false;
     }
 
    
     private void FixedUpdate()
     {
-        Keyboard_Input = Spaceship_Contols.SpaceShip_Controls.Movement.ReadValue<Vector2>();
-        Linear_Movement();
-        if(!Is_Rotation_Locked)
+
+        if (!Is_Fuel_Exhuasted)
+        {
+            Linear_Movement();
+
+        }
+        if (!Mouse_Input_Manager.instance.Is_Rotation_Locked)
         {
             Rotational_Movement();
         }
@@ -103,7 +74,10 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Input.y * Throttle, ForceMode.Force);
     }
     */
-
+    public void Fuel_Exhuasted_Bool()
+    {
+        Is_Fuel_Exhuasted = !Is_Fuel_Exhuasted;
+    }
     public void Low_Throttle()
     {
         Max_Throttle = SpaceShipValues.Max_Low_Throttle;
@@ -161,15 +135,11 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Yaw_Function();
     }
 
-     private void Rotation_Locker(InputAction.CallbackContext context)
-     {
-        Is_Rotation_Locked = !Is_Rotation_Locked;
-     }
 
     private void Throttle_Function()
     {
-        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input.y * Throttle, ForceMode.Force);
-        if (Keyboard_Input.y != 0)
+        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.y * Throttle, ForceMode.Force);
+        if (Keyboard_Input_Manager.instance.Keyboard_Input.y != 0)
         {
             
           StartCoroutine(Lerping_Routine(Min_Throttle, Max_Throttle, SpaceShipValues.Min_To_Max_Duartion_Throttle, (float Value) => Throttle = Value));
@@ -182,11 +152,12 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     }
     private void Roll_Function()
     {
-        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input.x * Roll, ForceMode.Force);
-        if (Keyboard_Input.x != 0)
+        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.x * Roll, ForceMode.Force);
+        if (Keyboard_Input_Manager.instance.Keyboard_Input.x != 0)
         {
-            
+
             StartCoroutine(Lerping_Routine(Min_Roll, Max_Roll, SpaceShipValues.Min_To_Max_Duartion_Roll, (float Value) => Roll = Value));
+            
         }
         else
         {
@@ -201,6 +172,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.y != 0)
         {
           StartCoroutine(Lerping_Routine(Min_Pitch, Max_Pitch, SpaceShipValues.Min_To_Max_Duartion_Pitch, (float Value) => Pitch = Value));
+          
         }
         else
         {
@@ -214,7 +186,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.x != 0)
         {
            
-            StartCoroutine(Lerping_Routine(Min_Yaw, Max_Yaw, SpaceShipValues.Min_To_Max_Duartion_Yaw, (float Value) => Yaw = Value));
+           StartCoroutine(Lerping_Routine(Min_Yaw, Max_Yaw, SpaceShipValues.Min_To_Max_Duartion_Yaw, (float Value) => Yaw = Value));
+           
         }
         else
         {

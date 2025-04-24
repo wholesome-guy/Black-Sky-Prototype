@@ -56,4 +56,11 @@ public class SpaceShipValues : ScriptableObject
     [SerializeField] public float Low_Angular_Drag;
     [SerializeField] public float Moderate_Angular_Drag;
     [SerializeField] public float High_Angular_Drag;
+
+    //Fuel
+
+    [SerializeField] public float Max_Fuel;
+    [SerializeField] public float Low_Throttle_Fuel_Consumption;
+    [SerializeField] public float Moderate_Throttle_Fuel_Consumption;
+    [SerializeField] public float High_Throttle_Fuel_Consumption;
 }
