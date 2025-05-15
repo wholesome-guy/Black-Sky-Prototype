@@ -26,6 +26,7 @@ public class Mouse_Input_Manager : MonoBehaviour
         {
             instance = this;
         }
+
         // Get the C# Script youu generated, ie the action map Script 
         Spaceship_Controls = new SpaceShipControls();
     }

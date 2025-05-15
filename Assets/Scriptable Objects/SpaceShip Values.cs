@@ -63,4 +63,9 @@ public class SpaceShipValues : ScriptableObject
     [SerializeField] public float Low_Throttle_Fuel_Consumption;
     [SerializeField] public float Moderate_Throttle_Fuel_Consumption;
     [SerializeField] public float High_Throttle_Fuel_Consumption;
+    [SerializeField] public float Refuel_Amount;
+
+    //Health
+
+    [SerializeField] public float Max_Health;
 }

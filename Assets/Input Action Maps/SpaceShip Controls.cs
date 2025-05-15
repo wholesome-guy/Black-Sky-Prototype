@@ -44,6 +44,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HUD Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""e152a8c6-c46c-4b36-a71b-afafa59900a7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,17 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""Rotation Lock"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""61fc2ae0-cf0f-410e-9e6c-19b0588659e1"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HUD Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -122,6 +142,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls = asset.FindActionMap("SpaceShip_Controls", throwIfNotFound: true);
         m_SpaceShip_Controls_Movement = m_SpaceShip_Controls.FindAction("Movement", throwIfNotFound: true);
         m_SpaceShip_Controls_RotationLock = m_SpaceShip_Controls.FindAction("Rotation Lock", throwIfNotFound: true);
+        m_SpaceShip_Controls_HUDSwitch = m_SpaceShip_Controls.FindAction("HUD Switch", throwIfNotFound: true);
     }
 
     ~@SpaceShipControls()
@@ -190,12 +211,14 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private List<ISpaceShip_ControlsActions> m_SpaceShip_ControlsActionsCallbackInterfaces = new List<ISpaceShip_ControlsActions>();
     private readonly InputAction m_SpaceShip_Controls_Movement;
     private readonly InputAction m_SpaceShip_Controls_RotationLock;
+    private readonly InputAction m_SpaceShip_Controls_HUDSwitch;
     public struct SpaceShip_ControlsActions
     {
         private @SpaceShipControls m_Wrapper;
         public SpaceShip_ControlsActions(@SpaceShipControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_SpaceShip_Controls_Movement;
         public InputAction @RotationLock => m_Wrapper.m_SpaceShip_Controls_RotationLock;
+        public InputAction @HUDSwitch => m_Wrapper.m_SpaceShip_Controls_HUDSwitch;
         public InputActionMap Get() { return m_Wrapper.m_SpaceShip_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -211,6 +234,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @RotationLock.started += instance.OnRotationLock;
             @RotationLock.performed += instance.OnRotationLock;
             @RotationLock.canceled += instance.OnRotationLock;
+            @HUDSwitch.started += instance.OnHUDSwitch;
+            @HUDSwitch.performed += instance.OnHUDSwitch;
+            @HUDSwitch.canceled += instance.OnHUDSwitch;
         }
 
         private void UnregisterCallbacks(ISpaceShip_ControlsActions instance)
@@ -221,6 +247,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @RotationLock.started -= instance.OnRotationLock;
             @RotationLock.performed -= instance.OnRotationLock;
             @RotationLock.canceled -= instance.OnRotationLock;
+            @HUDSwitch.started -= instance.OnHUDSwitch;
+            @HUDSwitch.performed -= instance.OnHUDSwitch;
+            @HUDSwitch.canceled -= instance.OnHUDSwitch;
         }
 
         public void RemoveCallbacks(ISpaceShip_ControlsActions instance)
@@ -242,5 +271,6 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnRotationLock(InputAction.CallbackContext context);
+        void OnHUDSwitch(InputAction.CallbackContext context);
     }
 }

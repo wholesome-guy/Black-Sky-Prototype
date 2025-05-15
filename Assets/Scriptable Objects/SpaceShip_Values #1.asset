@@ -48,3 +48,5 @@ MonoBehaviour:
   Low_Throttle_Fuel_Consumption: 250
   Moderate_Throttle_Fuel_Consumption: 500
   High_Throttle_Fuel_Consumption: 1000
+  Refuel_Amount: 1000
+  Max_Health: 10000
