@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class Mouse_Input_Manager : MonoBehaviour
 {
@@ -14,6 +15,10 @@ public class Mouse_Input_Manager : MonoBehaviour
     public int Mouse_Sensitivity;
    
     public bool Is_Rotation_Locked;
+
+    public bool Is_At_Lever_Area;
+
+    public UnityEvent Shoot;
 
 
     private void Awake()
@@ -41,17 +46,21 @@ public class Mouse_Input_Manager : MonoBehaviour
     {
         Spaceship_Controls.Enable();
         Spaceship_Controls.SpaceShip_Controls.RotationLock.performed += Rotation_Locker;
+        Spaceship_Controls.SpaceShip_Controls.Shoot.performed += Shoot_Projectile;
     }
 
     private void OnDisable()
     {
         Spaceship_Controls.Disable();
         Spaceship_Controls.SpaceShip_Controls.RotationLock.performed -= Rotation_Locker;
+        Spaceship_Controls.SpaceShip_Controls.Shoot.performed -= Shoot_Projectile;
+
 
     }
 
-     void Start()
+    void Start()
      {
+        Is_At_Lever_Area = false;
         Is_Rotation_Locked = false;
         Mouse_Sensitivity = 1;
      }
@@ -75,6 +84,21 @@ public class Mouse_Input_Manager : MonoBehaviour
     private void Rotation_Locker(InputAction.CallbackContext context)
     {
         Is_Rotation_Locked = !Is_Rotation_Locked;
+    }
+
+
+    public void Lever_Area_Bool()
+    {
+        Is_At_Lever_Area = !Is_At_Lever_Area;
+    }
+   
+    private void Shoot_Projectile(InputAction.CallbackContext context)
+    {
+        if (!Is_At_Lever_Area)
+        {
+            Shoot.Invoke();
+        }
+
     }
 
 }

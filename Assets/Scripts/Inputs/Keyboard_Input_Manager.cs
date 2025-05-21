@@ -11,6 +11,7 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
     public Vector2 Keyboard_Input;
     public UnityEvent On_Chnage_HUD;
+    public UnityEvent Ammo_Switch;
     public bool Is_HUD_On = true;
 
     private void Awake()
@@ -33,12 +34,15 @@ public class Keyboard_Input_Manager : MonoBehaviour
         Spaceship_Controls.Enable();
 
         Spaceship_Controls.SpaceShip_Controls.HUDSwitch.performed += HUD_Switch;
+        Spaceship_Controls.SpaceShip_Controls.SwtichAmmo.performed += Ammo_Switch_Funtion;
     }
 
     private void OnDisable()
     {
         Spaceship_Controls.Disable();
         Spaceship_Controls.SpaceShip_Controls.HUDSwitch.performed -= HUD_Switch;
+        Spaceship_Controls.SpaceShip_Controls.SwtichAmmo.performed -= Ammo_Switch_Funtion;
+
 
     }
 
@@ -53,4 +57,10 @@ public class Keyboard_Input_Manager : MonoBehaviour
         On_Chnage_HUD.Invoke();
 
     }
+
+    private void Ammo_Switch_Funtion(InputAction.CallbackContext context)
+    {
+        Ammo_Switch.Invoke();
+    }
+
 }

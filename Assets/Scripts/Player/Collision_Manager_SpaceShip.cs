@@ -29,10 +29,7 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
 
     private void OnCollisionEnter(Collision Collided_GameObject)
     {
-        if (Collided_GameObject.gameObject.CompareTag("TakeDamage"))
-        {
-            Take_Damage.Invoke(5000);
-        }
+           Take_Damage.Invoke(5000);
     }
 
 

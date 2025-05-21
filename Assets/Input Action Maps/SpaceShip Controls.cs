@@ -53,6 +53,24 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed29f896-3245-4639-b126-cb6cd7f2bbd0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Swtich Ammo"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a0f23fb-3397-4769-b0cf-8004946311ce"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +150,28 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""HUD Switch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d2662ce-b09a-43cf-9e8c-491363033fb3"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ee7118a-15db-4361-ad99-d0ec3e067fd9"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Swtich Ammo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +183,8 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls_Movement = m_SpaceShip_Controls.FindAction("Movement", throwIfNotFound: true);
         m_SpaceShip_Controls_RotationLock = m_SpaceShip_Controls.FindAction("Rotation Lock", throwIfNotFound: true);
         m_SpaceShip_Controls_HUDSwitch = m_SpaceShip_Controls.FindAction("HUD Switch", throwIfNotFound: true);
+        m_SpaceShip_Controls_Shoot = m_SpaceShip_Controls.FindAction("Shoot", throwIfNotFound: true);
+        m_SpaceShip_Controls_SwtichAmmo = m_SpaceShip_Controls.FindAction("Swtich Ammo", throwIfNotFound: true);
     }
 
     ~@SpaceShipControls()
@@ -212,6 +254,8 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_SpaceShip_Controls_Movement;
     private readonly InputAction m_SpaceShip_Controls_RotationLock;
     private readonly InputAction m_SpaceShip_Controls_HUDSwitch;
+    private readonly InputAction m_SpaceShip_Controls_Shoot;
+    private readonly InputAction m_SpaceShip_Controls_SwtichAmmo;
     public struct SpaceShip_ControlsActions
     {
         private @SpaceShipControls m_Wrapper;
@@ -219,6 +263,8 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_SpaceShip_Controls_Movement;
         public InputAction @RotationLock => m_Wrapper.m_SpaceShip_Controls_RotationLock;
         public InputAction @HUDSwitch => m_Wrapper.m_SpaceShip_Controls_HUDSwitch;
+        public InputAction @Shoot => m_Wrapper.m_SpaceShip_Controls_Shoot;
+        public InputAction @SwtichAmmo => m_Wrapper.m_SpaceShip_Controls_SwtichAmmo;
         public InputActionMap Get() { return m_Wrapper.m_SpaceShip_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -237,6 +283,12 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @HUDSwitch.started += instance.OnHUDSwitch;
             @HUDSwitch.performed += instance.OnHUDSwitch;
             @HUDSwitch.canceled += instance.OnHUDSwitch;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
+            @SwtichAmmo.started += instance.OnSwtichAmmo;
+            @SwtichAmmo.performed += instance.OnSwtichAmmo;
+            @SwtichAmmo.canceled += instance.OnSwtichAmmo;
         }
 
         private void UnregisterCallbacks(ISpaceShip_ControlsActions instance)
@@ -250,6 +302,12 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @HUDSwitch.started -= instance.OnHUDSwitch;
             @HUDSwitch.performed -= instance.OnHUDSwitch;
             @HUDSwitch.canceled -= instance.OnHUDSwitch;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
+            @SwtichAmmo.started -= instance.OnSwtichAmmo;
+            @SwtichAmmo.performed -= instance.OnSwtichAmmo;
+            @SwtichAmmo.canceled -= instance.OnSwtichAmmo;
         }
 
         public void RemoveCallbacks(ISpaceShip_ControlsActions instance)
@@ -272,5 +330,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnRotationLock(InputAction.CallbackContext context);
         void OnHUDSwitch(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
+        void OnSwtichAmmo(InputAction.CallbackContext context);
     }
 }

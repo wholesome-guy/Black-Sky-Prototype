@@ -6,7 +6,9 @@ TagManager:
   tags:
   - Thumbnail
   - Refuel_Station
-  - TakeDamage
+  - Asteroid
+  - Projectile
+  - Docking Zone
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 'Outline '
-  - 
+  - Player
+  - Projectile
   - 
   - 
   - 
