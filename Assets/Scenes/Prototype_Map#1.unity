@@ -2260,7 +2260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &805014615
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3079,6 +3079,7 @@ GameObject:
   - component: {fileID: 1349494286}
   - component: {fileID: 1349494285}
   - component: {fileID: 1349494289}
+  - component: {fileID: 1349494290}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -3232,6 +3233,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1349494290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349494284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591be04d3e1d1f547bc175c32643b1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Left_Ship_Anchor: {fileID: 612416058}
+  Right_Ship_Anchor: {fileID: 365636741}
 --- !u!1 &1349875979
 GameObject:
   m_ObjectHideFlags: 0
@@ -3770,7 +3785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1512141075
 MonoBehaviour:
   m_ObjectHideFlags: 0

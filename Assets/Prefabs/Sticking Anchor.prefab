@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Docking_Zone: {fileID: 1506096395084546718, guid: 7b67524de9caf9849b574d3a6d303b60,
     type: 3}
-  Docking_Distance: 25
+  Docking_Distance: 100
   Line_Renderer: {fileID: 6803392212706802862}
   Rope: {fileID: 0}
   Closest_Ship_Anchor: {x: 0, y: 0, z: 0}

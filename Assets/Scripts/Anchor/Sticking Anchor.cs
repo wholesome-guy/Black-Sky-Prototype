@@ -11,28 +11,39 @@ public class StickingAnchor : MonoBehaviour
     [SerializeField] private LineRenderer Line_Renderer;
     [SerializeField] private GameObject Rope;
 
-    [SerializeField] private Vector3 Closest_Ship_Anchor;
+    [SerializeField] private GameObject Closest_Ship_Anchor;
+    private GameObject Left_Ship_Anchor;
+    private GameObject Right_Ship_Anchor;
 
     private static bool Is_Docking_Zone_Instantiated = false;
+    private bool Is_Line_Renderered = false;
 
     private void OnEnable()
     {
-        AnchorProjectileMovement.Sticking_Anchor_Deployed += Tether_Sequence;
-        DockingZoneCollisionManager.On_Player_Docked += Ship_Anchor;
+        AnchorProjectileMovement.Sticking_Anchor_Deployed += Docking_Zone_Instantiate;
+      //  DockingZoneCollisionManager.On_Player_Docked += Ship_Anchor;
     }
 
     private void OnDisable()
     {
-        AnchorProjectileMovement.Sticking_Anchor_Deployed -= Tether_Sequence;
-        DockingZoneCollisionManager.On_Player_Docked -= Ship_Anchor;
+        AnchorProjectileMovement.Sticking_Anchor_Deployed -= Docking_Zone_Instantiate;
+        //DockingZoneCollisionManager.On_Player_Docked -= Ship_Anchor;
 
     }
-
-    private void Tether_Sequence(Vector3 normal)
+    private void Awake()
     {
-        Docking_Zone_Instantiate(normal);
+        Left_Ship_Anchor = Anchor_Singleton.instance.Left_Ship_Anchor;
+        Right_Ship_Anchor = Anchor_Singleton.instance.Right_Ship_Anchor;
     }
 
+    private void Update()
+    {
+        Ship_Anchor();
+    }
+    private void LateUpdate()
+    {
+        Line_Renderer_Sequence();
+    }
 
     private void Docking_Zone_Instantiate(Vector3 Direction)
     {
@@ -48,52 +59,34 @@ public class StickingAnchor : MonoBehaviour
         }
     }
 
-    private void Ship_Anchor(Vector3 Left_Ship_Anchor, Vector3 Right_Ship_Anchor)
+    private void Ship_Anchor()
     {
-        float Left_Ship_Anchor_Distance = Vector3.Distance(transform.position, Left_Ship_Anchor);
-        float Right_Ship_Anchor_Distance = Vector3.Distance(transform.position, Right_Ship_Anchor);
 
-        if (Left_Ship_Anchor_Distance > Right_Ship_Anchor_Distance)
-        {
-            Closest_Ship_Anchor = Right_Ship_Anchor;
+            float Left_Ship_Anchor_Distance = Vector3.Distance(transform.position, Left_Ship_Anchor.transform.position);
+            float Right_Ship_Anchor_Distance = Vector3.Distance(transform.position, Right_Ship_Anchor.transform.position);
 
-        }
-        else
-        {
-            Closest_Ship_Anchor = Left_Ship_Anchor;
-        }
+            if (Left_Ship_Anchor_Distance > Right_Ship_Anchor_Distance)
+            {
+                Closest_Ship_Anchor = Right_Ship_Anchor;
 
-        Line_Renderer_Sequence();
+            }
+            else
+            {
+                Closest_Ship_Anchor = Left_Ship_Anchor;
+            }
+
     }
 
     private void Line_Renderer_Sequence()
     {
         Line_Renderer.positionCount = 2;
 
-        StartCoroutine(Animate_Line_Renderer(gameObject.transform.position,Closest_Ship_Anchor));
+        Line_Renderer.SetPosition(0,transform.position);
+        Line_Renderer.SetPosition(1, Closest_Ship_Anchor.transform.position);
+        Is_Line_Renderered = true;
     }
 
-    IEnumerator Animate_Line_Renderer(Vector3 Starting_Position, Vector3 End_Position)
-    {
-        float time = 0f;
-        float duration = 1f;
-
-        while(time < duration)
-        {
-            time += Time.deltaTime;
-            
-            float t  =time / duration;
-
-            Vector3 Current_Position = Vector3.Lerp(Starting_Position, End_Position, t);
-
-            Line_Renderer.SetPosition(0, Starting_Position);
-            Line_Renderer.SetPosition(1, Current_Position);
-            yield return null;
-        }
-
-        Line_Renderer.SetPosition(0, Starting_Position);
-        Line_Renderer.SetPosition(1, End_Position);
-    }
+    
 
     
   
