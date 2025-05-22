@@ -6,25 +6,21 @@ using UnityEngine.Events;
 
 public class DockingZoneCollisionManager : MonoBehaviour
 {
-    //public static Action<Vector3, Vector3> On_Player_Docked;
+    
 
-    public UnityEvent On_Player_Docked;
+    public static Action On_Player_Docked;
     
    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(Delay_On_Player_Docked());
+            Debug.Log("Player entered");
+            On_Player_Docked.Invoke();
         }
     }
 
-    IEnumerator Delay_On_Player_Docked()
-    {
-        yield return new WaitForSeconds(2f);
-        
-        On_Player_Docked.Invoke();
-    }
+   
 
    
 }

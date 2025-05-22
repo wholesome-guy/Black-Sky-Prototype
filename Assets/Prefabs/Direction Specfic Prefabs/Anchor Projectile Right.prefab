@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1535667153453352247}
   - component: {fileID: 743096496619675265}
   m_Layer: 7
-  m_Name: Anchor Projectile
+  m_Name: Anchor Projectile Right
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   Rb_Anchor_Projectile: {fileID: 5008330367453671247}
   Thrust_Force: 5000
   Torque_Force: 1
-  Sticking_Anchor: {fileID: 2666109243287211219, guid: 1245c4859807ff84f8a04192545e1e74,
+  Sticking_Anchor: {fileID: 9123693907432465404, guid: 4d2efedb1185e5746b30e2cd900df327,
     type: 3}
 --- !u!1 &8158158747191890436
 GameObject:

@@ -16,7 +16,6 @@ public class StickingAnchor : MonoBehaviour
     private GameObject Right_Ship_Anchor;
 
     private static bool Is_Docking_Zone_Instantiated = false;
-    private bool Is_Line_Renderered = false;
 
     private void OnEnable()
     {
@@ -83,7 +82,6 @@ public class StickingAnchor : MonoBehaviour
 
         Line_Renderer.SetPosition(0,transform.position);
         Line_Renderer.SetPosition(1, Closest_Ship_Anchor.transform.position);
-        Is_Line_Renderered = true;
     }
 
     

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2538374880791309234}
   - component: {fileID: 6803392212706802862}
   m_Layer: 0
-  m_Name: Sticking Anchor
+  m_Name: Sticking Anchor Fail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   Docking_Distance: 100
   Line_Renderer: {fileID: 6803392212706802862}
   Rope: {fileID: 0}
-  Closest_Ship_Anchor: {x: 0, y: 0, z: 0}
+  Closest_Ship_Anchor: {fileID: 0}
 --- !u!120 &6803392212706802862
 LineRenderer:
   serializedVersion: 2
