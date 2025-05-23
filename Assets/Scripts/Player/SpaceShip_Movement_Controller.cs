@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Controls the spaceship's physics-based movement including throttle, roll, pitch, and yaw.
+/// </summary>
+
 public class SpaceShip_Movement_Controller : MonoBehaviour
 {
     //Roll
@@ -34,18 +38,29 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
 
     [SerializeField] private Rigidbody Rb;
+
+    // Reference to spaceship configuration values
+
     [SerializeField] private SpaceShipValues SpaceShipValues;
+
+    // Determines whether fuel is exhausted (used to disable movement)
 
     private bool Is_Fuel_Exhuasted;
 
     
     private void Start()
     {
-        Rb.mass = SpaceShipValues.Mass;    
+        // Assign the ship's mass from config values
+
+        Rb.mass = SpaceShipValues.Mass;
+
+        // Ensure the input manager is present
+
         if (Mouse_Input_Manager.instance == null)
         {
             Debug.LogError("Mouse_Input_Manager singleton is missing");
         }
+
         Is_Fuel_Exhuasted = false;
     }
 
@@ -53,11 +68,15 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private void FixedUpdate()
     {
 
+        // Apply movement only if fuel is available
+
         if (!Is_Fuel_Exhuasted)
         {
             Linear_Movement();
-
         }
+
+        // Apply rotation only if rotation is not locked
+
         if (!Mouse_Input_Manager.instance.Is_Rotation_Locked)
         {
             Rotational_Movement();
@@ -66,18 +85,24 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     }
 
     /*
-     * Do not Use FOR MOVEMENT, BIG NO NO. Movement in FIXED UPDATE ONLY.
-     * 
-     public void Movement(InputAction.CallbackContext context)
-    {
+     Do not Use FOR MOVEMENT, BIG NO NO. Movement in FIXED UPDATE ONLY.
+     
+        public void Movement(InputAction.CallbackContext context)
+     {
         Input = context.ReadValue<Vector2>();
         Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Input.y * Throttle, ForceMode.Force);
-    }
+     }
     */
+
+
+
+    // Toggle fuel exhaustion state
     public void Fuel_Exhuasted_Bool()
     {
         Is_Fuel_Exhuasted = !Is_Fuel_Exhuasted;
     }
+
+    #region Spaceship Configuration Functions
     public void Low_Throttle()
     {
         Max_Throttle = SpaceShipValues.Max_Low_Throttle;
@@ -123,10 +148,16 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Max_Yaw = SpaceShipValues.Max_High_Yaw;
         Rb.angularDrag = SpaceShipValues.High_Angular_Drag;
     }
+    #endregion
+
+    // Handles linear (throttle) movement
+
     private void Linear_Movement()
     {
         Throttle_Function();
     }
+
+    // Handles rotational (pitch, roll, yaw) movement
 
     private void Rotational_Movement()
     {
@@ -135,6 +166,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Yaw_Function();
     }
 
+    #region Movement Functions
+
+    // Applies forward thrust based on vertical input
 
     private void Throttle_Function()
     {
@@ -150,6 +184,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
            Throttle = Min_Throttle;
         }
     }
+
+    // Applies roll torque based on horizontal input
+
     private void Roll_Function()
     {
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.x * Roll, ForceMode.Force);
@@ -165,6 +202,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
             Roll = Min_Roll;
         }
     }
+
+    // Applies pitch torque based on vertical mouse movement
+
     private void Pitch_Function()
     {
         
@@ -180,6 +220,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
             Pitch = Min_Pitch;
         }
     }
+
+    // Applies yaw torque based on horizontal mouse movement
+
     private void Yaw_Function()
     {
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.up) * Mouse_Input_Manager.instance.Normalised_Mouse_Input.x * Yaw * Mouse_Input_Manager.instance.Mouse_Sensitivity, ForceMode.Force);
@@ -195,7 +238,13 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
             Yaw = Min_Yaw;
         }
     }
-   
+
+    #endregion
+
+    /// <summary>
+    /// Smoothly interpolates a value over a given duration.
+    /// </summary>
+
 
     IEnumerator Lerping_Routine(float Min_Value,float Max_Value,float duration, System.Action<float> Lerped_Value)
     {
