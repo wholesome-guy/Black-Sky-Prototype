@@ -87,15 +87,14 @@ public class Mouse_Input_Manager : MonoBehaviour
         // Read the current mouse position using the new Input System
         Mouse_Input = Mouse.current.position.ReadValue();
 
+
         // Clamp to screen bounds
-        Mouse_Input.x = Mathf.Clamp(Mouse_Input.x, 0, Screen.width);
-        Mouse_Input.y = Mathf.Clamp(Mouse_Input.y, 0, Screen.height);
+         Mouse_Input.x = Mathf.Clamp(Mouse_Input.x, 0, Screen.width);
+         Mouse_Input.y = Mathf.Clamp(Mouse_Input.y, 0, Screen.height);
 
         // Normalize to range [-1, 1]
-        Normalised_Mouse_Input = new Vector2(
-            (Mouse_Input.x / Screen.width) * 2f - 1f,
-            (Mouse_Input.y / Screen.height) * 2f - 1f
-        );
+        Normalised_Mouse_Input = new Vector2((Mouse_Input.x / Screen.width) * 2f - 1f, (Mouse_Input.y / Screen.height) * 2f - 1f);
+        
     }
 
     /// <summary>

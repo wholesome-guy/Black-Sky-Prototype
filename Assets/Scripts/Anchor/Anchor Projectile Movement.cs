@@ -17,6 +17,8 @@ public class AnchorProjectileMovement : MonoBehaviour
     {
         // Destroy the projectile after 10 seconds to prevent lingering objects
         Destroy(gameObject, 10f);
+        Rb_Anchor_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+
     }
 
     void FixedUpdate()
@@ -38,26 +40,28 @@ public class AnchorProjectileMovement : MonoBehaviour
         // Check if projectile collided with an asteroid
         if (collision.gameObject.CompareTag("Asteroid"))
         {
+
+
             // Get the contact point information
-            ContactPoint contactPoint = collision.contacts[0];
+               ContactPoint contactPoint = collision.contacts[0];
 
             // Calculate position slightly offset into the surface of the asteroid
-            Vector3 position = contactPoint.point + contactPoint.normal * -1f;
+               Vector3 position = contactPoint.point + contactPoint.normal * -1f;
 
             // Determine rotation so the anchor faces opposite to the collision normal
-            Quaternion rotation = Quaternion.LookRotation(-contactPoint.normal);
+               Quaternion rotation = Quaternion.LookRotation(-contactPoint.normal);
 
             // Instantiate the sticking anchor at the calculated position and rotation
-            GameObject Anchor = Instantiate(Sticking_Anchor, position, rotation);
+               GameObject Anchor = Instantiate(Sticking_Anchor, position, rotation);
 
             // Parent the anchor to the asteroid so it moves with it
-            Anchor.transform.SetParent(collision.transform);
+               Anchor.transform.SetParent(collision.transform);
 
             // Invoke event to notify that the sticking anchor has been deployed
-            Sticking_Anchor_Deployed.Invoke(contactPoint.normal);
+              Sticking_Anchor_Deployed.Invoke(contactPoint.normal);
 
             // Destroy this projectile since it has stuck
-            Destroy(gameObject);
+               Destroy(gameObject);
         }
         else
         {

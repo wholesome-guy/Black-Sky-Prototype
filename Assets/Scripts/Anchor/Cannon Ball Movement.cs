@@ -12,6 +12,8 @@ public class CannonBallMovement : MonoBehaviour
     private void Start()
     {
         Destroy(gameObject, 10f);
+        Rb_Cannon_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+
     }
 
     // Called at fixed intervals to apply physics-based movement

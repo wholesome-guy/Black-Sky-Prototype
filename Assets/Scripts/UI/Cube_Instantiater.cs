@@ -11,7 +11,9 @@ public class Cube_Instantiater : MonoBehaviour
         for (int i = 0; i< 100; i++)
         {
             Instantiate(cube, new Vector3(0,0,100*i), Quaternion.identity);
-           
+            Instantiate(cube, new Vector3(100 * i, 0, 0), Quaternion.identity);
+            Instantiate(cube, new Vector3(-100 * i, 0, 0), Quaternion.identity);
+
         }
     }
 

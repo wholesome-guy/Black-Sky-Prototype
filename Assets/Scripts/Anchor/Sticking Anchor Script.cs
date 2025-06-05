@@ -7,39 +7,36 @@ public class StickingAnchorScript : MonoBehaviour
 {
     [SerializeField] private GameObject Docking_Zone;
     [SerializeField] private float Docking_Distance;
-    [SerializeField] private LineRenderer Line_Renderer;
-    [SerializeField] private GameObject Rope;
     private static bool Is_Docking_Zone_Instantiated = false;
 
-    private GameObject Ship_Anchor;
+    private HingeJoint Asteroid_Hingejoint;
+
+    public GameObject Ship_Anchor;
+
+    private Rigidbody Player_Rigidbody;
 
     public bool Is_Right_Anchor_Taken;
 
     private void OnEnable()
     {
         AnchorProjectileMovement.Sticking_Anchor_Deployed += Docking_Zone_Instantiate;
-        DockingZoneCollisionManager.On_Player_Docked += Start_Line_Renderer;
+        DockingZoneCollisionManager.On_Player_Docked += Instantiate_Rope;
     }
 
     private void OnDisable()
     {
         AnchorProjectileMovement.Sticking_Anchor_Deployed -= Docking_Zone_Instantiate;
-        DockingZoneCollisionManager.On_Player_Docked -= Start_Line_Renderer;
+        DockingZoneCollisionManager.On_Player_Docked -= Instantiate_Rope;
 
     }
-    
-    
-
-    private void LateUpdate()
-    {
-        Line_Renderer_Sequence();
-    }
-
 
     private void Start()
     {
-        Line_Renderer.enabled = false;
+
+        Asteroid_Hingejoint = gameObject.transform.parent.GetComponent<HingeJoint>();
+        
         Anchor_Selector();
+
     }
     private void Docking_Zone_Instantiate(Vector3 Direction)
     {
@@ -56,30 +53,26 @@ public class StickingAnchorScript : MonoBehaviour
            
         }
     }
-    private void Start_Line_Renderer()
-    {
-        Line_Renderer.enabled = true;
-    }
+    
 
     private void Anchor_Selector()
     {
         if (!Is_Right_Anchor_Taken)
         {
-            Ship_Anchor = Anchor_Singleton.instance.Left_Ship_Anchor;
+            Ship_Anchor = PlayerSingleton.instance.Left_Ship_Anchor;
         }
         else
         {
-            Ship_Anchor = Anchor_Singleton.instance.Right_Ship_Anchor;
+            Ship_Anchor = PlayerSingleton.instance.Right_Ship_Anchor;
         }
     }
 
-    private void Line_Renderer_Sequence()
+    private void Instantiate_Rope()
     {
-        Line_Renderer.positionCount = 2;
-
-        Line_Renderer.SetPosition(0, transform.position);
-        Line_Renderer.SetPosition(1, Ship_Anchor.transform.position);
-
+        Player_Rigidbody = PlayerSingleton.instance.Player_Rigidbody;
+        Asteroid_Hingejoint.connectedBody = Player_Rigidbody;
     }
+
+    
 
 }

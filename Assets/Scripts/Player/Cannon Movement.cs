@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CannonMovement : MonoBehaviour
 {
-    [SerializeField] private float Max_Shoot_Distance;  // Maximum shooting range of the cannon
+    private float Max_Shoot_Distance;  // Maximum shooting range of the cannon
     private float Distance_Between_Cannon_And_Centre = 6.0f;  // Fixed distance from cannon to center point
 
-    [SerializeField] private GameObject Cannonn_Right_Tip;    // Right cannon tip game object
-    [SerializeField] private GameObject Cannonn_Left_Tip;     // Left cannon tip game object
+     private GameObject Cannonn_Right_Tip;    // Right cannon tip game object
+     private GameObject Cannonn_Left_Tip;     // Left cannon tip game object
 
+   
     // Called on start, calculates the initial angle offset for both cannon tips
     private void Start()
     {
+        Max_Shoot_Distance = PlayerSingleton.instance.Max_Shoot_Distance;
+        Cannonn_Left_Tip = PlayerSingleton.instance.Left_Cannon_Tip;
+        Cannonn_Right_Tip = PlayerSingleton.instance.Right_Cannon_Tip;
         Cannon_Angle_Offset_Calculator();
     }
 
@@ -27,4 +31,5 @@ public class CannonMovement : MonoBehaviour
         // Set local rotation of right cannon tip with negative angle offset on Y axis
         Cannonn_Right_Tip.transform.localRotation = Quaternion.Euler(0, -Angle_Offset, 0);
     }
+   
 }

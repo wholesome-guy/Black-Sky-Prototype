@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 6359814639258736925}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.11, y: 11.61, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 5112205544988657099}
   - component: {fileID: 1667261544899033873}
   - component: {fileID: 8420508978391335296}
+  - component: {fileID: 8717641653447430339}
   m_Layer: 0
   m_Name: Sticking Anchor Prefab Left
   m_TagString: Untagged
@@ -236,6 +237,23 @@ MonoBehaviour:
   Docking_Zone: {fileID: 1506096395084546718, guid: 7b67524de9caf9849b574d3a6d303b60,
     type: 3}
   Docking_Distance: 100
-  Line_Renderer: {fileID: 1667261544899033873}
-  Rope: {fileID: 0}
+  Ship_Anchor: {fileID: 0}
   Is_Right_Anchor_Taken: 1
+--- !u!114 &8717641653447430339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9123693907432465404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a13a057b8f00e45ad7655efe098914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StickingAnchorScript: {fileID: 8420508978391335296}
+  Line_Renderer: {fileID: 1667261544899033873}
+  Number_Of_Rope_Segment: 20
+  Length_Of_Rope_Segment: 0.25
+  Tension_Vector: {x: 0, y: -2, z: 0}
+  Number_Of_Constrain_Run: 10

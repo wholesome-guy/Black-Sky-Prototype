@@ -142,6 +142,17 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""3bf56433-70f6-4a53-90a7-b904923b8667"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rotation Lock"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""61fc2ae0-cf0f-410e-9e6c-19b0588659e1"",
                     ""path"": ""<Keyboard>/h"",
                     ""interactions"": """",
