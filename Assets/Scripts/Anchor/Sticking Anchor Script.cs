@@ -9,7 +9,7 @@ public class StickingAnchorScript : MonoBehaviour
     [SerializeField] private float Docking_Distance;
     private static bool Is_Docking_Zone_Instantiated = false;
 
-    private HingeJoint Asteroid_Hingejoint;
+    private SpringJoint Asteroid_SpringJoint;
 
     public GameObject Ship_Anchor;
 
@@ -33,7 +33,7 @@ public class StickingAnchorScript : MonoBehaviour
     private void Start()
     {
 
-        Asteroid_Hingejoint = gameObject.transform.parent.GetComponent<HingeJoint>();
+        Asteroid_SpringJoint = gameObject.transform.parent.GetComponent<SpringJoint>();
         
         Anchor_Selector();
 
@@ -70,7 +70,7 @@ public class StickingAnchorScript : MonoBehaviour
     private void Instantiate_Rope()
     {
         Player_Rigidbody = PlayerSingleton.instance.Player_Rigidbody;
-        Asteroid_Hingejoint.connectedBody = Player_Rigidbody;
+        Asteroid_SpringJoint.connectedBody = Player_Rigidbody;
     }
 
     

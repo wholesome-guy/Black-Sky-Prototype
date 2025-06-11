@@ -30,9 +30,7 @@ public class VerletRopeScript : MonoBehaviour
     [SerializeField] private Vector3 Tension_Vector = new Vector3(0, -2, 0);
     [SerializeField] private int Number_Of_Constrain_Run = 50;
 
-
-
-
+ 
     private void OnEnable()
     {
         DockingZoneCollisionManager.On_Player_Docked += Start_Line_Renderer;
@@ -42,12 +40,6 @@ public class VerletRopeScript : MonoBehaviour
     {
         DockingZoneCollisionManager.On_Player_Docked -= Start_Line_Renderer;
     }
-    private void LateUpdate()
-    {
-       // Line_Renderer_Sequence();
-
-        Draw_Verlet_Rope();
-    }
     private void Start()
     {
         Line_Renderer.enabled = false;
@@ -56,10 +48,21 @@ public class VerletRopeScript : MonoBehaviour
         Verlet_Rope_Setup();
     }
 
+    private void LateUpdate()
+    {     
+        Draw_Verlet_Rope();
+    }
+    
+
     private void FixedUpdate()
     {
         Simulate_Verlet_Rope();
     }
+    private void Start_Line_Renderer()
+    {
+        Line_Renderer.enabled = true;
+    }
+
     private void Verlet_Rope_Setup()
     {
         Vector3 Start_Position = gameObject.transform.position;
@@ -76,8 +79,8 @@ public class VerletRopeScript : MonoBehaviour
 
     private void Draw_Verlet_Rope()
     {
+        
         Vector3[] Segment_Positions = new Vector3[Number_Of_Rope_Segment];
-
         Line_Renderer.positionCount = Number_Of_Rope_Segment;
 
         for (int i = 0;i < Number_Of_Rope_Segment;i++)
@@ -150,16 +153,6 @@ public class VerletRopeScript : MonoBehaviour
         }
     }
 
-    private void Start_Line_Renderer()
-    {
-        Line_Renderer.enabled = true;
-    }
-    private void Line_Renderer_Sequence()
-    {
-        Line_Renderer.positionCount = 2;
-
-        Line_Renderer.SetPosition(0, transform.position);
-        Line_Renderer.SetPosition(1, Ship_Anchor.transform.position);
-
-    }
+    
+   
 }
