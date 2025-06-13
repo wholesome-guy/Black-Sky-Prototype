@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System;
 
 public class Keyboard_Input_Manager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Keyboard_Input_Manager : MonoBehaviour
     // UnityEvents to hook up HUD toggling and ammo switching
     public UnityEvent On_Chnage_HUD;
     public UnityEvent Ammo_Switch;
+    public static Action De_Tether;
 
     // Tracks whether the HUD is currently visible
     public bool Is_HUD_On = true;
@@ -41,6 +43,7 @@ public class Keyboard_Input_Manager : MonoBehaviour
         Spaceship_Controls.Enable();
         Spaceship_Controls.SpaceShip_Controls.HUDSwitch.performed += HUD_Switch;
         Spaceship_Controls.SpaceShip_Controls.SwtichAmmo.performed += Ammo_Switch_Funtion;
+        Spaceship_Controls.SpaceShip_Controls.UnTether.performed += De_Tether_Fuction;
     }
 
     private void OnDisable()
@@ -49,6 +52,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
         Spaceship_Controls.Disable();
         Spaceship_Controls.SpaceShip_Controls.HUDSwitch.performed -= HUD_Switch;
         Spaceship_Controls.SpaceShip_Controls.SwtichAmmo.performed -= Ammo_Switch_Funtion;
+        Spaceship_Controls.SpaceShip_Controls.UnTether.performed -= De_Tether_Fuction;
+
     }
 
     // Called at a fixed time step for consistent physics-based input reading
@@ -69,4 +74,10 @@ public class Keyboard_Input_Manager : MonoBehaviour
     {
         Ammo_Switch.Invoke();
     }
+
+    private void De_Tether_Fuction(InputAction.CallbackContext context)
+    {
+        De_Tether.Invoke();
+    }
 }
+

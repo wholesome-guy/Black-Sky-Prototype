@@ -71,6 +71,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Un Tether"",
+                    ""type"": ""Button"",
+                    ""id"": ""08bec861-269c-4b43-a481-cd2a4ebaadfa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -183,6 +192,17 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""Swtich Ammo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4986d7dd-39c9-49a7-addb-49f14ab11cfc"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Un Tether"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -196,6 +216,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls_HUDSwitch = m_SpaceShip_Controls.FindAction("HUD Switch", throwIfNotFound: true);
         m_SpaceShip_Controls_Shoot = m_SpaceShip_Controls.FindAction("Shoot", throwIfNotFound: true);
         m_SpaceShip_Controls_SwtichAmmo = m_SpaceShip_Controls.FindAction("Swtich Ammo", throwIfNotFound: true);
+        m_SpaceShip_Controls_UnTether = m_SpaceShip_Controls.FindAction("Un Tether", throwIfNotFound: true);
     }
 
     ~@SpaceShipControls()
@@ -267,6 +288,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_SpaceShip_Controls_HUDSwitch;
     private readonly InputAction m_SpaceShip_Controls_Shoot;
     private readonly InputAction m_SpaceShip_Controls_SwtichAmmo;
+    private readonly InputAction m_SpaceShip_Controls_UnTether;
     public struct SpaceShip_ControlsActions
     {
         private @SpaceShipControls m_Wrapper;
@@ -276,6 +298,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         public InputAction @HUDSwitch => m_Wrapper.m_SpaceShip_Controls_HUDSwitch;
         public InputAction @Shoot => m_Wrapper.m_SpaceShip_Controls_Shoot;
         public InputAction @SwtichAmmo => m_Wrapper.m_SpaceShip_Controls_SwtichAmmo;
+        public InputAction @UnTether => m_Wrapper.m_SpaceShip_Controls_UnTether;
         public InputActionMap Get() { return m_Wrapper.m_SpaceShip_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -300,6 +323,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @SwtichAmmo.started += instance.OnSwtichAmmo;
             @SwtichAmmo.performed += instance.OnSwtichAmmo;
             @SwtichAmmo.canceled += instance.OnSwtichAmmo;
+            @UnTether.started += instance.OnUnTether;
+            @UnTether.performed += instance.OnUnTether;
+            @UnTether.canceled += instance.OnUnTether;
         }
 
         private void UnregisterCallbacks(ISpaceShip_ControlsActions instance)
@@ -319,6 +345,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @SwtichAmmo.started -= instance.OnSwtichAmmo;
             @SwtichAmmo.performed -= instance.OnSwtichAmmo;
             @SwtichAmmo.canceled -= instance.OnSwtichAmmo;
+            @UnTether.started -= instance.OnUnTether;
+            @UnTether.performed -= instance.OnUnTether;
+            @UnTether.canceled -= instance.OnUnTether;
         }
 
         public void RemoveCallbacks(ISpaceShip_ControlsActions instance)
@@ -343,5 +372,6 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         void OnHUDSwitch(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnSwtichAmmo(InputAction.CallbackContext context);
+        void OnUnTether(InputAction.CallbackContext context);
     }
 }

@@ -34,11 +34,16 @@ public class VerletRopeScript : MonoBehaviour
     private void OnEnable()
     {
         DockingZoneCollisionManager.On_Player_Docked += Start_Line_Renderer;
+
+        Keyboard_Input_Manager.De_Tether += De_Tether_Rope;
     }
 
     private void OnDisable()
     {
         DockingZoneCollisionManager.On_Player_Docked -= Start_Line_Renderer;
+
+        Keyboard_Input_Manager.De_Tether -= De_Tether_Rope;
+
     }
     private void Start()
     {
@@ -153,6 +158,11 @@ public class VerletRopeScript : MonoBehaviour
         }
     }
 
-    
-   
+    private void De_Tether_Rope()
+    {
+        Line_Renderer.enabled = false;
+
+    }
+
+
 }

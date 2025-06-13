@@ -304,7 +304,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0588c7545a3910f43a8e3f883fe6ec3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1349494288}
   Bounds_Circle: {fileID: 360132756}
   Bounds_Circle_Image: {fileID: 360132757}
   X_Z_Limits: 10000
@@ -324,6 +323,7 @@ GameObject:
   - component: {fileID: 124586463}
   - component: {fileID: 124586467}
   - component: {fileID: 124586468}
+  - component: {fileID: 124586469}
   m_Layer: 0
   m_Name: Asteroids 2
   m_TagString: Asteroid
@@ -469,6 +469,23 @@ SpringJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 2500
   m_ConnectedMassScale: 1
+--- !u!114 &124586469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124586462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf71ab0b848d2d4599b38da18fd3c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Asteroid_RigidBody: {fileID: 124586467}
+  Asteroid_Mass: 0
+  Asteroid_Speed: 1000
+  Asteroid_Rotation_Speed: 1000
+  Is_Asteroid_Tethered: 0
 --- !u!1 &187375563
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,7 +2332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &805014615
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3324,9 +3341,14 @@ MonoBehaviour:
   Left_Ship_Anchor: {fileID: 386537263}
   Right_Ship_Anchor: {fileID: 1130048837}
   Player_Rigidbody: {fileID: 1349494287}
+  Player_Transform: {fileID: 1349494288}
+  Anchor_Point: {fileID: 0}
   Left_Cannon_Tip: {fileID: 1351609948}
   Right_Cannon_Tip: {fileID: 53407973}
   Max_Shoot_Distance: 500
+  Dampening_Constant: 100000
+  Dampening_Factor: 0
+  Is_Anchored: 0
 --- !u!1 &1349875979
 GameObject:
   m_ObjectHideFlags: 0
@@ -3866,7 +3888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1512141075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5903,6 +5925,7 @@ GameObject:
   - component: {fileID: 8500113478895744596}
   - component: {fileID: 8500113478895744597}
   - component: {fileID: 8500113478895744598}
+  - component: {fileID: 8500113478895744599}
   m_Layer: 0
   m_Name: Asteroids 1
   m_TagString: Asteroid
@@ -6033,7 +6056,7 @@ SpringJoint:
   m_ConnectedAnchor: {x: 0, y: 0, z: 0}
   serializedVersion: 2
   m_Spring: 10
-  m_Damper: 1
+  m_Damper: 100
   m_MinDistance: 0
   m_MaxDistance: 10
   m_Tolerance: 0.025
@@ -6043,6 +6066,23 @@ SpringJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 2500
   m_ConnectedMassScale: 1
+--- !u!114 &8500113478895744599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7995723720636798854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf71ab0b848d2d4599b38da18fd3c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Asteroid_RigidBody: {fileID: 8500113478895744597}
+  Asteroid_Mass: 0
+  Asteroid_Speed: 1000
+  Asteroid_Rotation_Speed: 1000
+  Is_Asteroid_Tethered: 0
 --- !u!4 &9141372203738854275
 Transform:
   m_ObjectHideFlags: 0

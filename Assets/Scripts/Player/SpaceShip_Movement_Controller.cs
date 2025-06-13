@@ -81,6 +81,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         {
             Rotational_Movement();
         }
+
+       // Dampening_Velocity();
         
     }
 
@@ -238,6 +240,15 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
             Yaw = Min_Yaw;
         }
+    }
+    private void Dampening_Velocity()
+    {
+        if (PlayerSingleton.instance.Is_Anchored)
+        {
+            float dampening = (1 - PlayerSingleton.instance.Dampening_Factor);
+            Rb.velocity *= dampening;
+            Rb.angularVelocity *= dampening;
+        }       
     }
 
     #endregion

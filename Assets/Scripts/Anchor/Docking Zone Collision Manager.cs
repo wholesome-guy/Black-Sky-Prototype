@@ -20,6 +20,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            StickingAnchorScript.Is_Docking_Zone_Instantiated = false;
             Destroy(gameObject, 10f); 
         }
     }

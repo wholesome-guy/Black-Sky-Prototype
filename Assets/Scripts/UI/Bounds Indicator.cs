@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class BoundsIndicator : MonoBehaviour
 {
-    [SerializeField] private Transform Player;                 // Reference to the player transform
+    private Transform Player;                 // Reference to the player transform
     [SerializeField] private RectTransform Bounds_Circle;      // UI element representing the bounds indicator
     [SerializeField] private Image Bounds_Circle_Image;        // Image component of the bounds circle (not currently used in code)
 
@@ -35,6 +35,8 @@ public class BoundsIndicator : MonoBehaviour
 
         Positive_Scale_Constant = 0.5f / X_Z_Limits;
         Negative_Scale_Constant = 0.2f / X_Z_Limits;
+
+        Player = PlayerSingleton.instance.Player_Transform;
     }
 
     void Update()
