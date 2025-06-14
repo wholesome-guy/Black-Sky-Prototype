@@ -12,11 +12,13 @@ public class DockingSystemStickingAnchor : MonoBehaviour
     private void OnEnable()
     {
         AnchorProjectileMovement.Sticking_Anchor_Deployed += Docking_Zone_Instantiate;
+        Keyboard_Input_Manager.De_Tether += Docking_Zone_Re_Instantiate;
         DockingZoneCollisionManager.On_Player_Undocked += UnDocked;
     }
     private void OnDisable()
     {
         AnchorProjectileMovement.Sticking_Anchor_Deployed -= Docking_Zone_Instantiate;
+        Keyboard_Input_Manager.De_Tether -= Docking_Zone_Re_Instantiate;
         DockingZoneCollisionManager.On_Player_Undocked += UnDocked;
     }
 

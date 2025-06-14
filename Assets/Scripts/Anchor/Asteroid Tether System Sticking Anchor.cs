@@ -55,6 +55,7 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
 
     private void De_Tether_Function()
     {
+        Destroy(Asteroid_HingeJoint);
         Asteroid_Script.Is_Asteroid_Tethered = false;
 
         Asteroid_HingeJoint.connectedBody = null;

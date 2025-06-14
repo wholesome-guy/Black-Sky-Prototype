@@ -57,6 +57,10 @@ public class PlayerSingleton : MonoBehaviour
 
 
     }
+    private void Start()
+    {
+        Asteroid_Point_Deactivate();
+    }
 
     private void Mass_Dampner_Calcultor(float mass)
     {
