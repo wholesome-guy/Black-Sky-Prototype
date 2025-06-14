@@ -94,7 +94,9 @@ GameObject:
   - component: {fileID: 5112205544988657099}
   - component: {fileID: 1667261544899033873}
   - component: {fileID: 8420508978391335296}
+  - component: {fileID: 8719137131517990543}
   - component: {fileID: 8717641653447430339}
+  - component: {fileID: -6309889059845064705}
   m_Layer: 0
   m_Name: Sticking Anchor Prefab Left
   m_TagString: Untagged
@@ -234,11 +236,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 489f1680837449b42a56a764e60c8953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Ship_Anchor: {fileID: 0}
+  Is_Right_Anchor_Taken: 1
+--- !u!114 &8719137131517990543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9123693907432465404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf69f47721120a418f58d5358c018de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   Docking_Zone: {fileID: 1506096395084546718, guid: 7b67524de9caf9849b574d3a6d303b60,
     type: 3}
   Docking_Distance: 100
-  Ship_Anchor: {fileID: 0}
-  Is_Right_Anchor_Taken: 1
 --- !u!114 &8717641653447430339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,3 +271,15 @@ MonoBehaviour:
   Length_Of_Rope_Segment: 1
   Tension_Vector: {x: 0, y: -2, z: 0}
   Number_Of_Constrain_Run: 20
+--- !u!114 &-6309889059845064705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9123693907432465404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d832fdeecc6b124e9e4cf151e2f7e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

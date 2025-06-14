@@ -13,6 +13,7 @@ public class AnchorPointCollision : MonoBehaviour
     {
         if (other.CompareTag(Asteroid_Tag))
         {
+            Debug.Log("Hit");
             Tether_Asteroid.Invoke();
         }
     }

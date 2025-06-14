@@ -42,13 +42,17 @@ public class PlayerSingleton : MonoBehaviour
 
     private void OnEnable()
     {
-        StickingAnchorScript.Asteroid_Mass_Transfer += Mass_Dampner_Calcultor;
+        AsteroidTetherSystemStickingAnchor.Asteroid_Mass_Transfer += Mass_Dampner_Calcultor;
+        DockingZoneCollisionManager.On_Player_Docked += Asteroid_Point_Activate;
+        AnchorPointCollision.Tether_Asteroid += Asteroid_Point_Deactivate;
         Keyboard_Input_Manager.De_Tether += Dampner_Reset;
     }
 
     private void OnDisable()
     {
-        StickingAnchorScript.Asteroid_Mass_Transfer -= Mass_Dampner_Calcultor;
+        AsteroidTetherSystemStickingAnchor.Asteroid_Mass_Transfer -= Mass_Dampner_Calcultor;
+        DockingZoneCollisionManager.On_Player_Docked -= Asteroid_Point_Activate;
+        AnchorPointCollision.Tether_Asteroid -= Asteroid_Point_Deactivate;
         Keyboard_Input_Manager.De_Tether -= Dampner_Reset;
 
 
@@ -67,4 +71,15 @@ public class PlayerSingleton : MonoBehaviour
         Dampening_Factor = 0;
         Is_Anchored = false;
     }
+
+    private void Asteroid_Point_Activate()
+    {
+        Asteroid_Point.gameObject.SetActive(true);
+    }
+    private void Asteroid_Point_Deactivate()
+    {
+        Asteroid_Point.gameObject.SetActive(false);
+    }
+
+
 }

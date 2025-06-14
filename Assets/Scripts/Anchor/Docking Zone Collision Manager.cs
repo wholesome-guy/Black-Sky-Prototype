@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class DockingZoneCollisionManager : MonoBehaviour
 {
     public static Action On_Player_Docked;
+    public static Action On_Player_Undocked;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,7 +21,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            StickingAnchorScript.Is_Docking_Zone_Instantiated = false;
+            On_Player_Undocked.Invoke();
             Destroy(gameObject, 10f); 
         }
     }

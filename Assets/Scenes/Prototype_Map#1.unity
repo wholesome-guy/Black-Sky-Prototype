@@ -322,8 +322,7 @@ GameObject:
   - component: {fileID: 124586464}
   - component: {fileID: 124586463}
   - component: {fileID: 124586467}
-  - component: {fileID: 124586469}
-  - component: {fileID: 124586470}
+  - component: {fileID: 124586468}
   m_Layer: 0
   m_Name: Asteroids 2
   m_TagString: Asteroid
@@ -427,7 +426,7 @@ Rigidbody:
   m_GameObject: {fileID: 124586462}
   serializedVersion: 4
   m_Mass: 1000
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -445,7 +444,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &124586469
+--- !u!114 &124586468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -459,49 +458,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Asteroid_RigidBody: {fileID: 124586467}
   Asteroid_Mass: 0
-  Asteroid_Speed: 1000
-  Asteroid_Rotation_Speed: 1000
+  Asteroid_Speed: 100
+  Asteroid_Rotation_Speed: 100
   Pull_Force: 10
+  Is_Asteroid_At_Position: 1
   Is_Asteroid_Tethered: 0
---- !u!59 &124586470
-HingeJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 124586462}
-  m_ConnectedBody: {fileID: 0}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 1.4284635, z: 0}
-  m_Axis: {x: 1, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 2
-  m_UseSpring: 0
-  m_Spring:
-    spring: 0
-    damper: 0
-    targetPosition: 0
-  m_UseMotor: 0
-  m_Motor:
-    targetVelocity: 0
-    force: 0
-    freeSpin: 0
-  m_UseLimits: 0
-  m_ExtendedLimits: 0
-  m_UseAcceleration: 0
-  m_Limits:
-    min: 0
-    max: 0
-    bounciness: 0
-    bounceMinVelocity: 0.2
-    contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 2500
-  m_ConnectedMassScale: 1
 --- !u!1 &187375563
 GameObject:
   m_ObjectHideFlags: 0
@@ -3535,6 +3496,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1371593191}
   - component: {fileID: 1371593192}
+  - component: {fileID: 1371593193}
   m_Layer: 6
   m_Name: Asteroid Point
   m_TagString: Untagged
@@ -3551,7 +3513,7 @@ Transform:
   m_GameObject: {fileID: 1371593190}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20.8, z: -80}
+  m_LocalPosition: {x: 0, y: 20.8, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3578,6 +3540,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1371593193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371593190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acbc1bb65bf5a2c4382cd41463ec65dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Asteroid_Tag: Asteroid
 --- !u!1 &1399138553
 GameObject:
   m_ObjectHideFlags: 0
@@ -5995,7 +5970,6 @@ GameObject:
   - component: {fileID: 8500113478895744596}
   - component: {fileID: 8500113478895744597}
   - component: {fileID: 8500113478895744599}
-  - component: {fileID: 8500113478895744600}
   m_Layer: 0
   m_Name: Asteroids 1
   m_TagString: Asteroid
@@ -6094,7 +6068,7 @@ Rigidbody:
   m_GameObject: {fileID: 7995723720636798854}
   serializedVersion: 4
   m_Mass: 1000
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -6128,47 +6102,9 @@ MonoBehaviour:
   Asteroid_Mass: 0
   Asteroid_Speed: 1000
   Asteroid_Rotation_Speed: 1000
-  Pull_Force: 10
+  Pull_Force: 500
+  Is_Asteroid_At_Position: 1
   Is_Asteroid_Tethered: 0
---- !u!59 &8500113478895744600
-HingeJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7995723720636798854}
-  m_ConnectedBody: {fileID: 0}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 1.4284627, z: 0}
-  m_Axis: {x: 1, y: 1, z: 1}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 2
-  m_UseSpring: 0
-  m_Spring:
-    spring: 0
-    damper: 0
-    targetPosition: 0
-  m_UseMotor: 0
-  m_Motor:
-    targetVelocity: 0
-    force: 0
-    freeSpin: 0
-  m_UseLimits: 0
-  m_ExtendedLimits: 0
-  m_UseAcceleration: 0
-  m_Limits:
-    min: 0
-    max: 0
-    bounciness: 0
-    bounceMinVelocity: 0.2
-    contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 2500
-  m_ConnectedMassScale: 1
 --- !u!4 &9141372203738854275
 Transform:
   m_ObjectHideFlags: 0
