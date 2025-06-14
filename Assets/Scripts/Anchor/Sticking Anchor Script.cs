@@ -12,7 +12,7 @@ public class StickingAnchorScript : MonoBehaviour
     
     public static bool Is_Docking_Zone_Instantiated = false;
     
-    private HingeJoint Asteroid_HingeJoint;
+    private SpringJoint Asteroid_SpringJoint;
     private AsteroidScript Asteroid_Script;
 
     public GameObject Ship_Anchor;
@@ -26,7 +26,7 @@ public class StickingAnchorScript : MonoBehaviour
     {
         AnchorProjectileMovement.Sticking_Anchor_Deployed += Docking_Zone_Instantiate;
 
-        AnchorPointCollision.Tether_Asteroid += Instantiate_Rope;
+        DockingZoneCollisionManager.On_Player_Docked += Instantiate_Rope;
 
         Keyboard_Input_Manager.De_Tether += De_Tether_Function;
     }
@@ -35,7 +35,7 @@ public class StickingAnchorScript : MonoBehaviour
     {
         AnchorProjectileMovement.Sticking_Anchor_Deployed -= Docking_Zone_Instantiate;
 
-        AnchorPointCollision.Tether_Asteroid -= Instantiate_Rope;
+        DockingZoneCollisionManager.On_Player_Docked -= Instantiate_Rope;
 
         Keyboard_Input_Manager.De_Tether -= De_Tether_Function;
 
@@ -44,7 +44,7 @@ public class StickingAnchorScript : MonoBehaviour
     private void Start()
     {
 
-        Asteroid_HingeJoint = gameObject.transform.parent.GetComponent<HingeJoint>();
+        Asteroid_SpringJoint = gameObject.transform.parent.GetComponent<SpringJoint>();
         Asteroid_Script = gameObject.transform.parent.GetComponent<AsteroidScript>();
         Anchor_Selector();
         
@@ -92,7 +92,7 @@ public class StickingAnchorScript : MonoBehaviour
     private void Instantiate_Rope()
     {
         Player_Rigidbody = PlayerSingleton.instance.Player_Rigidbody;
-        Asteroid_HingeJoint.connectedBody = Player_Rigidbody;
+        Asteroid_SpringJoint.connectedBody = Player_Rigidbody;
         Asteroid_Tethered();
     }
 
@@ -106,7 +106,7 @@ public class StickingAnchorScript : MonoBehaviour
     {
         Asteroid_Script.Is_Asteroid_Tethered = false;
 
-        Asteroid_HingeJoint.connectedBody = null;
+        Asteroid_SpringJoint.connectedBody = null;
 
         Docking_Zone_Re_Instantiate();
     }

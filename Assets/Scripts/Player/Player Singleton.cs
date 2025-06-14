@@ -13,7 +13,7 @@ public class PlayerSingleton : MonoBehaviour
 
     public Rigidbody Player_Rigidbody;
     public Transform Player_Transform;
-    public Transform Asteroid_Point;
+
     public GameObject Left_Cannon_Tip;
     public GameObject Right_Cannon_Tip;
 
