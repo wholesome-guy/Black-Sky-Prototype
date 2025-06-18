@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6714935231254751332}
   - component: {fileID: 3470734561572221995}
   m_Layer: 0
-  m_Name: Sticking Anchor Prefab Right
+  m_Name: Sticking Anchor Prefab Right (Master)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

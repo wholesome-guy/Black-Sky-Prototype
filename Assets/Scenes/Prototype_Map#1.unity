@@ -425,7 +425,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124586462}
   serializedVersion: 4
-  m_Mass: 1000
+  m_Mass: 2000
   m_Drag: 1
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -458,9 +458,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Asteroid_RigidBody: {fileID: 124586467}
   Asteroid_Mass: 0
-  Asteroid_Speed: 100
-  Asteroid_Rotation_Speed: 100
-  Pull_Force: 10
+  Asteroid_Speed: 1000
+  Asteroid_Rotation_Speed: 1000
+  Pull_Force: 500
   Is_Asteroid_At_Position: 1
   Is_Asteroid_Tethered: 0
 --- !u!1 &187375563
@@ -3324,6 +3324,7 @@ MonoBehaviour:
   Left_Cannon_Tip: {fileID: 1351609948}
   Right_Cannon_Tip: {fileID: 53407973}
   Max_Shoot_Distance: 500
+  Asteroid_Mass: 0
   Dampening_Constant: 100000
   Dampening_Factor: 0
   Is_Anchored: 0

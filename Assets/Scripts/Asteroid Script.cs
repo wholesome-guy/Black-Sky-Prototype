@@ -44,6 +44,9 @@ public class AsteroidScript : MonoBehaviour
         Vector3 Direction_Of_Position = PlayerSingleton.instance.Asteroid_Point.position - gameObject.transform.position;
 
         Asteroid_RigidBody.AddForce(Direction_Of_Position * Pull_Force,ForceMode.Force);
+
+
+       
     }
 
 }

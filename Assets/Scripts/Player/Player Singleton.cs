@@ -19,7 +19,7 @@ public class PlayerSingleton : MonoBehaviour
 
     public float Max_Shoot_Distance = 500f;
 
-    private float Asteroid_Mass;
+    public float Asteroid_Mass;
     [SerializeField] private float Dampening_Constant = 50;
     public float Dampening_Factor = 0;
 
@@ -65,7 +65,7 @@ public class PlayerSingleton : MonoBehaviour
     private void Mass_Dampner_Calcultor(float mass)
     {
         Asteroid_Mass = mass;
-
+        Debug.Log(Asteroid_Mass);
         Dampening_Factor = Asteroid_Mass / (Asteroid_Mass + Dampening_Constant);
         Is_Anchored = true;
 
