@@ -81,8 +81,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         {
             Rotational_Movement();
         }
-
-       // Dampening_Velocity();
+        
+        //Debug.Log($"{(Rb.velocity.magnitude/195.78f) *100}%");
+        Dampening_Velocity();
         
     }
 

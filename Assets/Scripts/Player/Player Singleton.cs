@@ -19,7 +19,8 @@ public class PlayerSingleton : MonoBehaviour
 
     public float Max_Shoot_Distance = 500f;
 
-    public float Asteroid_Mass;
+    private Dictionary<AsteroidScript, float> Active_Asteroids_Tethered = new Dictionary<AsteroidScript, float>();
+    [SerializeField] private float Asteroid_Mass;
     [SerializeField] private float Dampening_Constant = 50;
     public float Dampening_Factor = 0;
 
@@ -62,9 +63,28 @@ public class PlayerSingleton : MonoBehaviour
         Asteroid_Point_Deactivate();
     }
 
-    private void Mass_Dampner_Calcultor(float mass)
+    private void Mass_Dampner_Calcultor(AsteroidScript Asteroid_Script, bool Is_Tethered)
     {
-        Asteroid_Mass = mass;
+        float Total_Mass = 0;
+
+        if (Is_Tethered)
+        {
+            if (Active_Asteroids_Tethered.ContainsKey(Asteroid_Script))
+            {
+                Active_Asteroids_Tethered.Remove(Asteroid_Script);
+                Total_Mass -= Asteroid_Script.Asteroid_Mass;
+            }
+            else
+            {
+                Active_Asteroids_Tethered[Asteroid_Script] = Asteroid_Script.Asteroid_Mass;
+                Total_Mass += Asteroid_Script.Asteroid_Mass;
+
+            }
+        }
+
+        Asteroid_Mass = Total_Mass;
+
+
         Debug.Log(Asteroid_Mass);
         Dampening_Factor = Asteroid_Mass / (Asteroid_Mass + Dampening_Constant);
         Is_Anchored = true;
@@ -72,6 +92,7 @@ public class PlayerSingleton : MonoBehaviour
     }
     private void Dampner_Reset()
     {
+        Asteroid_Mass = 0;
         Dampening_Factor = 0;
         Is_Anchored = false;
     }

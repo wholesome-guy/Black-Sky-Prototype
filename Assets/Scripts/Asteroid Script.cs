@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using Random = UnityEngine.Random;
+using System.Threading.Tasks;
 
 public class AsteroidScript : MonoBehaviour
 {
@@ -15,6 +17,9 @@ public class AsteroidScript : MonoBehaviour
     public bool Is_Asteroid_At_Position = true;
     public bool Is_Asteroid_Tethered = false;
 
+   
+
+    
     void Start()
     {
         Asteroid_Mass = Asteroid_RigidBody.mass;
@@ -31,6 +36,8 @@ public class AsteroidScript : MonoBehaviour
         }
     }
 
+    
+
     private void Asteroid_Movement()
     {
         Vector3 Random_Vector = new Vector3( Random.Range(-1 ,+1) , Random.Range(-1 , +1), Random.Range(-1 , +1));
@@ -44,9 +51,8 @@ public class AsteroidScript : MonoBehaviour
         Vector3 Direction_Of_Position = PlayerSingleton.instance.Asteroid_Point.position - gameObject.transform.position;
 
         Asteroid_RigidBody.AddForce(Direction_Of_Position * Pull_Force,ForceMode.Force);
-
-
-       
     }
+
+    
 
 }

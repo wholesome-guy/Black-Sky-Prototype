@@ -9,6 +9,7 @@ TagManager:
   - Asteroid
   - Projectile
   - Docking Zone
+  - Asteroid_Point
   layers:
   - Default
   - TransparentFX

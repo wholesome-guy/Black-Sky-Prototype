@@ -10,8 +10,7 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
     private AsteroidScript Asteroid_Script;
     private Rigidbody Player_Rigidbody;
 
-    public static Action<float> Asteroid_Mass_Transfer;
-
+    public static Action<AsteroidScript, bool> Asteroid_Mass_Transfer;
 
     private void OnEnable()
     {
@@ -31,6 +30,8 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
         Player_Rigidbody = PlayerSingleton.instance.Player_Rigidbody;
         Asteroid_Script = gameObject.transform.parent.GetComponent<AsteroidScript>();
     }
+    
+   
     private void Asteroid_Positioner_Bool()
     {
         Asteroid_Script.Is_Asteroid_At_Position = false;
@@ -38,24 +39,25 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
 
     private void Instantiate_Joint()
     {
-        
         Asteroid_Script.Is_Asteroid_At_Position = true;
 
         Asteroid_HingeJoint = gameObject.transform.parent.AddComponent<HingeJoint>();
-
+        Asteroid_HingeJoint.axis = Vector3.one;
+        Asteroid_HingeJoint.massScale = 3.402823e+38f;
         Asteroid_HingeJoint.connectedBody = Player_Rigidbody;
         Asteroid_Tethered();
     }
 
     private void Asteroid_Tethered()
-    {
+    { 
         Asteroid_Script.Is_Asteroid_Tethered = true;
-        Asteroid_Mass_Transfer.Invoke(Asteroid_Script.Asteroid_Mass);
+        Asteroid_Mass_Transfer.Invoke(Asteroid_Script,true);
     }
 
     private void De_Tether_Function()
     {
         Destroy(Asteroid_HingeJoint);
+        Asteroid_Mass_Transfer.Invoke(Asteroid_Script, false);
         Asteroid_Script.Is_Asteroid_Tethered = false;
 
         Asteroid_HingeJoint.connectedBody = null;
