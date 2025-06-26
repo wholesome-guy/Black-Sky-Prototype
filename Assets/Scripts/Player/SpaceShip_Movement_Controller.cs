@@ -82,7 +82,10 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
             Rotational_Movement();
         }
         
-        //Debug.Log($"{(Rb.velocity.magnitude/195.78f) *100}%");
+        Debug.Log($"{(Rb.velocity.magnitude/195.78f) *100}%");
+       // Debug.Log(Rb.velocity.magnitude);
+
+
         Dampening_Velocity();
         
     }

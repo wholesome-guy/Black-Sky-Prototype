@@ -69,23 +69,22 @@ public class PlayerSingleton : MonoBehaviour
 
         if (Is_Tethered)
         {
-            if (Active_Asteroids_Tethered.ContainsKey(Asteroid_Script))
+            Active_Asteroids_Tethered[Asteroid_Script] = Asteroid_Script.Asteroid_Mass;
+            foreach(var Mass in Active_Asteroids_Tethered)
             {
-                Active_Asteroids_Tethered.Remove(Asteroid_Script);
-                Total_Mass -= Asteroid_Script.Asteroid_Mass;
-            }
-            else
-            {
-                Active_Asteroids_Tethered[Asteroid_Script] = Asteroid_Script.Asteroid_Mass;
-                Total_Mass += Asteroid_Script.Asteroid_Mass;
-
+                Total_Mass += Mass.Value;
+                Asteroid_Mass = Total_Mass;
             }
         }
+        else
+        {
+            Active_Asteroids_Tethered.Clear();
+            Total_Mass = 0;
+            Asteroid_Mass = Total_Mass;
+        }
 
-        Asteroid_Mass = Total_Mass;
 
 
-        Debug.Log(Asteroid_Mass);
         Dampening_Factor = Asteroid_Mass / (Asteroid_Mass + Dampening_Constant);
         Is_Anchored = true;
 

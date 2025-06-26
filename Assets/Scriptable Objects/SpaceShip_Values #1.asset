@@ -33,8 +33,8 @@ MonoBehaviour:
   Max_Moderate_Yaw: 6000
   Max_High_Yaw: 8000
   Min_To_Max_Duartion_Yaw: 2
-  Max_Low_Throttle: 10000
-  Max_Moderate_Throttle: 20000
+  Max_Low_Throttle: 11981
+  Max_Moderate_Throttle: 25960
   Max_High_Throttle: 40000
   Min_To_Max_Duartion_Throttle: 5
   Mass: 200
