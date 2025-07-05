@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
 {
-    private HingeJoint Asteroid_HingeJoint;
+    private AsteroidTow Asteroid_Tow;
     private AsteroidScript Asteroid_Script;
     private Rigidbody Player_Rigidbody;
 
@@ -14,37 +14,38 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
 
     private void OnEnable()
     {
-        AnchorPointCollision.Tether_Asteroid += Instantiate_Joint;
         DockingZoneCollisionManager.On_Player_Docked += Asteroid_Positioner_Bool;
+        AnchorPointCollision.Asteroid_Collided_Anchor_Point += Instantiate_Joint;
         Keyboard_Input_Manager.De_Tether += De_Tether_Function;
     }
 
     private void OnDisable()
     {
-        AnchorPointCollision.Tether_Asteroid -= Instantiate_Joint;
-        DockingZoneCollisionManager.On_Player_Docked -= Asteroid_Positioner_Bool;
+        DockingZoneCollisionManager.On_Player_Docked -= Asteroid_Positioner_Bool; 
+        AnchorPointCollision.Asteroid_Collided_Anchor_Point -= Instantiate_Joint;
         Keyboard_Input_Manager.De_Tether -= De_Tether_Function;
     }
     private void Start()
     {
         Player_Rigidbody = PlayerSingleton.instance.Player_Rigidbody;
         Asteroid_Script = gameObject.transform.parent.GetComponent<AsteroidScript>();
+        Asteroid_Script.Invoke("Find_Anchor", 2f);
     }
+
     
-   
     private void Asteroid_Positioner_Bool()
     {
-        Asteroid_Script.Is_Asteroid_At_Position = false;
+        //Bool to make Asteroid hurl towards anchor point(Behind Spaceship), False = Hurl
+        Asteroid_Script.Is_Asteroid_At_Anchor_Position = false;
     }
 
     private void Instantiate_Joint()
     {
-        Asteroid_Script.Is_Asteroid_At_Position = true;
+        //Bool to make Asteroid hurl towards anchor point(Behind Spaceship), True = AtPosition/Dont move
+        Asteroid_Script.Is_Asteroid_At_Anchor_Position = true;
 
-        Asteroid_HingeJoint = gameObject.transform.parent.AddComponent<HingeJoint>();
-        Asteroid_HingeJoint.axis = Vector3.one;
-        Asteroid_HingeJoint.massScale = 3.402823e+38f;
-        Asteroid_HingeJoint.connectedBody = Player_Rigidbody;
+        Asteroid_Tow = gameObject.transform.parent.AddComponent<AsteroidTow>();
+        Configure_HingeJoint();
         Asteroid_Tethered();
     }
 
@@ -54,13 +55,15 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
         Asteroid_Mass_Transfer.Invoke(Asteroid_Script,true);
     }
 
+    private void Configure_HingeJoint()
+    {
+        Asteroid_Tow.Asteriod_Mass = Asteroid_Script.Asteroid_Mass;
+    }
     private void De_Tether_Function()
     {
-        Destroy(Asteroid_HingeJoint);
+        Destroy(Asteroid_Tow);
         Asteroid_Mass_Transfer.Invoke(Asteroid_Script, false);
         Asteroid_Script.Is_Asteroid_Tethered = false;
-
-        Asteroid_HingeJoint.connectedBody = null;
-
     }
+    
 }

@@ -33,9 +33,9 @@ MonoBehaviour:
   Max_Moderate_Yaw: 6000
   Max_High_Yaw: 8000
   Min_To_Max_Duartion_Yaw: 2
-  Max_Low_Throttle: 11981
-  Max_Moderate_Throttle: 25960
-  Max_High_Throttle: 40000
+  Max_Low_Throttle: 30960
+  Max_Moderate_Throttle: 39415
+  Max_High_Throttle: 50000
   Min_To_Max_Duartion_Throttle: 5
   Mass: 200
   Low_Linear_Drag: 2.5
@@ -44,7 +44,7 @@ MonoBehaviour:
   Low_Angular_Drag: 2.5
   Moderate_Angular_Drag: 1.5
   High_Angular_Drag: 1
-  Max_Fuel: 50000
+  Max_Fuel: 100000
   Low_Throttle_Fuel_Consumption: 250
   Moderate_Throttle_Fuel_Consumption: 500
   High_Throttle_Fuel_Consumption: 1000

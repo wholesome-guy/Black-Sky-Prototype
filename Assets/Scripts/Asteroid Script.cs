@@ -14,15 +14,20 @@ public class AsteroidScript : MonoBehaviour
     [SerializeField] private float Asteroid_Rotation_Speed = 100;
     [SerializeField] private float Pull_Force = 10;
 
-    public bool Is_Asteroid_At_Position = true;
+    public bool Is_Asteroid_At_Anchor_Position = true;
     public bool Is_Asteroid_Tethered = false;
+    public bool Is_Asteroid_Anchored = false;
 
-   
+    [SerializeField] private GameObject Sticking_Anchor_Right;
+    [SerializeField] private GameObject Sticking_Anchor_Left;
+
+    private string Right_Sticking_Anchor = "Sticking Anchor Prefab Right (Master)(Clone)";
+    private string Left_Sticking_Anchor = "Sticking Anchor Prefab Left(Clone)";
 
     
     void Start()
     {
-        Asteroid_Mass = Asteroid_RigidBody.mass;
+        Asteroid_RigidBody.mass = Asteroid_Mass;
     }
     private void FixedUpdate()
     {
@@ -30,7 +35,7 @@ public class AsteroidScript : MonoBehaviour
         {
             Asteroid_Movement();
         }
-        if(!Is_Asteroid_At_Position)
+        if(!Is_Asteroid_At_Anchor_Position)
         {
             Asteroid_Positioner();
         }
@@ -53,6 +58,27 @@ public class AsteroidScript : MonoBehaviour
         Asteroid_RigidBody.AddForce(Direction_Of_Position * Pull_Force,ForceMode.Force);
     }
 
-    
+    public void Find_Anchor()
+    {
+        Sticking_Anchor_Right = transform.Find(Right_Sticking_Anchor).gameObject;
+        Sticking_Anchor_Left = transform.Find(Left_Sticking_Anchor).gameObject;
+
+        if(Sticking_Anchor_Right != null && Sticking_Anchor_Left != null)
+        {
+            Is_Asteroid_Anchored = true;
+        }
+        else
+        {
+            Is_Asteroid_Anchored = false;
+        }
+    }
+
+    public void Destroy_Anchors()
+    {
+        Destroy(Sticking_Anchor_Right.gameObject);
+        Destroy(Sticking_Anchor_Left.gameObject);
+    }
+
+
 
 }

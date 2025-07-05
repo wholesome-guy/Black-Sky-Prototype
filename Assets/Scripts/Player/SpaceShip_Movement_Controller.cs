@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 /// <summary>
 /// Controls the spaceship's physics-based movement including throttle, roll, pitch, and yaw.
@@ -36,8 +37,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private float Max_Throttle;
 
 
-
     [SerializeField] private Rigidbody Rb;
+    [SerializeField] private float AngularVecoity;
 
     // Reference to spaceship configuration values
 
@@ -46,6 +47,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     // Determines whether fuel is exhausted (used to disable movement)
 
     private bool Is_Fuel_Exhuasted;
+
 
     
     private void Start()
@@ -63,8 +65,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
         Is_Fuel_Exhuasted = false;
     }
+    
 
-   
     private void FixedUpdate()
     {
 
@@ -81,25 +83,12 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         {
             Rotational_Movement();
         }
-        
-        Debug.Log($"{(Rb.velocity.magnitude/195.78f) *100}%");
-       // Debug.Log(Rb.velocity.magnitude);
 
-
-        Dampening_Velocity();
         
+        //Dampening_Velocity();
+
     }
 
-    
-    /*
-     Do not Use FOR MOVEMENT, BIG NO NO. Movement in FIXED UPDATE ONLY.
-     
-        public void Movement(InputAction.CallbackContext context)
-     {
-        Input = context.ReadValue<Vector2>();
-        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Input.y * Throttle, ForceMode.Force);
-     }
-    */
 
 
 
@@ -182,8 +171,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.y * Throttle, ForceMode.Force);
         if (Keyboard_Input_Manager.instance.Keyboard_Input.y != 0)
         {
-            
-          StartCoroutine(Lerping_Routine(Min_Throttle, Max_Throttle, SpaceShipValues.Min_To_Max_Duartion_Throttle, (float Value) => Throttle = Value));
+            Throttle = Mathf.MoveTowards(Throttle, Max_Throttle, (Max_Throttle) / SpaceShipValues.Min_To_Max_Duartion_Throttle * Time.fixedDeltaTime);
         }
         else
         {
@@ -199,9 +187,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.x * Roll, ForceMode.Force);
         if (Keyboard_Input_Manager.instance.Keyboard_Input.x != 0)
         {
-
-            StartCoroutine(Lerping_Routine(Min_Roll, Max_Roll, SpaceShipValues.Min_To_Max_Duartion_Roll, (float Value) => Roll = Value));
-            
+            // if (Roll_Coroutine != null) { StopCoroutine(Roll_Coroutine); }
+            // Roll_Coroutine = StartCoroutine(Lerping_Routine(Min_Roll, Max_Roll, SpaceShipValues.Min_To_Max_Duartion_Roll, (float Value) => Roll = Value));
+            Roll = Mathf.MoveTowards(Roll, Max_Roll, (Max_Roll - Min_Roll) / SpaceShipValues.Min_To_Max_Duartion_Roll * Time.fixedDeltaTime);
         }
         else
         {
@@ -218,8 +206,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.right) * Mouse_Input_Manager.instance.Normalised_Mouse_Input.y * Pitch * -1 * Mouse_Input_Manager.instance.Mouse_Sensitivity, ForceMode.Force);
         if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.y != 0)
         {
-          StartCoroutine(Lerping_Routine(Min_Pitch, Max_Pitch, SpaceShipValues.Min_To_Max_Duartion_Pitch, (float Value) => Pitch = Value));
-          
+            // if (Pitch_Coroutine != null) { StopCoroutine(Pitch_Coroutine); }
+            // Pitch_Coroutine = StartCoroutine(Lerping_Routine(Min_Pitch, Max_Pitch, SpaceShipValues.Min_To_Max_Duartion_Pitch, (float Value) => Pitch = Value));
+            Pitch = Mathf.MoveTowards(Pitch, Max_Pitch, (Max_Pitch - Min_Pitch) / SpaceShipValues.Min_To_Max_Duartion_Pitch * Time.fixedDeltaTime);
         }
         else
         {
@@ -235,9 +224,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         Rb.AddTorque(Rb.transform.TransformDirection(Vector3.up) * Mouse_Input_Manager.instance.Normalised_Mouse_Input.x * Yaw * Mouse_Input_Manager.instance.Mouse_Sensitivity, ForceMode.Force);
         if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.x != 0)
         {
-           
-           StartCoroutine(Lerping_Routine(Min_Yaw, Max_Yaw, SpaceShipValues.Min_To_Max_Duartion_Yaw, (float Value) => Yaw = Value));
-           
+            // if (Yaw_Coroutine != null) { StopCoroutine(Yaw_Coroutine); }
+            // Yaw_Coroutine = StartCoroutine(Lerping_Routine(Min_Yaw, Max_Yaw, SpaceShipValues.Min_To_Max_Duartion_Yaw, (float Value) => Yaw = Value));
+            Yaw = Mathf.MoveTowards(Yaw, Max_Yaw, (Max_Yaw - Min_Yaw) / SpaceShipValues.Min_To_Max_Duartion_Yaw * Time.fixedDeltaTime);
         }
         else
         {
@@ -257,22 +246,4 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     #endregion
 
-    /// <summary>
-    /// Smoothly interpolates a value over a given duration.
-    /// </summary>
-
-
-    IEnumerator Lerping_Routine(float Min_Value,float Max_Value,float duration, System.Action<float> Lerped_Value)
-    {
-        
-        float Time_Elapsed = 0;
-        while(Time_Elapsed<duration)
-        {
-            float t = Time_Elapsed/duration;
-            Lerped_Value(Mathf.Lerp(Min_Value, Max_Value, t));
-            Time_Elapsed += Time.deltaTime;
-            yield return null;
-        }
-        Lerped_Value(Max_Value);
-    }
 }

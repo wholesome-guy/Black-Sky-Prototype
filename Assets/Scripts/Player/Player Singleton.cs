@@ -13,7 +13,9 @@ public class PlayerSingleton : MonoBehaviour
 
     public Rigidbody Player_Rigidbody;
     public Transform Player_Transform;
+    //Same as Anchor Point
     public Transform Asteroid_Point;
+
     public GameObject Left_Cannon_Tip;
     public GameObject Right_Cannon_Tip;
 
@@ -24,6 +26,7 @@ public class PlayerSingleton : MonoBehaviour
     [SerializeField] private float Dampening_Constant = 50;
     public float Dampening_Factor = 0;
 
+    //Used by Movement Script to kno whether to apply Damping or no, False = No damping True = Damping
     public bool Is_Anchored = false;
 
     private void Awake()
@@ -43,20 +46,30 @@ public class PlayerSingleton : MonoBehaviour
 
     private void OnEnable()
     {
-        AsteroidTetherSystemStickingAnchor.Asteroid_Mass_Transfer += Mass_Dampner_Calcultor;
         DockingZoneCollisionManager.On_Player_Docked += Asteroid_Point_Activate;
-        AnchorPointCollision.Tether_Asteroid += Asteroid_Point_Deactivate;
+        AnchorPointCollision.Asteroid_Collided_Anchor_Point += Asteroid_Point_Deactivate;
+        AsteroidTetherSystemStickingAnchor.Asteroid_Mass_Transfer += Mass_Dampner_Calcultor;
+
         Keyboard_Input_Manager.De_Tether += Dampner_Reset;
+
+        AsteroidTow.Tow_Joint_Broke += Dampner_Reset;
+        AsteroidTow.Tow_Joint_Broke += Clear_Payload;
+
+        DeselectProjectile.Deselect_Asteroid += Asteroid_Deselect_Mass_Calulator;
     }
 
     private void OnDisable()
     {
-        AsteroidTetherSystemStickingAnchor.Asteroid_Mass_Transfer -= Mass_Dampner_Calcultor;
         DockingZoneCollisionManager.On_Player_Docked -= Asteroid_Point_Activate;
-        AnchorPointCollision.Tether_Asteroid -= Asteroid_Point_Deactivate;
+        AnchorPointCollision.Asteroid_Collided_Anchor_Point -= Asteroid_Point_Deactivate;
+        AsteroidTetherSystemStickingAnchor.Asteroid_Mass_Transfer -= Mass_Dampner_Calcultor;
+
         Keyboard_Input_Manager.De_Tether -= Dampner_Reset;
 
+        AsteroidTow.Tow_Joint_Broke -= Dampner_Reset;
+        AsteroidTow.Tow_Joint_Broke -= Clear_Payload;
 
+        DeselectProjectile.Deselect_Asteroid -= Asteroid_Deselect_Mass_Calulator;
     }
     private void Start()
     {
@@ -74,19 +87,33 @@ public class PlayerSingleton : MonoBehaviour
             {
                 Total_Mass += Mass.Value;
                 Asteroid_Mass = Total_Mass;
+                Is_Anchored = true;
             }
         }
         else
         {
-            Active_Asteroids_Tethered.Clear();
-            Total_Mass = 0;
-            Asteroid_Mass = Total_Mass;
+            Clear_Payload();
         }
 
 
+        Damping_Factor_Calculator();
 
+    }
+
+    private void Asteroid_Deselect_Mass_Calulator(AsteroidScript Asteroid_Script)
+    {
+        if(Active_Asteroids_Tethered.ContainsKey(Asteroid_Script))
+        {
+            Asteroid_Mass -= Active_Asteroids_Tethered[Asteroid_Script];
+            Active_Asteroids_Tethered.Remove(Asteroid_Script);
+            Damping_Factor_Calculator();
+
+        }
+
+    }
+    private void Damping_Factor_Calculator()
+    {
         Dampening_Factor = Asteroid_Mass / (Asteroid_Mass + Dampening_Constant);
-        Is_Anchored = true;
 
     }
     private void Dampner_Reset()
@@ -94,6 +121,11 @@ public class PlayerSingleton : MonoBehaviour
         Asteroid_Mass = 0;
         Dampening_Factor = 0;
         Is_Anchored = false;
+    }
+
+    private void Clear_Payload()
+    {
+        Active_Asteroids_Tethered.Clear();
     }
 
     private void Asteroid_Point_Activate()

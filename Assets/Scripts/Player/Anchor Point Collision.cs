@@ -6,7 +6,7 @@ using System;
 
 public class AnchorPointCollision : MonoBehaviour
 {
-    public static Action Tether_Asteroid;
+    public static Action Asteroid_Collided_Anchor_Point;
 
     [SerializeField] private string Asteroid_Tag = "Asteroid";
     private void OnTriggerEnter(Collider other)
@@ -14,7 +14,7 @@ public class AnchorPointCollision : MonoBehaviour
         if (other.CompareTag(Asteroid_Tag))
         {
 
-                Tether_Asteroid.Invoke();
+            Asteroid_Collided_Anchor_Point.Invoke();
 
         }
     }
