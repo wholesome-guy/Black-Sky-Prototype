@@ -77,6 +77,8 @@ public class AsteroidScript : MonoBehaviour
     {
         Destroy(Sticking_Anchor_Right.gameObject);
         Destroy(Sticking_Anchor_Left.gameObject);
+
+        Is_Asteroid_Anchored = false;
     }
 
 

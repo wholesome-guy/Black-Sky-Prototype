@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Swtich Ammo",
+                    "name": "Projectile Wheel",
                     "type": "Button",
                     "id": "2a0f23fb-3397-4769-b0cf-8004946311ce",
                     "expectedControlType": "",
@@ -167,7 +167,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Swtich Ammo",
+                    "action": "Projectile Wheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

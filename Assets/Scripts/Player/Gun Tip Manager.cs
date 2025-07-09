@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class GunTipManager : MonoBehaviour
 {
+    [SerializeField] private Projectiles Projectiles_Scriptable_Object;
     [SerializeField] private GameObject[] Projectiles; // Array of different projectile prefabs
     [SerializeField] private float Reload_Duration = 5f; // Time between consecutive shots
-    private int index; // Current projectile index
+    private int Index_Projectile; // Current projectile index
 
     private bool Is_Ammo_Loaded = true; // Flag to check if weapon can shoot
-
-    // Switches between available ammo types (projectiles)
-    public void Ammo_Switch()
+    private void OnEnable()
     {
-        if (index == 0)
-        {
-            index = 1;
-        }
-        else
-        {
-            index = 0;
-        }
+        ProjectileWheelManager.Projectile_Select_Event += Projectile_Select;
+    }
+    private void OnDisable()
+    {
+        ProjectileWheelManager.Projectile_Select_Event -= Projectile_Select;
+    }
+    // Switches between available ammo types (projectiles)
+    private void Start()
+    {
+        Projectiles = Projectiles_Scriptable_Object.Projectile_Gameobjects;
+        Projectile_Select(0);
+    }
+    public void Projectile_Select(int Index)
+    {
+        Index_Projectile = Index;
     }
 
     // Instantiates a projectile if ammo is loaded, then starts the reload coroutine
@@ -28,7 +34,7 @@ public class GunTipManager : MonoBehaviour
     {
         if (Is_Ammo_Loaded)
         {
-            Instantiate(Projectiles[index], gameObject.transform.position, transform.rotation);
+            Instantiate(Projectiles[Index_Projectile], gameObject.transform.position, transform.rotation);
             Is_Ammo_Loaded = false;
             StartCoroutine(Reload_Ammo());
         }
@@ -37,7 +43,7 @@ public class GunTipManager : MonoBehaviour
     // Waits for the specified reload duration before allowing the next shot
     IEnumerator Reload_Ammo()
     {
-        yield return new WaitForSeconds(Reload_Duration);
+        yield return new WaitForSecondsRealtime(Reload_Duration);
         Is_Ammo_Loaded = true;
     }
 }

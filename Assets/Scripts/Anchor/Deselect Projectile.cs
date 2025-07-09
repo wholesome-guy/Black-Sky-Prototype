@@ -53,8 +53,11 @@ public class DeselectProjectile : MonoBehaviour
 
         if(Asteroid_Script.Is_Asteroid_Anchored)
         {
-            Deselect_Asteroid.Invoke(Asteroid_Script);   
-            Asteroid_Tow.Destroy_Tow_Script();
+            Deselect_Asteroid.Invoke(Asteroid_Script);
+            if(Asteroid_Tow != null)
+            {
+                Asteroid_Tow.Destroy_Tow_Script();
+            }
             Asteroid_Script.Destroy_Anchors();
         }
     }

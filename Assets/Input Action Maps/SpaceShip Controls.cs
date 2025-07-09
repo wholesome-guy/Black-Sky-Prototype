@@ -64,7 +64,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Swtich Ammo"",
+                    ""name"": ""Projectile Wheel"",
                     ""type"": ""Button"",
                     ""id"": ""2a0f23fb-3397-4769-b0cf-8004946311ce"",
                     ""expectedControlType"": """",
@@ -189,7 +189,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Swtich Ammo"",
+                    ""action"": ""Projectile Wheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -215,7 +215,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls_RotationLock = m_SpaceShip_Controls.FindAction("Rotation Lock", throwIfNotFound: true);
         m_SpaceShip_Controls_HUDSwitch = m_SpaceShip_Controls.FindAction("HUD Switch", throwIfNotFound: true);
         m_SpaceShip_Controls_Shoot = m_SpaceShip_Controls.FindAction("Shoot", throwIfNotFound: true);
-        m_SpaceShip_Controls_SwtichAmmo = m_SpaceShip_Controls.FindAction("Swtich Ammo", throwIfNotFound: true);
+        m_SpaceShip_Controls_ProjectileWheel = m_SpaceShip_Controls.FindAction("Projectile Wheel", throwIfNotFound: true);
         m_SpaceShip_Controls_UnTether = m_SpaceShip_Controls.FindAction("Un Tether", throwIfNotFound: true);
     }
 
@@ -287,7 +287,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_SpaceShip_Controls_RotationLock;
     private readonly InputAction m_SpaceShip_Controls_HUDSwitch;
     private readonly InputAction m_SpaceShip_Controls_Shoot;
-    private readonly InputAction m_SpaceShip_Controls_SwtichAmmo;
+    private readonly InputAction m_SpaceShip_Controls_ProjectileWheel;
     private readonly InputAction m_SpaceShip_Controls_UnTether;
     public struct SpaceShip_ControlsActions
     {
@@ -297,7 +297,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         public InputAction @RotationLock => m_Wrapper.m_SpaceShip_Controls_RotationLock;
         public InputAction @HUDSwitch => m_Wrapper.m_SpaceShip_Controls_HUDSwitch;
         public InputAction @Shoot => m_Wrapper.m_SpaceShip_Controls_Shoot;
-        public InputAction @SwtichAmmo => m_Wrapper.m_SpaceShip_Controls_SwtichAmmo;
+        public InputAction @ProjectileWheel => m_Wrapper.m_SpaceShip_Controls_ProjectileWheel;
         public InputAction @UnTether => m_Wrapper.m_SpaceShip_Controls_UnTether;
         public InputActionMap Get() { return m_Wrapper.m_SpaceShip_Controls; }
         public void Enable() { Get().Enable(); }
@@ -320,9 +320,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
-            @SwtichAmmo.started += instance.OnSwtichAmmo;
-            @SwtichAmmo.performed += instance.OnSwtichAmmo;
-            @SwtichAmmo.canceled += instance.OnSwtichAmmo;
+            @ProjectileWheel.started += instance.OnProjectileWheel;
+            @ProjectileWheel.performed += instance.OnProjectileWheel;
+            @ProjectileWheel.canceled += instance.OnProjectileWheel;
             @UnTether.started += instance.OnUnTether;
             @UnTether.performed += instance.OnUnTether;
             @UnTether.canceled += instance.OnUnTether;
@@ -342,9 +342,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
-            @SwtichAmmo.started -= instance.OnSwtichAmmo;
-            @SwtichAmmo.performed -= instance.OnSwtichAmmo;
-            @SwtichAmmo.canceled -= instance.OnSwtichAmmo;
+            @ProjectileWheel.started -= instance.OnProjectileWheel;
+            @ProjectileWheel.performed -= instance.OnProjectileWheel;
+            @ProjectileWheel.canceled -= instance.OnProjectileWheel;
             @UnTether.started -= instance.OnUnTether;
             @UnTether.performed -= instance.OnUnTether;
             @UnTether.canceled -= instance.OnUnTether;
@@ -371,7 +371,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         void OnRotationLock(InputAction.CallbackContext context);
         void OnHUDSwitch(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnSwtichAmmo(InputAction.CallbackContext context);
+        void OnProjectileWheel(InputAction.CallbackContext context);
         void OnUnTether(InputAction.CallbackContext context);
     }
 }

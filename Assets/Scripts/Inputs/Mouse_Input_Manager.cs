@@ -11,12 +11,14 @@ public class Mouse_Input_Manager : MonoBehaviour
     public static Mouse_Input_Manager instance;
 
     // Reference to Input Action Asset
-    private SpaceShipControls Spaceship_Controls;
+    private SpaceShipControls SpaceShip_Controls_Action_Map;
 
     // Raw and normalized mouse input
     private Vector2 Mouse_Input;
 
     public Vector2 Normalised_Mouse_Input;
+
+    public float Angle_Mouse_Input;
 
     // Mouse sensitivity multiplier (currently unused but public)
     public int Mouse_Sensitivity;
@@ -44,7 +46,7 @@ public class Mouse_Input_Manager : MonoBehaviour
         }
 
         // Instantiate the input control system
-        Spaceship_Controls = new SpaceShipControls();
+        SpaceShip_Controls_Action_Map = new SpaceShipControls();
     }
 
     /// <summary>
@@ -52,9 +54,9 @@ public class Mouse_Input_Manager : MonoBehaviour
     /// </summary>
     private void OnEnable()
     {
-        Spaceship_Controls.Enable();
-        Spaceship_Controls.SpaceShip_Controls.RotationLock.performed += Rotation_Locker;
-        Spaceship_Controls.SpaceShip_Controls.Shoot.performed += Shoot_Projectile;
+        SpaceShip_Controls_Action_Map.Enable();
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.RotationLock.performed += Rotation_Locker;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Shoot.performed += Shoot_Projectile;
     }
 
     /// <summary>
@@ -62,9 +64,9 @@ public class Mouse_Input_Manager : MonoBehaviour
     /// </summary>
     private void OnDisable()
     {
-        Spaceship_Controls.Disable();
-        Spaceship_Controls.SpaceShip_Controls.RotationLock.performed -= Rotation_Locker;
-        Spaceship_Controls.SpaceShip_Controls.Shoot.performed -= Shoot_Projectile;
+        SpaceShip_Controls_Action_Map.Disable();
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.RotationLock.performed -= Rotation_Locker;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Shoot.performed -= Shoot_Projectile;
     }
 
     private void Start()
@@ -94,6 +96,11 @@ public class Mouse_Input_Manager : MonoBehaviour
 
         // Normalize to range [-1, 1]
         Normalised_Mouse_Input = new Vector2((Mouse_Input.x / Screen.width) * 2f - 1f, (Mouse_Input.y / Screen.height) * 2f - 1f);
+
+        //Angle between Mouse_Input and 1,0,0 WITH 0,0,1 as the axis of rotation
+        Angle_Mouse_Input = Vector3.SignedAngle(Vector3.right, Normalised_Mouse_Input, Vector3.forward);
+
+
         
     }
 

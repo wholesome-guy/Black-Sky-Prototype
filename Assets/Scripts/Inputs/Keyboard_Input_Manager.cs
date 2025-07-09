@@ -8,14 +8,15 @@ using System;
 public class Keyboard_Input_Manager : MonoBehaviour
 {
     public static Keyboard_Input_Manager instance;
-    private SpaceShipControls Spaceship_Controls;
+    private SpaceShipControls SpaceShip_Controls_Action_Map;
 
     // Stores current keyboard movement input
     public Vector2 Keyboard_Input;
 
     // UnityEvents to hook up HUD toggling and ammo switching
     public UnityEvent On_Chnage_HUD;
-    public UnityEvent Ammo_Switch;
+    public UnityEvent Projectile_Wheel_Display;
+    public UnityEvent Projectile_Wheel_Hide;
     public static Action De_Tether;
 
     // Tracks whether the HUD is currently visible
@@ -34,32 +35,38 @@ public class Keyboard_Input_Manager : MonoBehaviour
         }
 
         // Initialize the generated input actions
-        Spaceship_Controls = new SpaceShipControls();
+        SpaceShip_Controls_Action_Map = new SpaceShipControls();
     }
 
     private void OnEnable()
     {
         // Enable the input system and register input callbacks
-        Spaceship_Controls.Enable();
-        Spaceship_Controls.SpaceShip_Controls.HUDSwitch.performed += HUD_Switch;
-        Spaceship_Controls.SpaceShip_Controls.SwtichAmmo.performed += Ammo_Switch_Funtion;
-        Spaceship_Controls.SpaceShip_Controls.UnTether.performed += De_Tether_Fuction;
+        SpaceShip_Controls_Action_Map.Enable();
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.HUDSwitch.performed += HUD_Switch;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.performed += Projectile_Wheel_Display_Function;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.canceled += Projectile_Wheel_Hide_Function;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed += De_Tether_Fuction;
     }
 
     private void OnDisable()
     {
         // Disable input system and unregister callbacks
-        Spaceship_Controls.Disable();
-        Spaceship_Controls.SpaceShip_Controls.HUDSwitch.performed -= HUD_Switch;
-        Spaceship_Controls.SpaceShip_Controls.SwtichAmmo.performed -= Ammo_Switch_Funtion;
-        Spaceship_Controls.SpaceShip_Controls.UnTether.performed -= De_Tether_Fuction;
+        SpaceShip_Controls_Action_Map.Disable();
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.HUDSwitch.performed -= HUD_Switch;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.performed -= Projectile_Wheel_Display_Function;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.canceled -= Projectile_Wheel_Hide_Function;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed -= De_Tether_Fuction;
 
     }
 
     // Called at a fixed time step for consistent physics-based input reading
     void FixedUpdate()
     {
-        Keyboard_Input = Spaceship_Controls.SpaceShip_Controls.Movement.ReadValue<Vector2>();
+        Keyboard_Input = SpaceShip_Controls_Action_Map.SpaceShip_Controls.Movement.ReadValue<Vector2>();
     }
 
     // Toggles HUD on key press
@@ -70,9 +77,13 @@ public class Keyboard_Input_Manager : MonoBehaviour
     }
 
     // Triggers ammo switching event
-    private void Ammo_Switch_Funtion(InputAction.CallbackContext context)
+    private void Projectile_Wheel_Display_Function(InputAction.CallbackContext context)
     {
-        Ammo_Switch.Invoke();
+        Projectile_Wheel_Display.Invoke();
+    }
+    private void Projectile_Wheel_Hide_Function(InputAction.CallbackContext context)
+    {
+        Projectile_Wheel_Hide.Invoke();
     }
 
     private void De_Tether_Fuction(InputAction.CallbackContext context)
