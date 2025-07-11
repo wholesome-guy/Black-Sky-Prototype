@@ -21,7 +21,9 @@ public class AsteroidTow : MonoBehaviour
     [SerializeField] private float Maximum_Distnce_Player_Asteroid = 300f;
     [SerializeField] private float Maximum_Velcity_Player = 200f;
     [SerializeField] private float Max_Force_Multiplier = 100;
+    [SerializeField] private float Delay_Duration = 2.0f;
 
+    private bool Is_Tow_Joint_Broke = false;
     
 
     private void Start()
@@ -32,14 +34,17 @@ public class AsteroidTow : MonoBehaviour
         Asteroid_RigidBody = gameObject.GetComponent<Rigidbody>();
 
         Asteroid_Script = gameObject.GetComponent<AsteroidScript>();
+        Is_Tow_Joint_Broke = false;
         
     }
 
     private void FixedUpdate()
     {
-        if(Player_RigidBody.velocity.magnitude > Maximum_Velcity_Player)
+        if(Player_RigidBody.velocity.magnitude > Maximum_Velcity_Player && Is_Tow_Joint_Broke == false)
         {
-            Break_Tow_Joint();
+            TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
+            StartCoroutine(Delay_Break_Joint(Delay_Duration));
+            Is_Tow_Joint_Broke = true;
         }
 
         float Distance = Vector3.Distance(Player_Transform.position, gameObject.transform.position);
@@ -88,6 +93,13 @@ public class AsteroidTow : MonoBehaviour
     public void Destroy_Tow_Script()
     {
         Destroy(this);
+    }
+
+    private IEnumerator Delay_Break_Joint(float Duration)
+    {
+        yield return new WaitForSeconds(Duration);
+        Break_Tow_Joint();
+
     }
 
 }

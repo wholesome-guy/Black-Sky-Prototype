@@ -19,6 +19,7 @@ public class Keyboard_Input_Manager : MonoBehaviour
     public UnityEvent Projectile_Wheel_Hide;
     public static Action De_Tether;
 
+    [SerializeField] private float Delay_Duration = 2.0f;
     // Tracks whether the HUD is currently visible
     public bool Is_HUD_On = true;
 
@@ -88,6 +89,16 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
     private void De_Tether_Fuction(InputAction.CallbackContext context)
     {
+        if(PlayerSingleton.instance.Is_Anchored)
+        {
+            TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
+            StartCoroutine(Delay_Detether(Delay_Duration));
+        }        
+    }
+
+    private IEnumerator Delay_Detether(float Duration)
+    {
+        yield return new WaitForSeconds(Duration);
         De_Tether.Invoke();
     }
 }
