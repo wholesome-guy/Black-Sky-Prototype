@@ -11,6 +11,8 @@ public class DeselectProjectile : MonoBehaviour
 
     public static Action<AsteroidScript> Deselect_Asteroid;
 
+    [SerializeField] private float Delay_Duration = 2.0f;
+
     // Destroy the cannonball after 10 seconds to prevent cluttering the scene
     private void Start()
     {
@@ -37,8 +39,7 @@ public class DeselectProjectile : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Asteroid"))
         {
-            Deselect_Asteroid_Function(collision);
-            Destroy(gameObject);
+            StartCoroutine(Deselect_Asteroid_Function(collision));
         }
         else
         {
@@ -46,19 +47,27 @@ public class DeselectProjectile : MonoBehaviour
         }
     }
 
-    private void Deselect_Asteroid_Function(Collision Asteroid)
+    private IEnumerator Deselect_Asteroid_Function(Collision Asteroid)
     {
         AsteroidScript Asteroid_Script = Asteroid.transform.GetComponent<AsteroidScript>();
         AsteroidTow Asteroid_Tow = Asteroid.transform.GetComponent<AsteroidTow>();
 
-        if(Asteroid_Script.Is_Asteroid_Anchored)
+
+        if (Asteroid_Script.Is_Asteroid_Anchored)
         {
+            TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
+            yield return new WaitForSeconds(Delay_Duration);
+
             Deselect_Asteroid.Invoke(Asteroid_Script);
             if(Asteroid_Tow != null)
             {
                 Asteroid_Tow.Destroy_Tow_Script();
             }
             Asteroid_Script.Destroy_Anchors();
+            Destroy(gameObject);
+
         }
     }
+
+    
 }

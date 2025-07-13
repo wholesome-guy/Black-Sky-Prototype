@@ -24,10 +24,28 @@ public class AsteroidScript : MonoBehaviour
     private string Right_Sticking_Anchor = "Sticking Anchor Prefab Right (Master)(Clone)";
     private string Left_Sticking_Anchor = "Sticking Anchor Prefab Left(Clone)";
 
-    
+
+    public float Minimum_Distance_Player_Asteroid = 50f;
+    public float Maximum_Distance_Player_Asteroid = 300f;
+
+    public float Maximum_Tether_Tension;
+    public float Maximum_Tension_Constant = 10f;
+    public float Velocity_Tension_Constant = 10f;
+    public float Asteroid_Tension_Constant = 0.5f;
+
+    public float Max_Force_Multiplier = 100;
+
+    public float Delay_Duration = 2.0f;
+
+    public float Rope_Length = 25f;
+    public float Rope_Spring_Constant = 5f;
+
+
     void Start()
     {
         Asteroid_RigidBody.mass = Asteroid_Mass;
+        Maximum_Tether_Tension = Asteroid_Mass * Maximum_Tension_Constant;
+
     }
     private void FixedUpdate()
     {
@@ -72,6 +90,8 @@ public class AsteroidScript : MonoBehaviour
             Is_Asteroid_Anchored = false;
         }
     }
+
+    
 
     public void Destroy_Anchors()
     {

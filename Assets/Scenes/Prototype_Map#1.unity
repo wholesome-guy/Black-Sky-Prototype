@@ -500,7 +500,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &124586463
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -637,6 +637,16 @@ MonoBehaviour:
   Is_Asteroid_Anchored: 0
   Sticking_Anchor_Right: {fileID: 0}
   Sticking_Anchor_Left: {fileID: 0}
+  Minimum_Distance_Player_Asteroid: 50
+  Maximum_Distance_Player_Asteroid: 300
+  Maximum_Tether_Tension: 0
+  Maximum_Tension_Constant: 10
+  Velocity_Tension_Constant: 10
+  Asteroid_Tension_Constant: 0.5
+  Max_Force_Multiplier: 100
+  Delay_Duration: 2
+  Rope_Length: 25
+  Rope_Spring_Constant: 5
 --- !u!1 &137685437
 GameObject:
   m_ObjectHideFlags: 0
@@ -4803,6 +4813,7 @@ MonoBehaviour:
   Right_Cannon_Tip: {fileID: 53407973}
   Max_Shoot_Distance: 500
   Asteroid_Mass: 0
+  Max_Tension: 0
   Dampening_Constant: 100000
   Dampening_Factor: 0
   Is_Anchored: 0
@@ -5122,7 +5133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1376075759
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8554,6 +8565,16 @@ MonoBehaviour:
   Is_Asteroid_Anchored: 0
   Sticking_Anchor_Right: {fileID: 0}
   Sticking_Anchor_Left: {fileID: 0}
+  Minimum_Distance_Player_Asteroid: 15
+  Maximum_Distance_Player_Asteroid: 150
+  Maximum_Tether_Tension: 0
+  Maximum_Tension_Constant: 10
+  Velocity_Tension_Constant: 20
+  Asteroid_Tension_Constant: 0.5
+  Max_Force_Multiplier: 100
+  Delay_Duration: 2
+  Rope_Length: 25
+  Rope_Spring_Constant: 50
 --- !u!4 &9141372203738854275
 Transform:
   m_ObjectHideFlags: 0

@@ -45,7 +45,6 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
         Asteroid_Script.Is_Asteroid_At_Anchor_Position = true;
 
         Asteroid_Tow = gameObject.transform.parent.AddComponent<AsteroidTow>();
-        Configure_HingeJoint();
         Asteroid_Tethered();
     }
 
@@ -55,10 +54,7 @@ public class AsteroidTetherSystemStickingAnchor : MonoBehaviour
         Asteroid_Mass_Transfer.Invoke(Asteroid_Script,true);
     }
 
-    private void Configure_HingeJoint()
-    {
-        Asteroid_Tow.Asteriod_Mass = Asteroid_Script.Asteroid_Mass;
-    }
+    
     private void De_Tether_Function()
     {
         Destroy(Asteroid_Tow);
