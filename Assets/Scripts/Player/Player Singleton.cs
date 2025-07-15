@@ -20,15 +20,18 @@ public class PlayerSingleton : MonoBehaviour
     public GameObject Right_Cannon_Tip;
 
     public float Max_Shoot_Distance = 500f;
+    
 
     private Dictionary<AsteroidScript, float> Active_Asteroids_Tethered = new Dictionary<AsteroidScript, float>();
     [SerializeField] private float Asteroid_Mass;
-    [SerializeField] private float Max_Tension;
     [SerializeField] private float Dampening_Constant = 50;
     public float Dampening_Factor = 0;
 
     //Used by Movement Script to kno whether to apply Damping or no, False = No damping True = Damping
     public bool Is_Anchored = false;
+
+    public bool Is_Spaceship_At_Rest = false;
+
 
     private void Awake()
     {
@@ -81,7 +84,6 @@ public class PlayerSingleton : MonoBehaviour
     private void Mass_Dampner_Calcultor(AsteroidScript Asteroid_Script, bool Is_Tethered)
     {
         float Total_Mass = 0;
-        float Total_Tension = 0;
 
         if (Is_Tethered)
         {
@@ -90,16 +92,13 @@ public class PlayerSingleton : MonoBehaviour
             {
 
                 var Asteroid_local = Asteroid.Key; 
-                Total_Mass += Asteroid.Value;
-                Total_Tension += Asteroid_local.Maximum_Tether_Tension;
-               
+                Total_Mass += Asteroid.Value;               
             }
         }
         else
         {
             Clear_Payload();
         }
-        Max_Tension = Total_Tension / Active_Asteroids_Tethered.Count;
         Asteroid_Mass = Total_Mass;
         Is_Anchored = true;
 
@@ -109,17 +108,11 @@ public class PlayerSingleton : MonoBehaviour
 
     private void Asteroid_Deselect_Mass_Calulator(AsteroidScript Asteroid_Script)
     {
-        float Total_Tension = 0;
         if(Active_Asteroids_Tethered.ContainsKey(Asteroid_Script))
         {
             Asteroid_Mass -= Active_Asteroids_Tethered[Asteroid_Script];           
             Active_Asteroids_Tethered.Remove(Asteroid_Script);
-            foreach (var Asteroid in Active_Asteroids_Tethered)
-            {
-                var Asteroid_local = Asteroid.Key;
-                Total_Tension += Asteroid_local.Maximum_Tether_Tension;
-                Max_Tension = Total_Tension / Active_Asteroids_Tethered.Count;
-            }
+            
             if (Asteroid_Mass <= 0)
             {
                 Dampner_Reset();
@@ -138,7 +131,6 @@ public class PlayerSingleton : MonoBehaviour
     private void Dampner_Reset()
     {
         Asteroid_Mass = 0;
-        Max_Tension = 0;
         Dampening_Factor = 0;
         Is_Anchored = false;
     }

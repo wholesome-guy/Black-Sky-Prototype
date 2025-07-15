@@ -49,6 +49,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private bool Is_Fuel_Exhuasted;
 
 
+
     
     private void Start()
     {
@@ -69,22 +70,22 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        // Apply movement only if fuel is available
-
-        if (!Is_Fuel_Exhuasted)
+        if (!PlayerSingleton.instance.Is_Spaceship_At_Rest)
         {
-            Linear_Movement();
+            // Apply movement only if fuel is available
+            if (!Is_Fuel_Exhuasted)
+            {
+                Linear_Movement();
+            }
+
+            // Apply rotation only if rotation is not locked
+
+            if (!Mouse_Input_Manager.instance.Is_Rotation_Locked)
+            {
+                Rotational_Movement();
+            }
         }
 
-        // Apply rotation only if rotation is not locked
-
-        if (!Mouse_Input_Manager.instance.Is_Rotation_Locked)
-        {
-            Rotational_Movement();
-        }
-
-        
         //Dampening_Velocity();
 
     }

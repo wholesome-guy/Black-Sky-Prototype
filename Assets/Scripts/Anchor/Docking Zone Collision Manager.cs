@@ -23,6 +23,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
         {
             if(!Is_Player_Docked)
             {
+                PlayerSingleton.instance.Is_Spaceship_At_Rest = true;
                 TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
                 StartCoroutine(Delay_On_Player_Dock(Delay_Duration));
             }
@@ -44,5 +45,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
         yield return new WaitForSeconds(Duration);
         Is_Player_Docked = true;
         On_Player_Docked.Invoke();
+        PlayerSingleton.instance.Is_Spaceship_At_Rest = false;
+
     }
 }

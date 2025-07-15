@@ -36,6 +36,7 @@ public class GunTipManager : MonoBehaviour
         {
             Instantiate(Projectiles[Index_Projectile], gameObject.transform.position, transform.rotation);
             Is_Ammo_Loaded = false;
+            TimerManager.Cannon_Reload_Event.Invoke(Reload_Duration);
             StartCoroutine(Reload_Ammo());
         }
     }

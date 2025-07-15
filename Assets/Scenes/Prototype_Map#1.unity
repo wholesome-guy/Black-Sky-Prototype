@@ -629,24 +629,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Asteroid_RigidBody: {fileID: 124586467}
   Asteroid_Mass: 2000
-  Asteroid_Speed: 1000
-  Asteroid_Rotation_Speed: 1000
-  Pull_Force: 500
+  Is_Asteroid_Anchored: 0
   Is_Asteroid_At_Anchor_Position: 1
   Is_Asteroid_Tethered: 0
-  Is_Asteroid_Anchored: 0
-  Sticking_Anchor_Right: {fileID: 0}
-  Sticking_Anchor_Left: {fileID: 0}
-  Minimum_Distance_Player_Asteroid: 50
-  Maximum_Distance_Player_Asteroid: 300
-  Maximum_Tether_Tension: 0
-  Maximum_Tension_Constant: 10
-  Velocity_Tension_Constant: 10
-  Asteroid_Tension_Constant: 0.5
-  Max_Force_Multiplier: 100
-  Delay_Duration: 2
-  Rope_Length: 25
-  Rope_Spring_Constant: 5
 --- !u!1 &137685437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,6 +1049,7 @@ RectTransform:
   - {fileID: 322358477}
   - {fileID: 1651649442}
   - {fileID: 1376075759}
+  - {fileID: 1684432326}
   m_Father: {fileID: 1006544285}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1564,6 +1550,81 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &346658559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 346658560}
+  - component: {fileID: 346658562}
+  - component: {fileID: 346658561}
+  m_Layer: 5
+  m_Name: 'Cannon Reload '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &346658560
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346658559}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1684432326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -900, y: -100}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &346658561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346658559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 01fee93966d62c540a6233d48c4e6409, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &346658562
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 346658559}
+  m_CullTransparentMesh: 1
 --- !u!1 &360132755
 GameObject:
   m_ObjectHideFlags: 0
@@ -3449,6 +3510,7 @@ MonoBehaviour:
   Timer: {fileID: 1376075758}
   Fill_Image: {fileID: 1369669297}
   Timer_Text: {fileID: 399387361}
+  Cannon_Reload_Image: {fileID: 346658561}
 --- !u!1 &901422537
 GameObject:
   m_ObjectHideFlags: 0
@@ -4813,10 +4875,10 @@ MonoBehaviour:
   Right_Cannon_Tip: {fileID: 53407973}
   Max_Shoot_Distance: 500
   Asteroid_Mass: 0
-  Max_Tension: 0
   Dampening_Constant: 100000
   Dampening_Factor: 0
   Is_Anchored: 0
+  Is_Spaceship_At_Rest: 0
 --- !u!1 &1349875979
 GameObject:
   m_ObjectHideFlags: 0
@@ -6271,6 +6333,42 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 503.7, y: 482.9}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1684432325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1684432326}
+  m_Layer: 5
+  m_Name: Cannon Reload Timer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1684432326
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684432325}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 346658560}
+  m_Father: {fileID: 233464091}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1684993255
@@ -8557,24 +8655,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Asteroid_RigidBody: {fileID: 8500113478895744597}
   Asteroid_Mass: 1000
-  Asteroid_Speed: 1000
-  Asteroid_Rotation_Speed: 1000
-  Pull_Force: 500
+  Is_Asteroid_Anchored: 0
   Is_Asteroid_At_Anchor_Position: 1
   Is_Asteroid_Tethered: 0
-  Is_Asteroid_Anchored: 0
-  Sticking_Anchor_Right: {fileID: 0}
-  Sticking_Anchor_Left: {fileID: 0}
-  Minimum_Distance_Player_Asteroid: 15
-  Maximum_Distance_Player_Asteroid: 150
-  Maximum_Tether_Tension: 0
-  Maximum_Tension_Constant: 10
-  Velocity_Tension_Constant: 20
-  Asteroid_Tension_Constant: 0.5
-  Max_Force_Multiplier: 100
-  Delay_Duration: 2
-  Rope_Length: 25
-  Rope_Spring_Constant: 50
 --- !u!4 &9141372203738854275
 Transform:
   m_ObjectHideFlags: 0
