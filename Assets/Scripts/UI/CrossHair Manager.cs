@@ -34,8 +34,6 @@ public class CrossHairManager : MonoBehaviour
     private void Update()
     {
         Crosshair_RayCaster();
-        Debug.DrawRay(Cannonn_Left_Tip.transform.position, Cannonn_Left_Tip.transform.forward * Max_Shoot_Distance, Color.white);
-        Debug.DrawRay(Cannonn_Right_Tip.transform.position, Cannonn_Right_Tip.transform.forward * Max_Shoot_Distance, Color.white);
     }
 
 

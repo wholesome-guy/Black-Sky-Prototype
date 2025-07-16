@@ -38,7 +38,6 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
 
     [SerializeField] private Rigidbody Rb;
-    [SerializeField] private float AngularVecoity;
 
     // Reference to spaceship configuration values
 

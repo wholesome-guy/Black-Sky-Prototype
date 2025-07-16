@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,8 @@ public class PlayerSingleton : MonoBehaviour
 
     //Used by Movement Script to kno whether to apply Damping or no, False = No damping True = Damping
     public bool Is_Anchored = false;
+
+    public static Action No_Asteroids_Attached;
 
     public bool Is_Spaceship_At_Rest = false;
 
@@ -133,6 +136,7 @@ public class PlayerSingleton : MonoBehaviour
         Asteroid_Mass = 0;
         Dampening_Factor = 0;
         Is_Anchored = false;
+        No_Asteroids_Attached.Invoke();
     }
 
     private void Clear_Payload()

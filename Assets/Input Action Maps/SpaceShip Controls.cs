@@ -80,6 +80,24 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throttle Wheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""30a55d92-04e2-46f2-a8da-2b7f54e70502"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Steering Wheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""56180f26-2fee-4e15-953e-778f2e330edd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -203,6 +221,56 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""Un Tether"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""172bcbe7-4060-41fb-8298-00c2e016c50a"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throttle Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3bbeb05c-f266-4e49-b310-d34d273a67d5"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""New action map"",
+            ""id"": ""60814cb8-5e43-4ae7-9eb4-32e4b819425e"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc00e2c1-1f8b-41da-8de8-bd62d90a1dca"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4a95f89f-86ec-46bb-adfd-6b730b05ddc7"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New action"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,11 +285,17 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls_Shoot = m_SpaceShip_Controls.FindAction("Shoot", throwIfNotFound: true);
         m_SpaceShip_Controls_ProjectileWheel = m_SpaceShip_Controls.FindAction("Projectile Wheel", throwIfNotFound: true);
         m_SpaceShip_Controls_UnTether = m_SpaceShip_Controls.FindAction("Un Tether", throwIfNotFound: true);
+        m_SpaceShip_Controls_ThrottleWheel = m_SpaceShip_Controls.FindAction("Throttle Wheel", throwIfNotFound: true);
+        m_SpaceShip_Controls_SteeringWheel = m_SpaceShip_Controls.FindAction("Steering Wheel", throwIfNotFound: true);
+        // New action map
+        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
+        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
     }
 
     ~@SpaceShipControls()
     {
         UnityEngine.Debug.Assert(!m_SpaceShip_Controls.enabled, "This will cause a leak and performance issues, SpaceShipControls.SpaceShip_Controls.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Newactionmap.enabled, "This will cause a leak and performance issues, SpaceShipControls.Newactionmap.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -289,6 +363,8 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_SpaceShip_Controls_Shoot;
     private readonly InputAction m_SpaceShip_Controls_ProjectileWheel;
     private readonly InputAction m_SpaceShip_Controls_UnTether;
+    private readonly InputAction m_SpaceShip_Controls_ThrottleWheel;
+    private readonly InputAction m_SpaceShip_Controls_SteeringWheel;
     public struct SpaceShip_ControlsActions
     {
         private @SpaceShipControls m_Wrapper;
@@ -299,6 +375,8 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_SpaceShip_Controls_Shoot;
         public InputAction @ProjectileWheel => m_Wrapper.m_SpaceShip_Controls_ProjectileWheel;
         public InputAction @UnTether => m_Wrapper.m_SpaceShip_Controls_UnTether;
+        public InputAction @ThrottleWheel => m_Wrapper.m_SpaceShip_Controls_ThrottleWheel;
+        public InputAction @SteeringWheel => m_Wrapper.m_SpaceShip_Controls_SteeringWheel;
         public InputActionMap Get() { return m_Wrapper.m_SpaceShip_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -326,6 +404,12 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @UnTether.started += instance.OnUnTether;
             @UnTether.performed += instance.OnUnTether;
             @UnTether.canceled += instance.OnUnTether;
+            @ThrottleWheel.started += instance.OnThrottleWheel;
+            @ThrottleWheel.performed += instance.OnThrottleWheel;
+            @ThrottleWheel.canceled += instance.OnThrottleWheel;
+            @SteeringWheel.started += instance.OnSteeringWheel;
+            @SteeringWheel.performed += instance.OnSteeringWheel;
+            @SteeringWheel.canceled += instance.OnSteeringWheel;
         }
 
         private void UnregisterCallbacks(ISpaceShip_ControlsActions instance)
@@ -348,6 +432,12 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @UnTether.started -= instance.OnUnTether;
             @UnTether.performed -= instance.OnUnTether;
             @UnTether.canceled -= instance.OnUnTether;
+            @ThrottleWheel.started -= instance.OnThrottleWheel;
+            @ThrottleWheel.performed -= instance.OnThrottleWheel;
+            @ThrottleWheel.canceled -= instance.OnThrottleWheel;
+            @SteeringWheel.started -= instance.OnSteeringWheel;
+            @SteeringWheel.performed -= instance.OnSteeringWheel;
+            @SteeringWheel.canceled -= instance.OnSteeringWheel;
         }
 
         public void RemoveCallbacks(ISpaceShip_ControlsActions instance)
@@ -365,6 +455,52 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         }
     }
     public SpaceShip_ControlsActions @SpaceShip_Controls => new SpaceShip_ControlsActions(this);
+
+    // New action map
+    private readonly InputActionMap m_Newactionmap;
+    private List<INewactionmapActions> m_NewactionmapActionsCallbackInterfaces = new List<INewactionmapActions>();
+    private readonly InputAction m_Newactionmap_Newaction;
+    public struct NewactionmapActions
+    {
+        private @SpaceShipControls m_Wrapper;
+        public NewactionmapActions(@SpaceShipControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
+        public void AddCallbacks(INewactionmapActions instance)
+        {
+            if (instance == null || m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Add(instance);
+            @Newaction.started += instance.OnNewaction;
+            @Newaction.performed += instance.OnNewaction;
+            @Newaction.canceled += instance.OnNewaction;
+        }
+
+        private void UnregisterCallbacks(INewactionmapActions instance)
+        {
+            @Newaction.started -= instance.OnNewaction;
+            @Newaction.performed -= instance.OnNewaction;
+            @Newaction.canceled -= instance.OnNewaction;
+        }
+
+        public void RemoveCallbacks(INewactionmapActions instance)
+        {
+            if (m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(INewactionmapActions instance)
+        {
+            foreach (var item in m_Wrapper.m_NewactionmapActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
     public interface ISpaceShip_ControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -373,5 +509,11 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnProjectileWheel(InputAction.CallbackContext context);
         void OnUnTether(InputAction.CallbackContext context);
+        void OnThrottleWheel(InputAction.CallbackContext context);
+        void OnSteeringWheel(InputAction.CallbackContext context);
+    }
+    public interface INewactionmapActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

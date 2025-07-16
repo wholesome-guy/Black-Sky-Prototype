@@ -15,11 +15,7 @@ public class Throttle_Handling_Lever : MonoBehaviour
 
     [SerializeField] private SpaceShip_Movement_Controller SpaceShip_Movement_Controller;
 
-    // UI sliders representing throttle and handling levers
-
-    [SerializeField] private Slider Throttle_Lever;
-    [SerializeField] private Slider Handling_Lever;
-
+ 
     // Events triggered based on throttle level
 
     public UnityEvent Low_Throttle;
@@ -33,6 +29,18 @@ public class Throttle_Handling_Lever : MonoBehaviour
     public UnityEvent High_Handling;
 
     // Called when the script instance is being loaded
+
+    private void OnEnable()
+    {
+        ThrottleMenuManager.Throttle_Select_Event += Throttle_Select;
+        HandlingMenuManager.Handling_Select_Event += Handling_Select;
+    }
+    private void OnDisable()
+    {
+        ThrottleMenuManager.Throttle_Select_Event -= Throttle_Select; 
+        HandlingMenuManager.Handling_Select_Event -= Handling_Select;
+
+    }
     void Start()
     {
         // Bind each event to the corresponding method in the movement controller
@@ -51,17 +59,26 @@ public class Throttle_Handling_Lever : MonoBehaviour
         Preset_Throttle_Hnadling();
     }
 
+    private void Throttle_Select(int Index)
+    {
+        Throttle_Function(Index);
+    }
+    private void Handling_Select(int Index)
+    {
+        Handling_Function(Index);
+    }
+
+
     /// <summary>
     /// Sets the throttle and handling to their lowest levels by default.
     /// Also resets the UI sliders to 0.
     /// </summary>
-    
+
     private void Preset_Throttle_Hnadling()
     {
         Low_Throttle.Invoke();
         Low_Handling.Invoke();
-        Throttle_Lever.value = 0;
-        Handling_Lever.value = 0;
+        
     }
 
     /// <summary>
@@ -69,9 +86,9 @@ public class Throttle_Handling_Lever : MonoBehaviour
     /// Invokes the corresponding event based on the slider value.
     /// </summary>
 
-    public void Throttle_Function()
+    public void Throttle_Function(int Index)
     {
-        switch (Throttle_Lever.value)
+        switch (Index)
         {
             case 0:
 
@@ -97,9 +114,9 @@ public class Throttle_Handling_Lever : MonoBehaviour
     /// Invokes the corresponding event based on the slider value.
     /// </summary>
     
-    public void Handling_Function()
+    public void Handling_Function(int Index)
     {
-        switch (Handling_Lever.value)
+        switch (Index)
         {
             case 0:
 

@@ -17,6 +17,13 @@ public class Keyboard_Input_Manager : MonoBehaviour
     public UnityEvent On_Chnage_HUD;
     public UnityEvent Projectile_Wheel_Display;
     public UnityEvent Projectile_Wheel_Hide;
+
+    public UnityEvent Throttle_Wheel_Display;
+    public UnityEvent Throttle_Wheel_Hide;
+
+    public UnityEvent Handling_Wheel_Display;
+    public UnityEvent Handling_Wheel_Hide;
+
     public static Action De_Tether;
 
     [SerializeField] private float Delay_Duration = 2.0f;
@@ -48,6 +55,12 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.performed += Projectile_Wheel_Display_Function;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.canceled += Projectile_Wheel_Hide_Function;
 
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ThrottleWheel.performed += Throttle_Wheel_Display_Function;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ThrottleWheel.canceled += Throttle_Wheel_Hide_Function;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.performed += Handling_Wheel_Display_Function;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.canceled += Handling_Wheel_Hide_Function;
+
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed += De_Tether_Fuction;
     }
 
@@ -59,6 +72,12 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.performed -= Projectile_Wheel_Display_Function;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.canceled -= Projectile_Wheel_Hide_Function;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ThrottleWheel.performed -= Throttle_Wheel_Display_Function;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.ThrottleWheel.canceled -= Throttle_Wheel_Hide_Function;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.performed -= Handling_Wheel_Display_Function;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.canceled -= Handling_Wheel_Hide_Function;
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed -= De_Tether_Fuction;
 
@@ -85,6 +104,23 @@ public class Keyboard_Input_Manager : MonoBehaviour
     private void Projectile_Wheel_Hide_Function(InputAction.CallbackContext context)
     {
         Projectile_Wheel_Hide.Invoke();
+    }
+
+    private void Throttle_Wheel_Display_Function(InputAction.CallbackContext context)
+    {
+        Throttle_Wheel_Display.Invoke();
+    }
+    private void Throttle_Wheel_Hide_Function(InputAction.CallbackContext context)
+    {
+        Throttle_Wheel_Hide.Invoke();
+    }
+    private void Handling_Wheel_Display_Function(InputAction.CallbackContext context)
+    {
+        Handling_Wheel_Display.Invoke();
+    }
+    private void Handling_Wheel_Hide_Function(InputAction.CallbackContext context)
+    {
+        Handling_Wheel_Hide.Invoke();
     }
 
     private void De_Tether_Fuction(InputAction.CallbackContext context)

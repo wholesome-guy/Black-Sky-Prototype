@@ -26,9 +26,6 @@ public class Mouse_Input_Manager : MonoBehaviour
     // Controls whether spaceship rotation is locked
     public bool Is_Rotation_Locked;
 
-    // Flag to prevent shooting when near lever UI
-    public bool Is_Mouse_At_Lever_Area;
-
     // Event triggered when shooting
     public UnityEvent Shoot;
 
@@ -71,7 +68,6 @@ public class Mouse_Input_Manager : MonoBehaviour
 
     private void Start()
     {
-        Is_Mouse_At_Lever_Area = false;
         Is_Rotation_Locked = false;
         Mouse_Sensitivity = 1;
     }
@@ -100,7 +96,6 @@ public class Mouse_Input_Manager : MonoBehaviour
         //Angle between Mouse_Input and 1,0,0 WITH 0,0,1 as the axis of rotation
         Angle_Mouse_Input = Vector3.SignedAngle(Vector3.right, Normalised_Mouse_Input, Vector3.forward);
 
-
         
     }
 
@@ -115,19 +110,13 @@ public class Mouse_Input_Manager : MonoBehaviour
     /// <summary>
     /// Toggle the lever area flag (used to prevent shooting near UI)
     /// </summary>
-    public void Lever_Area_Bool()
-    {
-        Is_Mouse_At_Lever_Area = !Is_Mouse_At_Lever_Area;
-    }
+   
 
     /// <summary>
     /// Triggers the Shoot UnityEvent unless player is at lever area
     /// </summary>
     private void Shoot_Projectile(InputAction.CallbackContext context)
     {
-        if (!Is_Mouse_At_Lever_Area)
-        {
-            Shoot.Invoke();
-        }
+         Shoot.Invoke();
     }
 }

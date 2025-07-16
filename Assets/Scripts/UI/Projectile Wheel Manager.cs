@@ -6,18 +6,13 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using System;
+using DG.Tweening;
 
 public class ProjectileWheelManager : MonoBehaviour
 {
     [SerializeField] private GameObject Projectile_Wheel;
     [SerializeField] private GameObject Crosshair_Left;
     [SerializeField] private GameObject Crosshair_Right;
-    [SerializeField] private Volume Global_Volume;
-
-    private DepthOfField Depth_Of_Field;
-    [SerializeField] private float Focus_Distance = 1.75f;
-    [SerializeField] private int Focal_Length = 130;
-    [SerializeField] private int Aperture = 32;
 
     private bool Is_Projectile_Wheel_Active =false;
 
@@ -44,53 +39,40 @@ public class ProjectileWheelManager : MonoBehaviour
 
     private void Start()
     {
-        if (Global_Volume.profile.TryGet<DepthOfField>(out Depth_Of_Field))
-        {
-            Depth_Of_Field.active = false;
-            Depth_Of_Field.focusDistance.value = Focus_Distance;
-            Depth_Of_Field.focalLength.value = Focal_Length;
-        }
-        Projectile_Wheel.SetActive(false); 
-       
-        Depth_Of_Field.aperture.value = Aperture;
+        Projectile_Wheel.SetActive(false);        
     }
 
     public void Projectile_Wheel_Dispaly()
     {
-        Depth_Of_Field.active = true;
+        UIVisualEffectsManager.Blur_Slow_Time_Event.Invoke();
 
+        
         Projectile_Wheel.SetActive(true);
         Crosshair_Left.SetActive(false);
         Crosshair_Right.SetActive(false);
 
         Is_Projectile_Wheel_Active = true;
-        Time.timeScale = 0.25f;
-        Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
 
     public void Projectile_Wheel_Hide()
     {
-        Depth_Of_Field.active = false;
-
+        UIVisualEffectsManager.Unblur_Normal_Time_Event.Invoke();
         Projectile_Wheel.SetActive(false);
         Crosshair_Left.SetActive(true);
         Crosshair_Right.SetActive(true);
 
         Is_Projectile_Wheel_Active = false;
-        Time.timeScale = 1.0f;
-        Time.fixedDeltaTime = 0.02f;
-
     }
 
     private void Update()
     {
         if (Is_Projectile_Wheel_Active)
         {
-            Angle_Seletor();
+            Angle_Selector();
         }
     }
 
-    private void Angle_Seletor()
+    private void Angle_Selector()
     {
         if (Mouse_Input_Manager.instance.Angle_Mouse_Input > 0)
         {
