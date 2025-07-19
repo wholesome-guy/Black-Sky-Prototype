@@ -16,6 +16,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
     private void Start()
     {
         Is_Player_Docked = false;
+        DockingZonePointerManager.Pointer_Event(true, gameObject.transform);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -36,7 +37,8 @@ public class DockingZoneCollisionManager : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             On_Player_Undocked.Invoke();
-            Destroy(gameObject, 10f); 
+            DockingZonePointerManager.Pointer_Event(false, gameObject.transform);
+            Destroy(gameObject, 5f); 
         }
     }
 

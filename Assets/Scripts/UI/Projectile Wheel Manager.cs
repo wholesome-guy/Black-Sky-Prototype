@@ -11,6 +11,7 @@ using DG.Tweening;
 public class ProjectileWheelManager : MonoBehaviour
 {
     [SerializeField] private GameObject Projectile_Wheel;
+    [SerializeField] private CanvasGroup Projectile_Wheel_Canvas_Group;
     [SerializeField] private GameObject Crosshair_Left;
     [SerializeField] private GameObject Crosshair_Right;
 
@@ -39,15 +40,16 @@ public class ProjectileWheelManager : MonoBehaviour
 
     private void Start()
     {
-        Projectile_Wheel.SetActive(false);        
+        Projectile_Wheel.SetActive(false);
+        Projectile_Wheel_Canvas_Group.alpha = 0.0f;
     }
 
     public void Projectile_Wheel_Dispaly()
     {
         UIVisualEffectsManager.Blur_Slow_Time_Event.Invoke();
 
-        
         Projectile_Wheel.SetActive(true);
+        UIVisualEffectsManager.UI_Fader_Event.Invoke(Projectile_Wheel_Canvas_Group, 0f, 1f, 0.25f);
         Crosshair_Left.SetActive(false);
         Crosshair_Right.SetActive(false);
 
@@ -57,7 +59,10 @@ public class ProjectileWheelManager : MonoBehaviour
     public void Projectile_Wheel_Hide()
     {
         UIVisualEffectsManager.Unblur_Normal_Time_Event.Invoke();
+
         Projectile_Wheel.SetActive(false);
+        UIVisualEffectsManager.UI_Fader_Event.Invoke(Projectile_Wheel_Canvas_Group, 1f, 0f, 0.25f);
+
         Crosshair_Left.SetActive(true);
         Crosshair_Right.SetActive(true);
 

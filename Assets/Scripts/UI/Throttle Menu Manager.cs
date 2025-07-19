@@ -10,6 +10,7 @@ using DG.Tweening;
 public class ThrottleMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject Throttle_Wheel;
+    [SerializeField] private CanvasGroup Throttle_Wheel_Canvas_Group;
     [SerializeField] private GameObject Crosshair_Left;
     [SerializeField] private GameObject Crosshair_Right;
 
@@ -31,12 +32,15 @@ public class ThrottleMenuManager : MonoBehaviour
     [SerializeField] private float Duration_Scale = 0.25f;
 
     [SerializeField] private TextMeshProUGUI Throttle_Text;
+    [SerializeField] private TextMeshProUGUI Throttle_Icon_Text;
     [SerializeField] private Image Inner_Ring;
 
     #endregion
     private void Start()
     {
         Throttle_Wheel.SetActive(false);
+        Throttle_Icon_Text.gameObject.SetActive(false);
+        Throttle_Wheel_Canvas_Group.alpha = 0f;
     }
 
     public void Throttle_Wheel_Dispaly()
@@ -44,7 +48,8 @@ public class ThrottleMenuManager : MonoBehaviour
         UIVisualEffectsManager.Blur_Slow_Time_Event.Invoke();
 
 
-        Throttle_Wheel.SetActive(true);       
+        Throttle_Wheel.SetActive(true);
+        UIVisualEffectsManager.UI_Fader_Event.Invoke(Throttle_Wheel_Canvas_Group, 0, 1, 0.25f);
         Crosshair_Left.SetActive(false);
         Crosshair_Right.SetActive(false);
 
@@ -54,6 +59,7 @@ public class ThrottleMenuManager : MonoBehaviour
     public void Throttle_Wheel_Hide()
     {
         UIVisualEffectsManager.Unblur_Normal_Time_Event.Invoke();
+        UIVisualEffectsManager.UI_Fader_Event.Invoke(Throttle_Wheel_Canvas_Group, 1, 0, 0.25f);
         Throttle_Wheel.SetActive(false);
         Crosshair_Left.SetActive(true);
         Crosshair_Right.SetActive(true);
@@ -114,6 +120,7 @@ public class ThrottleMenuManager : MonoBehaviour
         Ring_Images[Index].color = Throttle_Colours[Index];
         Inner_Ring.color = Throttle_Colours[Index];
         Throttle_Text.text = Throttle_Names[Index];
+        Throttle_Icon_Text.text = Throttle_Names[Index];
 
         StartCoroutine(Scale_Lerp(Sector_Images[Index].transform, Min_Scale * Vector3.one, Max_Scale * Vector3.one, Duration_Scale));
         StartCoroutine(Scale_Lerp(Ring_Images[Index].transform, Min_Scale * Vector3.one, Max_Scale * Vector3.one, Duration_Scale));

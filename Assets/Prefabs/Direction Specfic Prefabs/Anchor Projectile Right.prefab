@@ -102,6 +102,7 @@ MonoBehaviour:
   Torque_Force: 1
   Sticking_Anchor: {fileID: 9123693907432465404, guid: 4d2efedb1185e5746b30e2cd900df327,
     type: 3}
+  Is_Right: 1
 --- !u!1 &8158158747191890436
 GameObject:
   m_ObjectHideFlags: 0

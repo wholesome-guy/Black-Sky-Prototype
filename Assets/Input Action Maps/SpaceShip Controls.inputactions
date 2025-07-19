@@ -181,6 +181,17 @@
                 {
                     "name": "",
                     "id": "0ee7118a-15db-4361-ad99-d0ec3e067fd9",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Projectile Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "63f8e885-9c5e-4322-8f49-a2b17002ded7",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",

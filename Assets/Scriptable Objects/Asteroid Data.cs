@@ -22,6 +22,8 @@ public class AsteroidData
 
     public static float Break_Velocity_Curve_Exponent = 0.3f;
 
+    // max speed 245 times constant = 1000 Mega newtons. Constant = 1000/245
+    public static float Fake_Tension_Velocity_Constant = 4.082f;
     public static float Joint_Break_Velocity_Player(float Asteroid_Mass)
     {
         // Formula used: Velocity_Constant = 820.51 * ln(Mass) - 3879.5
@@ -44,7 +46,12 @@ public class AsteroidData
     }
 
     public static float Joint_Break_Delay_Duration = 2.0f;
+    public static float Warning_Velocity_Difference_Constant = 30f;
 
     public static string Right_Sticking_Anchor = "Sticking Anchor Prefab Right (Master)(Clone)";
     public static string Left_Sticking_Anchor = "Sticking Anchor Prefab Left(Clone)";
+
+
+    public static string Joint_Break = "Anchor's Broken Captain";
+    public static string Approaching_Max_Tether_Velocity = "Slow Down Captain, Tether's Snapping";
 }

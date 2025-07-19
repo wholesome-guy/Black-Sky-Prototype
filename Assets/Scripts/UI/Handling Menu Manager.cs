@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class HandlingMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject Handling_Wheel;
+    [SerializeField] private CanvasGroup Handling_Wheel_Canvas_Group;
     [SerializeField] private GameObject Crosshair_Left;
     [SerializeField] private GameObject Crosshair_Right;
 
@@ -31,12 +32,15 @@ public class HandlingMenuManager : MonoBehaviour
     [SerializeField] private float Duration_Scale = 0.25f;
 
     [SerializeField] private TextMeshProUGUI Handling_Text;
+    [SerializeField] private TextMeshProUGUI Handling_Icon_Text;
     [SerializeField] private Image Inner_Ring;
 
     #endregion
     private void Start()
     {
         Handling_Wheel.SetActive(false);
+        Handling_Icon_Text.gameObject.SetActive(false);
+        Handling_Wheel_Canvas_Group.alpha = 0f;
     }
 
     public void Handling_Wheel_Dispaly()
@@ -44,6 +48,7 @@ public class HandlingMenuManager : MonoBehaviour
         UIVisualEffectsManager.Blur_Slow_Time_Event.Invoke();
 
         Handling_Wheel.SetActive(true);
+        UIVisualEffectsManager.UI_Fader_Event.Invoke(Handling_Wheel_Canvas_Group, 0, 1, 0.25f);
         Crosshair_Left.SetActive(false);
         Crosshair_Right.SetActive(false);
 
@@ -53,6 +58,8 @@ public class HandlingMenuManager : MonoBehaviour
     public void Handling_Wheel_Hide()
     {
         UIVisualEffectsManager.Unblur_Normal_Time_Event.Invoke();
+        UIVisualEffectsManager.UI_Fader_Event.Invoke(Handling_Wheel_Canvas_Group, 1, 0, 0.25f);
+
         Handling_Wheel.SetActive(false);
         Crosshair_Left.SetActive(true);
         Crosshair_Right.SetActive(true);
@@ -113,6 +120,7 @@ public class HandlingMenuManager : MonoBehaviour
         Ring_Images[Index].color = Handling_Colours[Index];
         Inner_Ring.color = Handling_Colours[Index];
         Handling_Text.text = Handling_Names[Index];
+        Handling_Icon_Text.text = Handling_Names[Index];
 
         StartCoroutine(Scale_Lerp(Sector_Images[Index].transform, Min_Scale * Vector3.one, Max_Scale * Vector3.one, Duration_Scale));
         StartCoroutine(Scale_Lerp(Ring_Images[Index].transform, Min_Scale * Vector3.one, Max_Scale * Vector3.one, Duration_Scale));

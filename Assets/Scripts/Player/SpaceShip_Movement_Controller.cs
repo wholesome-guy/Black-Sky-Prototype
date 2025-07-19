@@ -85,7 +85,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
             }
         }
 
-        //Dampening_Velocity();
+        Dampening_Velocity();
 
     }
 

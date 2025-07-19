@@ -19,6 +19,7 @@ public class Spaceship_Health_System : MonoBehaviour
     [Header("Shield and Health References")]
 
     [SerializeField] private GameObject[] Shields_GameObjects;      // Array of shield objects attached to the ship
+    [SerializeField] private Image[] Shields_Images;
 
     [SerializeField] private float Shield_Regeneration_Time = 10f;  
 
@@ -122,7 +123,8 @@ public class Spaceship_Health_System : MonoBehaviour
         {
             if (Shields_GameObjects[i].activeInHierarchy)
             {
-                Shields_GameObjects[i].SetActive(false);
+                StartCoroutine(Shield_UI_Lerp(i, 0.225f,0 , 0.5f));
+                StartCoroutine(Delay_Shield_Break(i));
                 StartCoroutine(Regenerate_Shield(i));
                 break; // Break only one shield at a time
             }
@@ -133,7 +135,8 @@ public class Spaceship_Health_System : MonoBehaviour
     private IEnumerator Regenerate_Shield(int i)
     {
         yield return new WaitForSeconds(Shield_Regeneration_Time);
-        Shields_GameObjects[i].SetActive(true);
+        Shields_GameObjects[i].gameObject.SetActive(true);
+        StartCoroutine(Shield_UI_Lerp(i, 0f, 0.225f, 0.5f));
     }
 
     // Coroutine to smoothly interpolate the health bar fill amount
@@ -150,4 +153,24 @@ public class Spaceship_Health_System : MonoBehaviour
 
         Health_Fill_Bar.fillAmount = target;
     }
+
+    private IEnumerator Shield_UI_Lerp( int i,float start, float target, float duration)
+    {
+        float time = 0;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            Shields_Images[i].fillAmount = Mathf.Lerp(start, target, time / duration);
+            yield return null;
+        }
+
+        Shields_Images[i].fillAmount = target;
+    }
+    private IEnumerator Delay_Shield_Break(int i)
+    {
+        yield return new WaitForSeconds(0.6f);
+        Shields_GameObjects[i].gameObject.SetActive(false);
+    }
+
 }

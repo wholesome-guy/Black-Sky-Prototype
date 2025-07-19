@@ -30,7 +30,7 @@ public class DockingSystemStickingAnchor : MonoBehaviour
 
             Vector3 Docking_Direction = new Vector3(Direction.x, Direction.y, Direction.z) * Docking_Distance;
 
-            Instantiate(Docking_Zone, Docking_Direction, Quaternion.identity);
+            GameObject Object = Instantiate(Docking_Zone, Docking_Direction, Quaternion.identity);
 
             Is_Docking_Zone_Instantiated = true;
 

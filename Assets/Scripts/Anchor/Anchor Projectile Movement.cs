@@ -9,7 +9,7 @@ public class AnchorProjectileMovement : MonoBehaviour
     [SerializeField] private float Thrust_Force;
     [SerializeField] private float Torque_Force;
     [SerializeField] private GameObject Sticking_Anchor;
-
+    [SerializeField] private bool Is_Right;
     // Event invoked when the sticking anchor is deployed, passing the contact normal vector
     public static Action<Vector3> Sticking_Anchor_Deployed;
 
@@ -58,10 +58,13 @@ public class AnchorProjectileMovement : MonoBehaviour
                Anchor.transform.SetParent(collision.transform);
 
             // Invoke event to notify that the sticking anchor has been deployed
-              Sticking_Anchor_Deployed.Invoke(contactPoint.normal);
+            if(Is_Right)
+            {
+                Sticking_Anchor_Deployed.Invoke(contactPoint.normal);
+            }
 
             // Destroy this projectile since it has stuck
-               Destroy(gameObject);
+            Destroy(gameObject);
         }
         else
         {

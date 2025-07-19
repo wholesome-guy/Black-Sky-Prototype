@@ -50,3 +50,4 @@ MonoBehaviour:
   High_Throttle_Fuel_Consumption: 1000
   Refuel_Amount: 1000
   Max_Health: 10000
+  Payload: 50000

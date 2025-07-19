@@ -18,16 +18,21 @@ public class UIVisualEffectsManager : MonoBehaviour
     public static Action Blur_Slow_Time_Event;
     public static Action Unblur_Normal_Time_Event;
 
+    public static Action<CanvasGroup, float, float, float> UI_Fader_Event;
+
     private void OnEnable()
     {
         Blur_Slow_Time_Event += Blur_TimeSlow;
         Unblur_Normal_Time_Event += Unblur_Time_Normal;
+
+        UI_Fader_Event += UI_Fader_Function;
     }
     private void OnDisable()
     {
         Blur_Slow_Time_Event -= Blur_TimeSlow;
         Unblur_Normal_Time_Event -= Unblur_Time_Normal;
 
+        UI_Fader_Event -= UI_Fader_Function;
     }
     private void Start()
     {
@@ -52,5 +57,24 @@ public class UIVisualEffectsManager : MonoBehaviour
         Depth_Of_Field.active = false;
         Time.timeScale = 1.0f;
         Time.fixedDeltaTime = 0.02f;
+    }
+
+    private void UI_Fader_Function(CanvasGroup Canvas_Group, float Start_Value, float End_Value, float Duration)
+    {
+        StartCoroutine(UI_Fader(Canvas_Group, Start_Value, End_Value, Duration));
+    }
+
+    private IEnumerator UI_Fader(CanvasGroup Canvas_Group, float Start_Value,float End_Value, float Duration)
+    {
+        float t = 0;
+        Canvas_Group.alpha = Start_Value;
+        while(t < Duration)
+        {
+            t += Time.deltaTime;
+            Canvas_Group.alpha = Mathf.Lerp(Start_Value, End_Value, t / Duration);
+            yield return null;
+        }
+
+        Canvas_Group.alpha = End_Value;
     }
 }

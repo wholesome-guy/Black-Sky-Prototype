@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
-using Unity.PlasticSCM.Editor.WebApi;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -14,6 +12,7 @@ public class Spaceship_Fuel_System : MonoBehaviour
     private float Max_Fuel;
     private float Fuel_Consumption;
     private float Current_Fuel;
+    private float Asteroid_Fuel_Constant = 1f;
     private float Refuel_Amount;
 
     // UI values
@@ -69,7 +68,6 @@ public class Spaceship_Fuel_System : MonoBehaviour
     {
         Fuel_Consumption_Function();      // Consume fuel based on input
         Fuel_Exhausted_Function();        // Check if fuel is empty
-
         // Update UI values
         Ratio_Of_Current_To_Max_Fuel = Current_Fuel / Max_Fuel;
         Percentage_Fuel = Mathf.RoundToInt(Ratio_Of_Current_To_Max_Fuel * 100);
@@ -89,13 +87,32 @@ public class Spaceship_Fuel_System : MonoBehaviour
         Fuel_Fill_Bar.fillAmount = Fill_Amount;
         Fuel_Amount_Text.text = Percentage_Fuel + "%";
     }
+    private void Asteroid_Fuel_Constant_Function()
+    {
+        if(PlayerSingleton.instance.Asteroid_Mass < 1000)
+        {
+            Asteroid_Fuel_Constant = 1.0f;
+        }
+        else if (PlayerSingleton.instance.Asteroid_Mass > 1000 && PlayerSingleton.instance.Asteroid_Mass <= 10000)
+        {
+            Asteroid_Fuel_Constant = 1.5f;
+        }
+        else if(PlayerSingleton.instance.Asteroid_Mass > 10000 && PlayerSingleton.instance.Asteroid_Mass <= 50000)
+        {
+            Asteroid_Fuel_Constant = 2.0f;
+        }
+        else if (PlayerSingleton.instance.Asteroid_Mass > 50000 && PlayerSingleton.instance.Asteroid_Mass <= 100000)
+        {
+            Asteroid_Fuel_Constant = 2.5f;
+        }
+    }
 
     // Handles gradual fuel consumption when input is active
     private void Fuel_Consumption_Function()
     {
         if (Keyboard_Input_Manager.instance.Keyboard_Input.y != 0)
         {
-            Current_Fuel -= Fuel_Consumption * Time.deltaTime;
+            Current_Fuel -= Fuel_Consumption * Asteroid_Fuel_Constant * Time.deltaTime;
             Current_Fuel = Mathf.Clamp(Current_Fuel, 0f, Max_Fuel);
         }
     }
