@@ -37,18 +37,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Rotation Lock"",
+                    ""name"": ""Nitro"",
                     ""type"": ""Button"",
-                    ""id"": ""586ae396-7f16-4616-8946-12ad096fc434"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""HUD Switch"",
-                    ""type"": ""Button"",
-                    ""id"": ""e152a8c6-c46c-4b36-a71b-afafa59900a7"",
+                    ""id"": ""f37bf19c-b21b-45d5-b7c1-e96d23f8866a"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -64,9 +55,18 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Projectile Wheel"",
+                    ""name"": ""HUD Switch"",
                     ""type"": ""Button"",
-                    ""id"": ""2a0f23fb-3397-4769-b0cf-8004946311ce"",
+                    ""id"": ""e152a8c6-c46c-4b36-a71b-afafa59900a7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rotation Lock"",
+                    ""type"": ""Button"",
+                    ""id"": ""586ae396-7f16-4616-8946-12ad096fc434"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -76,6 +76,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""name"": ""Un Tether"",
                     ""type"": ""Button"",
                     ""id"": ""08bec861-269c-4b43-a481-cd2a4ebaadfa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Projectile Wheel"",
+                    ""type"": ""Button"",
+                    ""id"": ""2a0f23fb-3397-4769-b0cf-8004946311ce"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -94,6 +103,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""name"": ""Steering Wheel"",
                     ""type"": ""Button"",
                     ""id"": ""56180f26-2fee-4e15-953e-778f2e330edd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Asteroid Camera"",
+                    ""type"": ""Button"",
+                    ""id"": ""6333d8e3-0bf2-4cd6-8435-f1e795c39652"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -254,6 +272,28 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""Steering Wheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1005286-904a-4a7d-a5fc-7706c1af6390"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Nitro"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f640725-2ee3-451a-864c-ed3c10f0530a"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Asteroid Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -291,13 +331,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         // SpaceShip_Controls
         m_SpaceShip_Controls = asset.FindActionMap("SpaceShip_Controls", throwIfNotFound: true);
         m_SpaceShip_Controls_Movement = m_SpaceShip_Controls.FindAction("Movement", throwIfNotFound: true);
-        m_SpaceShip_Controls_RotationLock = m_SpaceShip_Controls.FindAction("Rotation Lock", throwIfNotFound: true);
-        m_SpaceShip_Controls_HUDSwitch = m_SpaceShip_Controls.FindAction("HUD Switch", throwIfNotFound: true);
+        m_SpaceShip_Controls_Nitro = m_SpaceShip_Controls.FindAction("Nitro", throwIfNotFound: true);
         m_SpaceShip_Controls_Shoot = m_SpaceShip_Controls.FindAction("Shoot", throwIfNotFound: true);
-        m_SpaceShip_Controls_ProjectileWheel = m_SpaceShip_Controls.FindAction("Projectile Wheel", throwIfNotFound: true);
+        m_SpaceShip_Controls_HUDSwitch = m_SpaceShip_Controls.FindAction("HUD Switch", throwIfNotFound: true);
+        m_SpaceShip_Controls_RotationLock = m_SpaceShip_Controls.FindAction("Rotation Lock", throwIfNotFound: true);
         m_SpaceShip_Controls_UnTether = m_SpaceShip_Controls.FindAction("Un Tether", throwIfNotFound: true);
+        m_SpaceShip_Controls_ProjectileWheel = m_SpaceShip_Controls.FindAction("Projectile Wheel", throwIfNotFound: true);
         m_SpaceShip_Controls_ThrottleWheel = m_SpaceShip_Controls.FindAction("Throttle Wheel", throwIfNotFound: true);
         m_SpaceShip_Controls_SteeringWheel = m_SpaceShip_Controls.FindAction("Steering Wheel", throwIfNotFound: true);
+        m_SpaceShip_Controls_AsteroidCamera = m_SpaceShip_Controls.FindAction("Asteroid Camera", throwIfNotFound: true);
         // New action map
         m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
         m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
@@ -369,25 +411,29 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_SpaceShip_Controls;
     private List<ISpaceShip_ControlsActions> m_SpaceShip_ControlsActionsCallbackInterfaces = new List<ISpaceShip_ControlsActions>();
     private readonly InputAction m_SpaceShip_Controls_Movement;
-    private readonly InputAction m_SpaceShip_Controls_RotationLock;
-    private readonly InputAction m_SpaceShip_Controls_HUDSwitch;
+    private readonly InputAction m_SpaceShip_Controls_Nitro;
     private readonly InputAction m_SpaceShip_Controls_Shoot;
-    private readonly InputAction m_SpaceShip_Controls_ProjectileWheel;
+    private readonly InputAction m_SpaceShip_Controls_HUDSwitch;
+    private readonly InputAction m_SpaceShip_Controls_RotationLock;
     private readonly InputAction m_SpaceShip_Controls_UnTether;
+    private readonly InputAction m_SpaceShip_Controls_ProjectileWheel;
     private readonly InputAction m_SpaceShip_Controls_ThrottleWheel;
     private readonly InputAction m_SpaceShip_Controls_SteeringWheel;
+    private readonly InputAction m_SpaceShip_Controls_AsteroidCamera;
     public struct SpaceShip_ControlsActions
     {
         private @SpaceShipControls m_Wrapper;
         public SpaceShip_ControlsActions(@SpaceShipControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_SpaceShip_Controls_Movement;
-        public InputAction @RotationLock => m_Wrapper.m_SpaceShip_Controls_RotationLock;
-        public InputAction @HUDSwitch => m_Wrapper.m_SpaceShip_Controls_HUDSwitch;
+        public InputAction @Nitro => m_Wrapper.m_SpaceShip_Controls_Nitro;
         public InputAction @Shoot => m_Wrapper.m_SpaceShip_Controls_Shoot;
-        public InputAction @ProjectileWheel => m_Wrapper.m_SpaceShip_Controls_ProjectileWheel;
+        public InputAction @HUDSwitch => m_Wrapper.m_SpaceShip_Controls_HUDSwitch;
+        public InputAction @RotationLock => m_Wrapper.m_SpaceShip_Controls_RotationLock;
         public InputAction @UnTether => m_Wrapper.m_SpaceShip_Controls_UnTether;
+        public InputAction @ProjectileWheel => m_Wrapper.m_SpaceShip_Controls_ProjectileWheel;
         public InputAction @ThrottleWheel => m_Wrapper.m_SpaceShip_Controls_ThrottleWheel;
         public InputAction @SteeringWheel => m_Wrapper.m_SpaceShip_Controls_SteeringWheel;
+        public InputAction @AsteroidCamera => m_Wrapper.m_SpaceShip_Controls_AsteroidCamera;
         public InputActionMap Get() { return m_Wrapper.m_SpaceShip_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -400,27 +446,33 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
-            @RotationLock.started += instance.OnRotationLock;
-            @RotationLock.performed += instance.OnRotationLock;
-            @RotationLock.canceled += instance.OnRotationLock;
-            @HUDSwitch.started += instance.OnHUDSwitch;
-            @HUDSwitch.performed += instance.OnHUDSwitch;
-            @HUDSwitch.canceled += instance.OnHUDSwitch;
+            @Nitro.started += instance.OnNitro;
+            @Nitro.performed += instance.OnNitro;
+            @Nitro.canceled += instance.OnNitro;
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
-            @ProjectileWheel.started += instance.OnProjectileWheel;
-            @ProjectileWheel.performed += instance.OnProjectileWheel;
-            @ProjectileWheel.canceled += instance.OnProjectileWheel;
+            @HUDSwitch.started += instance.OnHUDSwitch;
+            @HUDSwitch.performed += instance.OnHUDSwitch;
+            @HUDSwitch.canceled += instance.OnHUDSwitch;
+            @RotationLock.started += instance.OnRotationLock;
+            @RotationLock.performed += instance.OnRotationLock;
+            @RotationLock.canceled += instance.OnRotationLock;
             @UnTether.started += instance.OnUnTether;
             @UnTether.performed += instance.OnUnTether;
             @UnTether.canceled += instance.OnUnTether;
+            @ProjectileWheel.started += instance.OnProjectileWheel;
+            @ProjectileWheel.performed += instance.OnProjectileWheel;
+            @ProjectileWheel.canceled += instance.OnProjectileWheel;
             @ThrottleWheel.started += instance.OnThrottleWheel;
             @ThrottleWheel.performed += instance.OnThrottleWheel;
             @ThrottleWheel.canceled += instance.OnThrottleWheel;
             @SteeringWheel.started += instance.OnSteeringWheel;
             @SteeringWheel.performed += instance.OnSteeringWheel;
             @SteeringWheel.canceled += instance.OnSteeringWheel;
+            @AsteroidCamera.started += instance.OnAsteroidCamera;
+            @AsteroidCamera.performed += instance.OnAsteroidCamera;
+            @AsteroidCamera.canceled += instance.OnAsteroidCamera;
         }
 
         private void UnregisterCallbacks(ISpaceShip_ControlsActions instance)
@@ -428,27 +480,33 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
-            @RotationLock.started -= instance.OnRotationLock;
-            @RotationLock.performed -= instance.OnRotationLock;
-            @RotationLock.canceled -= instance.OnRotationLock;
-            @HUDSwitch.started -= instance.OnHUDSwitch;
-            @HUDSwitch.performed -= instance.OnHUDSwitch;
-            @HUDSwitch.canceled -= instance.OnHUDSwitch;
+            @Nitro.started -= instance.OnNitro;
+            @Nitro.performed -= instance.OnNitro;
+            @Nitro.canceled -= instance.OnNitro;
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
-            @ProjectileWheel.started -= instance.OnProjectileWheel;
-            @ProjectileWheel.performed -= instance.OnProjectileWheel;
-            @ProjectileWheel.canceled -= instance.OnProjectileWheel;
+            @HUDSwitch.started -= instance.OnHUDSwitch;
+            @HUDSwitch.performed -= instance.OnHUDSwitch;
+            @HUDSwitch.canceled -= instance.OnHUDSwitch;
+            @RotationLock.started -= instance.OnRotationLock;
+            @RotationLock.performed -= instance.OnRotationLock;
+            @RotationLock.canceled -= instance.OnRotationLock;
             @UnTether.started -= instance.OnUnTether;
             @UnTether.performed -= instance.OnUnTether;
             @UnTether.canceled -= instance.OnUnTether;
+            @ProjectileWheel.started -= instance.OnProjectileWheel;
+            @ProjectileWheel.performed -= instance.OnProjectileWheel;
+            @ProjectileWheel.canceled -= instance.OnProjectileWheel;
             @ThrottleWheel.started -= instance.OnThrottleWheel;
             @ThrottleWheel.performed -= instance.OnThrottleWheel;
             @ThrottleWheel.canceled -= instance.OnThrottleWheel;
             @SteeringWheel.started -= instance.OnSteeringWheel;
             @SteeringWheel.performed -= instance.OnSteeringWheel;
             @SteeringWheel.canceled -= instance.OnSteeringWheel;
+            @AsteroidCamera.started -= instance.OnAsteroidCamera;
+            @AsteroidCamera.performed -= instance.OnAsteroidCamera;
+            @AsteroidCamera.canceled -= instance.OnAsteroidCamera;
         }
 
         public void RemoveCallbacks(ISpaceShip_ControlsActions instance)
@@ -515,13 +573,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     public interface ISpaceShip_ControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
-        void OnRotationLock(InputAction.CallbackContext context);
-        void OnHUDSwitch(InputAction.CallbackContext context);
+        void OnNitro(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnProjectileWheel(InputAction.CallbackContext context);
+        void OnHUDSwitch(InputAction.CallbackContext context);
+        void OnRotationLock(InputAction.CallbackContext context);
         void OnUnTether(InputAction.CallbackContext context);
+        void OnProjectileWheel(InputAction.CallbackContext context);
         void OnThrottleWheel(InputAction.CallbackContext context);
         void OnSteeringWheel(InputAction.CallbackContext context);
+        void OnAsteroidCamera(InputAction.CallbackContext context);
     }
     public interface INewactionmapActions
     {

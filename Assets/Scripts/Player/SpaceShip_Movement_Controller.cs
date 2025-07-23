@@ -35,6 +35,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private float Throttle;
     private float Min_Throttle = 0;
     private float Max_Throttle;
+    private float Nitro;
 
 
     [SerializeField] private Rigidbody Rb;
@@ -46,6 +47,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     // Determines whether fuel is exhausted (used to disable movement)
 
     private bool Is_Fuel_Exhuasted;
+    private bool Is_Nitro_Exhuasted;
 
 
 
@@ -55,6 +57,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         // Assign the ship's mass from config values
 
         Rb.mass = SpaceShipValues.Mass;
+        Nitro = SpaceShipValues.Nitro;
 
         // Ensure the input manager is present
 
@@ -83,6 +86,11 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
             {
                 Rotational_Movement();
             }
+
+            if (Keyboard_Input_Manager.instance.Is_Nitro_On && !Is_Nitro_Exhuasted)
+            {
+                Nitro_Function();
+            }
         }
 
         Dampening_Velocity();
@@ -97,6 +105,24 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     {
         Is_Fuel_Exhuasted = !Is_Fuel_Exhuasted;
     }
+    public void Nitro_Exhuasted_Bool()
+    {
+        Is_Nitro_Exhuasted = !Is_Nitro_Exhuasted;
+    }
+    public void Nitro_Drag()
+    {
+        if(Keyboard_Input_Manager.instance.Is_Nitro_On && !Is_Nitro_Exhuasted)
+        {
+            High_Handling();
+            High_Throttle();
+        }
+        else
+        {
+            Low_Handling();
+            Low_Throttle();
+        }
+    }
+
 
     #region Spaceship Configuration Functions
     public void Low_Throttle()
@@ -168,7 +194,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     private void Throttle_Function()
     {
-        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.y * Throttle, ForceMode.Force);
+        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.y * Throttle , ForceMode.Force);
         if (Keyboard_Input_Manager.instance.Keyboard_Input.y != 0)
         {
             Throttle = Mathf.MoveTowards(Throttle, Max_Throttle, (Max_Throttle) / SpaceShipValues.Min_To_Max_Duartion_Throttle * Time.fixedDeltaTime);
@@ -178,6 +204,10 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
            
            Throttle = Min_Throttle;
         }
+    }
+    private void Nitro_Function()
+    {
+        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.y * Nitro, ForceMode.Force);
     }
 
     // Applies roll torque based on horizontal input

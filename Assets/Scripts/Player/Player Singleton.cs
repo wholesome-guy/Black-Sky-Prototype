@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerSingleton : MonoBehaviour
@@ -24,6 +25,7 @@ public class PlayerSingleton : MonoBehaviour
     
 
     private Dictionary<AsteroidScript, float> Active_Asteroids_Tethered = new Dictionary<AsteroidScript, float>();
+    public Transform[] Asteroid_Transfroms;
     public float Asteroid_Mass;
     [SerializeField] private float Dampening_Constant = 1.3e+07f;
     public float Dampening_Factor = 0;
@@ -90,17 +92,20 @@ public class PlayerSingleton : MonoBehaviour
     private void Mass_Dampner_Calcultor(AsteroidScript Asteroid_Script, bool Is_Tethered)
     {
         float Total_Mass = 0;
+        int Index = 0;
 
         if (Is_Tethered)
         {
             Active_Asteroids_Tethered[Asteroid_Script] = Asteroid_Script.Asteroid_Mass;
+            Asteroid_Transfroms = new Transform[Active_Asteroids_Tethered.Count];
             foreach(var Asteroid in Active_Asteroids_Tethered)
             {
-
-                var Asteroid_local = Asteroid.Key; 
+                var Asteroid_local = Asteroid.Key;
+                Asteroid_Transfroms[Index] = Asteroid_local.gameObject.transform;
+                Index++;
                 Total_Mass += Asteroid.Value;               
             }
-
+            AsteroidTargetGroup.Asteroid_Camera_Event.Invoke();
             Asteroid_Mass = Total_Mass;
             Is_Anchored = true;
             PayloadManager.Update_Payload_Percentage_Event.Invoke();
@@ -125,8 +130,14 @@ public class PlayerSingleton : MonoBehaviour
     {
         if(Active_Asteroids_Tethered.ContainsKey(Asteroid_Script))
         {
-            Asteroid_Mass -= Active_Asteroids_Tethered[Asteroid_Script];           
+            Asteroid_Mass -= Active_Asteroids_Tethered[Asteroid_Script];
             Active_Asteroids_Tethered.Remove(Asteroid_Script);
+
+            var Asteroid_Transfroms_List = Asteroid_Transfroms.ToList();
+            Asteroid_Transfroms_List.Remove(Asteroid_Script.gameObject.transform);
+            Asteroid_Transfroms = Asteroid_Transfroms_List.ToArray();
+
+            AsteroidTargetGroup.Asteroid_Camera_Event.Invoke();
             PayloadManager.Update_Payload_Percentage_Event.Invoke();
             Asteroid_Script.Is_Asteroid_Tethered = false;
 
@@ -149,12 +160,18 @@ public class PlayerSingleton : MonoBehaviour
     {
         Asteroid_Mass = 0;
         Dampening_Factor = 0;
+
+        var Asteroid_Transfroms_List = Asteroid_Transfroms.ToList();
+        Asteroid_Transfroms_List.Clear();
+        Asteroid_Transfroms = Asteroid_Transfroms_List.ToArray();
+
+        AsteroidTargetGroup.No_Asteroid_Camera_Event.Invoke();
         PayloadManager.Payload_Fade_Event.Invoke(false);
         Is_Payload_Hide = true;
         Is_Anchored = false;
         No_Asteroids_Attached.Invoke();
     }
-
+   
     private void Clear_Payload()
     {
         Active_Asteroids_Tethered.Clear();

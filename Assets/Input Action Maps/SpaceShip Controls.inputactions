@@ -15,18 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Rotation Lock",
+                    "name": "Nitro",
                     "type": "Button",
-                    "id": "586ae396-7f16-4616-8946-12ad096fc434",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "HUD Switch",
-                    "type": "Button",
-                    "id": "e152a8c6-c46c-4b36-a71b-afafa59900a7",
+                    "id": "f37bf19c-b21b-45d5-b7c1-e96d23f8866a",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -42,9 +33,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Projectile Wheel",
+                    "name": "HUD Switch",
                     "type": "Button",
-                    "id": "2a0f23fb-3397-4769-b0cf-8004946311ce",
+                    "id": "e152a8c6-c46c-4b36-a71b-afafa59900a7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rotation Lock",
+                    "type": "Button",
+                    "id": "586ae396-7f16-4616-8946-12ad096fc434",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -54,6 +54,15 @@
                     "name": "Un Tether",
                     "type": "Button",
                     "id": "08bec861-269c-4b43-a481-cd2a4ebaadfa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Projectile Wheel",
+                    "type": "Button",
+                    "id": "2a0f23fb-3397-4769-b0cf-8004946311ce",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -72,6 +81,15 @@
                     "name": "Steering Wheel",
                     "type": "Button",
                     "id": "56180f26-2fee-4e15-953e-778f2e330edd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Asteroid Camera",
+                    "type": "Button",
+                    "id": "6333d8e3-0bf2-4cd6-8435-f1e795c39652",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -230,6 +248,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Steering Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e1005286-904a-4a7d-a5fc-7706c1af6390",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Nitro",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f640725-2ee3-451a-864c-ed3c10f0530a",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Asteroid Camera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

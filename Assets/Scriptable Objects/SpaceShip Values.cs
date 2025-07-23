@@ -80,8 +80,12 @@ public class SpaceShipValues : ScriptableObject
      public float Low_Throttle_Fuel_Consumption;        // Fuel consumption rate at low throttle
      public float Moderate_Throttle_Fuel_Consumption;   // Fuel consumption rate at moderate throttle
      public float High_Throttle_Fuel_Consumption;       // Fuel consumption rate at high throttle
-     
      public float Refuel_Amount;                        // Refueling rate (units per second)
+
+    public float Nitro;
+    public float Max_Nitro;
+    public float Nitro_Comsumption;
+    public float Renitro_Amount;
 
     // ============================
     // Health

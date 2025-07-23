@@ -24,11 +24,16 @@ public class Keyboard_Input_Manager : MonoBehaviour
     public UnityEvent Handling_Wheel_Display;
     public UnityEvent Handling_Wheel_Hide;
 
+    public UnityEvent Asteroid_Camera_On;
+    public UnityEvent Asteroid_Camera_Off;
+
     public static Action De_Tether;
+    public UnityEvent Nitro;
 
     [SerializeField] private float Delay_Duration = 2.0f;
     // Tracks whether the HUD is currently visible
     public bool Is_HUD_On = true;
+    public bool Is_Nitro_On = false;
 
     private void Awake()
     {
@@ -52,6 +57,9 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.Enable();
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.HUDSwitch.performed += HUD_Switch;
 
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Nitro.performed += Nitro_Switch;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Nitro.canceled += Nitro_Switch;
+
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.performed += Projectile_Wheel_Display_Function;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.canceled += Projectile_Wheel_Hide_Function;
 
@@ -60,6 +68,9 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.performed += Handling_Wheel_Display_Function;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.canceled += Handling_Wheel_Hide_Function;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.AsteroidCamera.performed += Asteroid_Camera_Activate;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.AsteroidCamera.canceled += Asteroid_Camera_Deactivate;
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed += De_Tether_Fuction;
     }
@@ -70,6 +81,9 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.Disable();
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.HUDSwitch.performed -= HUD_Switch;
 
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Nitro.performed -= Nitro_Switch;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Nitro.canceled -= Nitro_Switch;
+
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.performed -= Projectile_Wheel_Display_Function;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.ProjectileWheel.canceled -= Projectile_Wheel_Hide_Function;
 
@@ -78,6 +92,9 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.performed -= Handling_Wheel_Display_Function;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringWheel.canceled -= Handling_Wheel_Hide_Function;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.AsteroidCamera.performed -= Asteroid_Camera_Activate;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.AsteroidCamera.canceled -= Asteroid_Camera_Deactivate;
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed -= De_Tether_Fuction;
 
@@ -95,6 +112,13 @@ public class Keyboard_Input_Manager : MonoBehaviour
         Is_HUD_On = !Is_HUD_On;
         On_Chnage_HUD.Invoke();
     }
+    private void Nitro_Switch(InputAction.CallbackContext context)
+    {
+        Is_Nitro_On = !Is_Nitro_On;
+
+        Nitro.Invoke();
+    }
+
 
     // Triggers ammo switching event
     private void Projectile_Wheel_Display_Function(InputAction.CallbackContext context)
@@ -121,6 +145,15 @@ public class Keyboard_Input_Manager : MonoBehaviour
     private void Handling_Wheel_Hide_Function(InputAction.CallbackContext context)
     {
         Handling_Wheel_Hide.Invoke();
+    }
+
+    private void Asteroid_Camera_Activate(InputAction.CallbackContext context)
+    {
+        Asteroid_Camera_On.Invoke();
+    }
+    private void Asteroid_Camera_Deactivate(InputAction.CallbackContext context)
+    {
+        Asteroid_Camera_Off.Invoke();
     }
 
     private void De_Tether_Fuction(InputAction.CallbackContext context)

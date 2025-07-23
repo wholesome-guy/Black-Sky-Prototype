@@ -24,7 +24,7 @@ public class CannonMovement : MonoBehaviour
     private void Cannon_Angle_Offset_Calculator()
     {
         // Calculate angle offset in degrees using inverse tangent and conversion from radians to degrees
-        float Angle_Offset = 90f - (Mathf.Atan(Max_Shoot_Distance / Distance_Between_Cannon_And_Centre) * (180 / 3.14f));
+        float Angle_Offset = 90f - (Mathf.Atan(Max_Shoot_Distance / Distance_Between_Cannon_And_Centre) * Mathf.Rad2Deg);
 
         // Set local rotation of left cannon tip with positive angle offset on Y axis
         Cannonn_Left_Tip.transform.localRotation = Quaternion.Euler(0, Angle_Offset, 0);
