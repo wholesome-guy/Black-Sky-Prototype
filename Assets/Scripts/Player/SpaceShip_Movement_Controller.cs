@@ -111,16 +111,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     }
     public void Nitro_Drag()
     {
-        if(Keyboard_Input_Manager.instance.Is_Nitro_On && !Is_Nitro_Exhuasted)
-        {
-            High_Handling();
-            High_Throttle();
-        }
-        else
-        {
-            Low_Handling();
-            Low_Throttle();
-        }
+        Rb.drag = SpaceShipValues.High_Linear_Drag;
+        Rb.angularDrag = SpaceShipValues.High_Angular_Drag;
+
     }
 
 

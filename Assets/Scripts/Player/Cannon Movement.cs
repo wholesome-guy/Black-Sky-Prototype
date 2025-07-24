@@ -31,5 +31,11 @@ public class CannonMovement : MonoBehaviour
         // Set local rotation of right cannon tip with negative angle offset on Y axis
         Cannonn_Right_Tip.transform.localRotation = Quaternion.Euler(0, -Angle_Offset, 0);
     }
-   
+    private void LateUpdate()
+    {
+       Debug.DrawRay(Cannonn_Left_Tip.gameObject.transform.position,Cannonn_Left_Tip.transform.forward*Max_Shoot_Distance,Color.yellow);
+       Debug.DrawRay(Cannonn_Right_Tip.gameObject.transform.position, Cannonn_Right_Tip.transform.forward * Max_Shoot_Distance, Color.yellow);
+
+    }
+
 }

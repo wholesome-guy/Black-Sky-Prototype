@@ -48,10 +48,10 @@ MonoBehaviour:
   Low_Throttle_Fuel_Consumption: 250
   Moderate_Throttle_Fuel_Consumption: 500
   High_Throttle_Fuel_Consumption: 1000
-  Refuel_Amount: 1000
+  Refuel_Amount: 10000
   Nitro: 100000
   Max_Nitro: 10000
-  Nitro_Comsumption: 5000
+  Nitro_Comsumption: 500
   Renitro_Amount: 1000
   Max_Health: 10000
   Payload: 50000

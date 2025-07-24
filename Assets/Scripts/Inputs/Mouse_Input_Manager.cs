@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
@@ -70,6 +69,7 @@ public class Mouse_Input_Manager : MonoBehaviour
     {
         Is_Rotation_Locked = false;
         Mouse_Sensitivity = 1;
+        Cursor.visible = false;
     }
 
     private void Update()
@@ -105,6 +105,7 @@ public class Mouse_Input_Manager : MonoBehaviour
     private void Rotation_Locker(InputAction.CallbackContext context)
     {
         Is_Rotation_Locked = !Is_Rotation_Locked;
+        Cursor.visible = Is_Rotation_Locked;
     }
 
     /// <summary>

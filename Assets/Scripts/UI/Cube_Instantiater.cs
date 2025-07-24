@@ -8,9 +8,12 @@ public class Cube_Instantiater : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i< 100; i++)
+        for (int c = 0; c< 100; c++)
         {
-            Instantiate(cube, new Vector3(0,0,100*i), Quaternion.identity);         
+            for(int r = 0; r < 100; r++)
+            {
+                Instantiate(cube, new Vector3(100*c, 0, 100*r), Quaternion.identity);
+            }         
         }
     }
 
