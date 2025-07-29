@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
-using UnityEngine.Windows;
+
 
 /// <summary>
 /// Controls the spaceship's physics-based movement including throttle, roll, pitch, and yaw.
@@ -42,7 +38,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     // Reference to spaceship configuration values
 
-    [SerializeField] private SpaceShipValues SpaceShipValues;
+     private SpaceShipValues SpaceShipValues;
 
     // Determines whether fuel is exhausted (used to disable movement)
 
@@ -50,11 +46,13 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private bool Is_Nitro_Exhuasted;
 
 
-
+    
     
     private void Start()
     {
         // Assign the ship's mass from config values
+
+        SpaceShipValues = PlayerSingleton.instance.SpaceShip_Select_Values;
 
         Rb.mass = SpaceShipValues.Mass;
         Nitro = SpaceShipValues.Nitro;
@@ -194,8 +192,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         }
         else
         {
-           
-           Throttle = Min_Throttle;
+
+            Throttle = Mathf.MoveTowards(Throttle, Min_Throttle, Max_Throttle / SpaceShipValues.Min_To_Max_Duartion_Throttle * Time.fixedDeltaTime);
         }
     }
     private void Nitro_Function()
@@ -216,8 +214,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         }
         else
         {
-            
-            Roll = Min_Roll;
+
+            Roll = Mathf.MoveTowards(Roll, Min_Roll, (Max_Roll - Min_Roll) / SpaceShipValues.Min_To_Max_Duartion_Roll * Time.fixedDeltaTime);
         }
     }
 
@@ -236,7 +234,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         else
         {
 
-            Pitch = Min_Pitch;
+            Pitch = Mathf.MoveTowards(Pitch, Min_Roll, (Max_Pitch - Min_Pitch) / SpaceShipValues.Min_To_Max_Duartion_Pitch * Time.fixedDeltaTime);
         }
     }
 
@@ -254,7 +252,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         else
         {
 
-            Yaw = Min_Yaw;
+            Yaw = Mathf.MoveTowards(Yaw, Min_Yaw, (Max_Yaw - Min_Yaw) / SpaceShipValues.Min_To_Max_Duartion_Yaw * Time.fixedDeltaTime);
         }
     }
     private void Dampening_Velocity()

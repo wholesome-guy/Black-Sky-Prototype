@@ -23,7 +23,7 @@ public class Spaceship_Health_System : MonoBehaviour
 
     [SerializeField] private float Shield_Regeneration_Time = 10f;  
 
-    [SerializeField] private SpaceShipValues Space_Ship_Values;     // ScriptableObject or class holding the max health value
+     private SpaceShipValues Space_Ship_Values;     // ScriptableObject or class holding the max health value
 
     [SerializeField] private Image Health_Fill_Bar;                 // UI image for health fill bar
 
@@ -47,6 +47,7 @@ public class Spaceship_Health_System : MonoBehaviour
       // Initialize health values and UI on start
     private void Start()
     {
+        Space_Ship_Values = PlayerSingleton.instance.SpaceShip_Select_Values;
         Max_Health = Space_Ship_Values.Max_Health;
         Current_Health = Max_Health;
         Ratio_Of_Current_To_Max_Health = 1f;

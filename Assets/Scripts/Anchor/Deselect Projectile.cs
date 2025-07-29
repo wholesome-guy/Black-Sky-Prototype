@@ -17,7 +17,10 @@ public class DeselectProjectile : MonoBehaviour
     private void Start()
     {
         Destroy(gameObject, 10f);
-        Rb_Deselect_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+        if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
+        {
+            Rb_Deselect_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+        }
 
     }
 

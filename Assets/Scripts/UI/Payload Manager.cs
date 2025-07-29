@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PayloadManager : MonoBehaviour
 {
-    [SerializeField] private SpaceShipValues SpaceShip_Values;
+     private SpaceShipValues SpaceShip_Values;
     [SerializeField] private CanvasGroup Payload_Canvas_Group;
     private float Payload_Ratio;
     [SerializeField] private TextMeshProUGUI Percentage_Text;
@@ -27,6 +27,7 @@ public class PayloadManager : MonoBehaviour
     }
     private void Start()
     {
+        SpaceShip_Values = PlayerSingleton.instance.SpaceShip_Select_Values;
         Percentage_Payload();
         Payload_Canvas_Group.gameObject.SetActive(false);
         Payload_Canvas_Group.alpha = 0f;

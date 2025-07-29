@@ -463,7 +463,7 @@ Transform:
   m_GameObject: {fileID: 53407973}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -484,7 +484,7 @@ MonoBehaviour:
   Projectiles_Scriptable_Object: {fileID: 11400000, guid: 15573602e0c472549bad81abde5c73dc,
     type: 2}
   Projectiles: []
-  Reload_Duration: 5
+  Reload_Duration: 1
 --- !u!1 &88695287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,7 +1734,6 @@ MonoBehaviour:
   - {fileID: 1399138555}
   - {fileID: 1553833472}
   Shield_Regeneration_Time: 10
-  Space_Ship_Values: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
   Health_Fill_Bar: {fileID: 1349875981}
   Health_Amount_Text: {fileID: 1044006130}
   Death:
@@ -2274,7 +2273,7 @@ RectTransform:
   m_Children:
   - {fileID: 1701568459}
   - {fileID: 517814189}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -3486,7 +3485,7 @@ RectTransform:
   m_Children:
   - {fileID: 1381105}
   - {fileID: 285054219}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3534,6 +3533,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 1099963094}
+          m_TargetAssemblyTypeName: UIVisualEffectsManager, Assembly-CSharp
+          m_MethodName: UI_Pointer_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 1861418230}
+          m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
+          m_MethodName: Crosshair_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -3553,6 +3576,30 @@ MonoBehaviour:
         - m_Target: {fileID: 2035940123}
           m_TargetAssemblyTypeName: ThrottleSteeringIconSprite, Assembly-CSharp
           m_MethodName: Throttle_Idle
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1099963094}
+          m_TargetAssemblyTypeName: UIVisualEffectsManager, Assembly-CSharp
+          m_MethodName: UI_Pointer_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1861418230}
+          m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
+          m_MethodName: Crosshair_Hover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -3595,7 +3642,7 @@ RectTransform:
   - {fileID: 1085627082}
   - {fileID: 1397062233}
   - {fileID: 454184427}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -3826,6 +3873,7 @@ MonoBehaviour:
   Angle_Mouse_Input: 0
   Mouse_Sensitivity: 1
   Is_Rotation_Locked: 0
+  Is_Free_Aim_On: 0
   Shoot:
     m_PersistentCalls:
       m_Calls:
@@ -3844,6 +3892,21 @@ MonoBehaviour:
       - m_Target: {fileID: 1351609950}
         m_TargetAssemblyTypeName: GunTipManager, Assembly-CSharp
         m_MethodName: Shoot_Projectile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Aim_Released_Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1861418230}
+        m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
+        m_MethodName: Cannon_Angle_Offset_Forward_Aim
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4366,7 +4429,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6, y: 21.7, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.74999994}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1485170294}
@@ -4392,7 +4455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &805014615
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4408,7 +4471,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -4994,7 +5057,7 @@ RectTransform:
   m_Children:
   - {fileID: 922699359}
   - {fileID: 1300875973}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5042,6 +5105,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+        - m_Target: {fileID: 1099963094}
+          m_TargetAssemblyTypeName: UIVisualEffectsManager, Assembly-CSharp
+          m_MethodName: UI_Pointer_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+        - m_Target: {fileID: 1861418230}
+          m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
+          m_MethodName: Crosshair_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -5061,6 +5148,30 @@ MonoBehaviour:
         - m_Target: {fileID: 2035940123}
           m_TargetAssemblyTypeName: ThrottleSteeringIconSprite, Assembly-CSharp
           m_MethodName: Steering_Idle
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1099963094}
+          m_TargetAssemblyTypeName: UIVisualEffectsManager, Assembly-CSharp
+          m_MethodName: UI_Pointer_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1861418230}
+          m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
+          m_MethodName: Crosshair_Hover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -5989,7 +6100,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 999193573}
-  - component: {fileID: 999193574}
   m_Layer: 6
   m_Name: Cannon
   m_TagString: Untagged
@@ -6005,27 +6115,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 999193572}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -20.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2082299900}
   - {fileID: 798329475}
-  m_Father: {fileID: 1349494288}
+  m_Father: {fileID: 543450651633697777}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &999193574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 999193572}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 535d1f27795cbdf4ca71efb5814e3a1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1006544284
 GameObject:
   m_ObjectHideFlags: 0
@@ -6963,7 +7061,7 @@ RectTransform:
   m_Children:
   - {fileID: 296260862}
   - {fileID: 834528417}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7839,7 +7937,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb: {fileID: 1349494287}
-  SpaceShipValues: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
 --- !u!54 &1349494287
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7864,7 +7961,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!4 &1349494288
@@ -7881,7 +7978,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 543450651633697777}
-  - {fileID: 999193573}
   - {fileID: 1371593191}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7938,6 +8034,10 @@ MonoBehaviour:
   Dampening_Factor: 0
   Is_Anchored: 0
   Is_Spaceship_At_Rest: 0
+  Space_Ship_Index: 0
+  SpaceShip_Select_Values: {fileID: 0}
+  SpaceShip_1: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
+  SpaceShip_2: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
 --- !u!1 &1349875979
 GameObject:
   m_ObjectHideFlags: 0
@@ -8039,7 +8139,7 @@ Transform:
   m_GameObject: {fileID: 1351609948}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8060,7 +8160,7 @@ MonoBehaviour:
   Projectiles_Scriptable_Object: {fileID: 11400000, guid: 86a8a278ae6f1ba45993132f6e61bd2f,
     type: 2}
   Projectiles: []
-  Reload_Duration: 5
+  Reload_Duration: 1
 --- !u!1 &1369669295
 GameObject:
   m_ObjectHideFlags: 0
@@ -8232,7 +8332,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1791788235}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9304,7 +9404,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1512141075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9995,49 +10095,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1614039712
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1614039713}
-  m_Layer: 5
-  m_Name: Cannon Precision Mode Exempt
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1614039713
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614039712}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 322358477}
-  - {fileID: 1182122745}
-  - {fileID: 628584616}
-  - {fileID: 843912421}
-  - {fileID: 1706905915}
-  - {fileID: 650538328}
-  - {fileID: 1376075759}
-  - {fileID: 1901852550}
-  m_Father: {fileID: 2066826150}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1623477750
 GameObject:
   m_ObjectHideFlags: 0
@@ -10544,6 +10601,30 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1099963094}
+          m_TargetAssemblyTypeName: UIVisualEffectsManager, Assembly-CSharp
+          m_MethodName: UI_Pointer_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1861418230}
+          m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
+          m_MethodName: Crosshair_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
@@ -10551,6 +10632,30 @@ MonoBehaviour:
         - m_Target: {fileID: 88695289}
           m_TargetAssemblyTypeName: BoundsIndicator, Assembly-CSharp
           m_MethodName: Coordinates_Text_Idle
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1099963094}
+          m_TargetAssemblyTypeName: UIVisualEffectsManager, Assembly-CSharp
+          m_MethodName: UI_Pointer_Hover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1861418230}
+          m_TargetAssemblyTypeName: CrossHairManager, Assembly-CSharp
+          m_MethodName: Crosshair_Hover
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -10590,7 +10695,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1178112007}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11082,7 +11187,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 203034318}
-  m_Father: {fileID: 1614039713}
+  m_Father: {fileID: 2066826150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11850,7 +11955,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488bd2999082be4489df79c29fe03f8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpaceShip_Values: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
   Payload_Canvas_Group: {fileID: 1706905916}
   Percentage_Text: {fileID: 1298799538}
 --- !u!1 &2016601743
@@ -11967,7 +12071,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034580415}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000014889416, y: 0.9926993, z: -0.12061558, w: 0.000000012254404}
+  m_LocalRotation: {x: -0.00000000266974, y: 0.9926993, z: -0.12061558, w: -0.000000021972692}
   m_LocalPosition: {x: 0, y: 46.4, z: 46.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -12279,9 +12383,16 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1614039713}
   - {fileID: 1684432326}
   - {fileID: 1651649442}
+  - {fileID: 322358477}
+  - {fileID: 1182122745}
+  - {fileID: 628584616}
+  - {fileID: 843912421}
+  - {fileID: 1706905915}
+  - {fileID: 650538328}
+  - {fileID: 1376075759}
+  - {fileID: 1901852550}
   m_Father: {fileID: 233464091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -12315,7 +12426,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6, y: 21.7, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.74999994}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5765951160821527505}
@@ -12412,7 +12523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbab37254a94774e9278e9dca75a284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpaceShipValues: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
   Fuel_Fill_Bar: {fileID: 296260863}
   Nitro_Fill_Bar: {fileID: 1346439372}
   Fuel_Amount_Text: {fileID: 187375565}
@@ -12729,6 +12839,7 @@ Transform:
   m_Children:
   - {fileID: 1130048838}
   - {fileID: 386537264}
+  - {fileID: 999193573}
   m_Father: {fileID: 1349494288}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &919132147898685771
@@ -13115,7 +13226,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7995723720636798854}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cf71ab0b848d2d4599b38da18fd3c3e, type: 3}
   m_Name: 

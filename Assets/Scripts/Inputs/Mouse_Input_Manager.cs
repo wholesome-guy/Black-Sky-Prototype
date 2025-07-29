@@ -24,9 +24,12 @@ public class Mouse_Input_Manager : MonoBehaviour
 
     // Controls whether spaceship rotation is locked
     public bool Is_Rotation_Locked;
+    public bool Is_Free_Aim_On = false;
 
     // Event triggered when shooting
     public UnityEvent Shoot;
+
+    public UnityEvent Aim_Released_Event;
 
 
     private void Awake()
@@ -53,6 +56,8 @@ public class Mouse_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.Enable();
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.RotationLock.performed += Rotation_Locker;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.Shoot.performed += Shoot_Projectile;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Aim.performed += Aim_Held;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Aim.canceled += Aim_Released;
     }
 
     /// <summary>
@@ -63,13 +68,13 @@ public class Mouse_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.Disable();
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.RotationLock.performed -= Rotation_Locker;
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.Shoot.performed -= Shoot_Projectile;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Aim.performed -= Aim_Held;
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Aim.canceled -= Aim_Released;
     }
 
     private void Start()
     {
         Is_Rotation_Locked = false;
-        Mouse_Sensitivity = 1;
-        Cursor.visible = false;
     }
 
     private void Update()
@@ -95,7 +100,6 @@ public class Mouse_Input_Manager : MonoBehaviour
 
         //Angle between Mouse_Input and 1,0,0 WITH 0,0,1 as the axis of rotation
         Angle_Mouse_Input = Vector3.SignedAngle(Vector3.right, Normalised_Mouse_Input, Vector3.forward);
-
         
     }
 
@@ -104,18 +108,19 @@ public class Mouse_Input_Manager : MonoBehaviour
     /// </summary>
     private void Rotation_Locker(InputAction.CallbackContext context)
     {
-        Is_Rotation_Locked = !Is_Rotation_Locked;
-        Cursor.visible = Is_Rotation_Locked;
+      Is_Rotation_Locked = !Is_Rotation_Locked;
     }
 
-    /// <summary>
-    /// Toggle the lever area flag (used to prevent shooting near UI)
-    /// </summary>
-   
+    private void Aim_Held(InputAction.CallbackContext callbackContext)
+    {
+        Is_Free_Aim_On = true;
+    }
+    private void Aim_Released(InputAction.CallbackContext callbackContext)
+    {
+        Is_Free_Aim_On =false;
+        Aim_Released_Event.Invoke();
+    }
 
-    /// <summary>
-    /// Triggers the Shoot UnityEvent unless player is at lever area
-    /// </summary>
     private void Shoot_Projectile(InputAction.CallbackContext context)
     {
          Shoot.Invoke();

@@ -14,7 +14,7 @@ public class UIVisualEffectsManager : MonoBehaviour
     [SerializeField] private int Focal_Length = 130;
     [SerializeField] private int Aperture = 32;
 
-
+    public static bool Is_Pointer_Hovering;
     public static Action Blur_Slow_Time_Event;
     public static Action Unblur_Normal_Time_Event;
 
@@ -76,5 +76,10 @@ public class UIVisualEffectsManager : MonoBehaviour
         }
 
         Canvas_Group.alpha = End_Value;
+    }
+
+    public void UI_Pointer_Hover()
+    {
+        Is_Pointer_Hovering = !Is_Pointer_Hovering;
     }
 }

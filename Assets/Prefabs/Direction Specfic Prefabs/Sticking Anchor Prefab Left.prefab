@@ -251,7 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StickingAnchorScript: {fileID: 8420508978391335296}
   Line_Renderer: {fileID: 1667261544899033873}
-  Number_Of_Rope_Segment: 25
+  Number_Of_Rope_Segment: 40
   Length_Of_Rope_Segment: 1
   Tension_Vector: {x: 0, y: -2, z: 0}
   Number_Of_Constrain_Run: 20

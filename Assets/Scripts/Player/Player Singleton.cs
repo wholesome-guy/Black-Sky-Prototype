@@ -39,7 +39,10 @@ public class PlayerSingleton : MonoBehaviour
 
     private bool Is_Payload_Hide = true;
 
-
+    public int Space_Ship_Index = 0;
+    public SpaceShipValues SpaceShip_Select_Values;
+    [SerializeField] private SpaceShipValues SpaceShip_1;
+    [SerializeField] private SpaceShipValues SpaceShip_2;
 
 
     private void Awake()
@@ -53,6 +56,16 @@ public class PlayerSingleton : MonoBehaviour
         {
             // Assign this as the instance
             instance = this;
+        }
+        switch (Space_Ship_Index)
+        {
+            case 0:
+                SpaceShip_Select_Values = SpaceShip_1;
+                break;
+
+            case 1:
+                SpaceShip_Select_Values = SpaceShip_2;
+                break;
         }
     }
     
@@ -84,7 +97,6 @@ public class PlayerSingleton : MonoBehaviour
     }
     private void Start()
     {
-
         Asteroid_Point_Deactivate();
     }
 

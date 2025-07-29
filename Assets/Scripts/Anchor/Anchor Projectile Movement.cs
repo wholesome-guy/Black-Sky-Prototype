@@ -17,7 +17,10 @@ public class AnchorProjectileMovement : MonoBehaviour
     {
         // Destroy the projectile after 10 seconds to prevent lingering objects
         Destroy(gameObject, 10f);
-        Rb_Anchor_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+        if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
+        {
+            Rb_Anchor_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+        }
 
     }
 

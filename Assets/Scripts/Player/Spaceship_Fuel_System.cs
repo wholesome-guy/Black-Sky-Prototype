@@ -26,7 +26,7 @@ public class Spaceship_Fuel_System : MonoBehaviour
     private float Percentage_Fuel;
 
     [Header("Data & UI References")]
-    [SerializeField] private SpaceShipValues SpaceShipValues;   // Reference to spaceship stats
+     private SpaceShipValues SpaceShipValues;   // Reference to spaceship stats
     [SerializeField] private Image Fuel_Fill_Bar;               // UI bar to show fuel level
     [SerializeField] private Image Nitro_Fill_Bar;
     [SerializeField] private TextMeshProUGUI Fuel_Amount_Text;  // Text to show fuel percentage
@@ -56,7 +56,11 @@ public class Spaceship_Fuel_System : MonoBehaviour
     {
         Fuel_Consumption = SpaceShipValues.High_Throttle_Fuel_Consumption;
     }
+    private void Awake()
+    {
+        SpaceShipValues = PlayerSingleton.instance.SpaceShip_Select_Values;
 
+    }
     // Initialization on game start
     private void Start()
     {

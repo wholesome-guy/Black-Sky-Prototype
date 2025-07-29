@@ -46,6 +46,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""cd941f8d-a722-4f23-9979-511b20099c5f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""ed29f896-3245-4639-b126-cb6cd7f2bbd0"",
@@ -294,6 +303,17 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""Asteroid Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e52a4c64-584d-469d-ab87-c3c2c105331f"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -332,6 +352,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls = asset.FindActionMap("SpaceShip_Controls", throwIfNotFound: true);
         m_SpaceShip_Controls_Movement = m_SpaceShip_Controls.FindAction("Movement", throwIfNotFound: true);
         m_SpaceShip_Controls_Nitro = m_SpaceShip_Controls.FindAction("Nitro", throwIfNotFound: true);
+        m_SpaceShip_Controls_Aim = m_SpaceShip_Controls.FindAction("Aim", throwIfNotFound: true);
         m_SpaceShip_Controls_Shoot = m_SpaceShip_Controls.FindAction("Shoot", throwIfNotFound: true);
         m_SpaceShip_Controls_HUDSwitch = m_SpaceShip_Controls.FindAction("HUD Switch", throwIfNotFound: true);
         m_SpaceShip_Controls_RotationLock = m_SpaceShip_Controls.FindAction("Rotation Lock", throwIfNotFound: true);
@@ -412,6 +433,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private List<ISpaceShip_ControlsActions> m_SpaceShip_ControlsActionsCallbackInterfaces = new List<ISpaceShip_ControlsActions>();
     private readonly InputAction m_SpaceShip_Controls_Movement;
     private readonly InputAction m_SpaceShip_Controls_Nitro;
+    private readonly InputAction m_SpaceShip_Controls_Aim;
     private readonly InputAction m_SpaceShip_Controls_Shoot;
     private readonly InputAction m_SpaceShip_Controls_HUDSwitch;
     private readonly InputAction m_SpaceShip_Controls_RotationLock;
@@ -426,6 +448,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         public SpaceShip_ControlsActions(@SpaceShipControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_SpaceShip_Controls_Movement;
         public InputAction @Nitro => m_Wrapper.m_SpaceShip_Controls_Nitro;
+        public InputAction @Aim => m_Wrapper.m_SpaceShip_Controls_Aim;
         public InputAction @Shoot => m_Wrapper.m_SpaceShip_Controls_Shoot;
         public InputAction @HUDSwitch => m_Wrapper.m_SpaceShip_Controls_HUDSwitch;
         public InputAction @RotationLock => m_Wrapper.m_SpaceShip_Controls_RotationLock;
@@ -449,6 +472,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @Nitro.started += instance.OnNitro;
             @Nitro.performed += instance.OnNitro;
             @Nitro.canceled += instance.OnNitro;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
@@ -483,6 +509,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @Nitro.started -= instance.OnNitro;
             @Nitro.performed -= instance.OnNitro;
             @Nitro.canceled -= instance.OnNitro;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
@@ -574,6 +603,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnNitro(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnHUDSwitch(InputAction.CallbackContext context);
         void OnRotationLock(InputAction.CallbackContext context);
