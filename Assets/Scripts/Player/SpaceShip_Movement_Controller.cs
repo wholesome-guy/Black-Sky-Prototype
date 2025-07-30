@@ -1,6 +1,6 @@
 
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Controls the spaceship's physics-based movement including throttle, roll, pitch, and yaw.
@@ -229,7 +229,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         {
             // if (Pitch_Coroutine != null) { StopCoroutine(Pitch_Coroutine); }
             // Pitch_Coroutine = StartCoroutine(Lerping_Routine(Min_Pitch, Max_Pitch, SpaceShipValues.Min_To_Max_Duartion_Pitch, (float Value) => Pitch = Value));
-            Pitch = Mathf.MoveTowards(Pitch, Max_Pitch, (Max_Pitch - Min_Pitch) / SpaceShipValues.Min_To_Max_Duartion_Pitch * Time.fixedDeltaTime);
+            //Pitch = Mathf.MoveTowards(Pitch, Max_Pitch, (Max_Pitch - Min_Pitch) / SpaceShipValues.Min_To_Max_Duartion_Pitch * Time.fixedDeltaTime);
+            Pitch = Max_Pitch;
         }
         else
         {
@@ -247,7 +248,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
         {
             // if (Yaw_Coroutine != null) { StopCoroutine(Yaw_Coroutine); }
             // Yaw_Coroutine = StartCoroutine(Lerping_Routine(Min_Yaw, Max_Yaw, SpaceShipValues.Min_To_Max_Duartion_Yaw, (float Value) => Yaw = Value));
-            Yaw = Mathf.MoveTowards(Yaw, Max_Yaw, (Max_Yaw - Min_Yaw) / SpaceShipValues.Min_To_Max_Duartion_Yaw * Time.fixedDeltaTime);
+            // Yaw = Mathf.MoveTowards(Yaw, Max_Yaw, (Max_Yaw - Min_Yaw) / SpaceShipValues.Min_To_Max_Duartion_Yaw * Time.fixedDeltaTime);
+            Yaw = Max_Yaw;
         }
         else
         {
@@ -267,4 +269,6 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     #endregion
 
+
+    
 }
