@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class GunTipManager : MonoBehaviour
 {
     [SerializeField] private Projectiles Projectiles_Scriptable_Object;
+    [SerializeField] private VisualEffect Muzzle_Flash;
     [SerializeField] private GameObject[] Projectiles; // Array of different projectile prefabs
     [SerializeField] private float Reload_Duration = 5f; // Time between consecutive shots
     private int Index_Projectile; // Current projectile index
@@ -22,6 +24,7 @@ public class GunTipManager : MonoBehaviour
     private void Start()
     {
         Projectiles = Projectiles_Scriptable_Object.Projectile_Gameobjects;
+        Muzzle_Flash.Stop();
         Projectile_Select(0);
     }
     public void Projectile_Select(int Index)
@@ -34,7 +37,9 @@ public class GunTipManager : MonoBehaviour
     {
         if (Is_Ammo_Loaded)
         {
+
             Instantiate(Projectiles[Index_Projectile], gameObject.transform.position, transform.rotation);
+            Muzzle_Flash.Play();
             Is_Ammo_Loaded = false;
             TimerManager.Cannon_Reload_Event.Invoke(Reload_Duration);
             StartCoroutine(Reload_Ammo());

@@ -8,10 +8,15 @@ public class DeselectProjectile : MonoBehaviour
     [SerializeField] private Rigidbody Rb_Deselect_Projectile;  // Rigidbody component of the cannonball projectile
     [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
     [SerializeField] private float Torque_Force;              // Rotational force applied to the cannonball
+    [SerializeField] private GameObject Explosion_VFX;
 
+    
     public static Action<AsteroidScript> Deselect_Asteroid;
+    public static Action Deselect;
 
     [SerializeField] private float Delay_Duration = 2.0f;
+
+    private bool In_Contact_With_Asteroid = false;
 
     // Destroy the cannonball after 10 seconds to prevent cluttering the scene
     private void Start()
@@ -27,6 +32,10 @@ public class DeselectProjectile : MonoBehaviour
     // Called at fixed intervals to apply physics-based movement
     void FixedUpdate()
     {
+        if (In_Contact_With_Asteroid)
+        {
+            return;
+        }
         Thrust();
     }
 
@@ -40,12 +49,18 @@ public class DeselectProjectile : MonoBehaviour
     // On collision with any object, destroy both the cannonball and the collided object
     private void OnCollisionEnter(Collision collision)
     {
+        CameraManager.Camera_Shake_Event.Invoke();
+
+
         if (collision.gameObject.CompareTag("Asteroid"))
         {
             StartCoroutine(Deselect_Asteroid_Function(collision));
+            CrossHairManager.Hit_Mark_Event.Invoke();
         }
         else
         {
+            GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
+            Destroy(Explosion, 3f);
             Destroy(gameObject);    
         }
     }
@@ -58,6 +73,9 @@ public class DeselectProjectile : MonoBehaviour
 
         if (Asteroid_Script.Is_Asteroid_Anchored)
         {
+            In_Contact_With_Asteroid = true;
+            Rb_Deselect_Projectile.velocity = Vector3.zero;
+            Deselect.Invoke();
             TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
             yield return new WaitForSeconds(Delay_Duration);
 
@@ -67,6 +85,7 @@ public class DeselectProjectile : MonoBehaviour
                 Asteroid_Tow.Destroy_Tow_Script();
             }
             Asteroid_Script.Destroy_Anchors();
+            Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(gameObject);
 
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,8 @@ public class DockingSystemStickingAnchor : MonoBehaviour
 {
     [SerializeField] private GameObject Docking_Zone;
     [SerializeField] private float Docking_Distance;
+    private GameObject Current_Docking_Zone;
+
 
     private static bool Is_Docking_Zone_Instantiated = false;
 
@@ -14,12 +17,14 @@ public class DockingSystemStickingAnchor : MonoBehaviour
         AnchorProjectileMovement.Sticking_Anchor_Deployed += Docking_Zone_Instantiate;
         DockingZoneCollisionManager.On_Player_Undocked += UnDocked;
         Keyboard_Input_Manager.De_Tether += Docking_Zone_Re_Instantiate;
+        DeselectProjectile.Deselect += Delete_Current_Docking_Zone_On_Deselect;
     }
     private void OnDisable()
     {
         AnchorProjectileMovement.Sticking_Anchor_Deployed -= Docking_Zone_Instantiate;
         DockingZoneCollisionManager.On_Player_Undocked += UnDocked;
         Keyboard_Input_Manager.De_Tether -= Docking_Zone_Re_Instantiate;
+        DeselectProjectile.Deselect -= Delete_Current_Docking_Zone_On_Deselect;
     }
 
     private void Docking_Zone_Instantiate(Vector3 Direction)
@@ -30,7 +35,7 @@ public class DockingSystemStickingAnchor : MonoBehaviour
 
             Vector3 Docking_Direction = new Vector3(Direction.x, Direction.y, Direction.z) * Docking_Distance;
 
-            GameObject Object = Instantiate(Docking_Zone, Docking_Direction, Quaternion.identity);
+            Current_Docking_Zone = Instantiate(Docking_Zone, Docking_Direction, Quaternion.identity);
 
             Is_Docking_Zone_Instantiated = true;
 
@@ -39,13 +44,24 @@ public class DockingSystemStickingAnchor : MonoBehaviour
     private void Docking_Zone_Re_Instantiate()
     {
         Vector3 Player_Position = PlayerSingleton.instance.Player_Transform.position;
-        Vector3 Random_Position = new Vector3(Random.Range(-1, +1) * Docking_Distance + Player_Position.x, Player_Position.y, Random.Range(-1, +1) * Docking_Distance + Player_Position.z);
+        Vector3 Random_Position = new Vector3(UnityEngine.Random.Range(-1, +1) * Docking_Distance + Player_Position.x, Player_Position.y, UnityEngine.Random.Range(-1, +1) * Docking_Distance + Player_Position.z);
 
         if (!Is_Docking_Zone_Instantiated)
         {
-            Instantiate(Docking_Zone, Random_Position, Quaternion.identity);
+            Current_Docking_Zone = Instantiate(Docking_Zone, Random_Position, Quaternion.identity);
 
             Is_Docking_Zone_Instantiated = true;
+        }
+    }
+
+    private void Delete_Current_Docking_Zone_On_Deselect()
+    {
+        if(Current_Docking_Zone != null)
+        {
+            DockingZonePointerManager.Pointer_Event(false, Current_Docking_Zone.gameObject.transform);
+            Destroy(Current_Docking_Zone.gameObject);
+            Is_Docking_Zone_Instantiated = false;
+
         }
     }
     private void UnDocked()

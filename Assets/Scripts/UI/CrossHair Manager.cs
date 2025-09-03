@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,20 @@ public class CrossHairManager : MonoBehaviour
     [SerializeField] private Color No_Hit_Colour = new Vector4(252, 226, 88,50);
     [SerializeField] private Color Hit_Colour = new Vector4(168, 31, 40, 50);
 
-   
+    [SerializeField] private GameObject Hit_Marker_Left;
+    [SerializeField] private GameObject Hit_Marker_Right;
+
+
+    public static Action Hit_Mark_Event;
+
+    private void OnEnable()
+    {
+        Hit_Mark_Event += Hit_Marker_Function;
+    }
+    private void OnDisable()
+    {
+        Hit_Mark_Event -= Hit_Marker_Function;
+    }
 
 
     private void Start()
@@ -37,6 +51,10 @@ public class CrossHairManager : MonoBehaviour
         Cannonn_Left_Tip = PlayerSingleton.instance.Left_Cannon_Tip;
         Cannonn_Right_Tip = PlayerSingleton.instance.Right_Cannon_Tip;
         Max_Shoot_Distance = PlayerSingleton.instance.Max_Shoot_Distance;
+
+        Hit_Marker_Left.SetActive(false);
+        Hit_Marker_Right.SetActive(false);
+
 
         Angle_Offset_Forward_Aim = 90f - (Mathf.Atan(Max_Shoot_Distance / Distance_Between_Cannon_And_Centre) * Mathf.Rad2Deg);
 
@@ -153,6 +171,26 @@ public class CrossHairManager : MonoBehaviour
 
         Cannonn_Left_Tip.transform.rotation = Quaternion.LookRotation(Direction_Cannonn_Left_Tip);
         Cannonn_Right_Tip.transform.rotation = Quaternion.LookRotation(Direction_Cannonn_Right_Tip);
+    }
+
+
+    private void Hit_Marker_Function()
+    {
+        StartCoroutine(Hit_Maker_Coroutine());
+    }
+
+    private IEnumerator Hit_Maker_Coroutine()
+    {
+        Hit_Marker_Left.SetActive(false);
+        Hit_Marker_Right.SetActive(false);
+
+        Hit_Marker_Left.SetActive(true);
+        Hit_Marker_Right.SetActive(true);
+
+        yield return new WaitForSeconds(0.25f);
+
+        Hit_Marker_Left.SetActive(false);
+        Hit_Marker_Right.SetActive(false);
     }
 
 }

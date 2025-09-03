@@ -47,7 +47,6 @@ public class DockingZoneCollisionManager : MonoBehaviour
         yield return new WaitForSeconds(Duration);
         Is_Player_Docked = true;
         On_Player_Docked.Invoke();
-        PlayerSingleton.instance.Is_Spaceship_At_Rest = false;
 
     }
 }

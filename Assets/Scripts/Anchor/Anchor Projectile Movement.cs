@@ -10,6 +10,7 @@ public class AnchorProjectileMovement : MonoBehaviour
     [SerializeField] private float Torque_Force;
     [SerializeField] private GameObject Sticking_Anchor;
     [SerializeField] private bool Is_Right;
+    [SerializeField] private GameObject Explosion_VFX;
     // Event invoked when the sticking anchor is deployed, passing the contact normal vector
     public static Action<Vector3> Sticking_Anchor_Deployed;
 
@@ -40,13 +41,16 @@ public class AnchorProjectileMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        CameraManager.Camera_Shake_Event.Invoke();
+
         // Check if projectile collided with an asteroid
         if (collision.gameObject.CompareTag("Asteroid"))
         {
+            CrossHairManager.Hit_Mark_Event.Invoke();
 
 
             // Get the contact point information
-               ContactPoint contactPoint = collision.contacts[0];
+            ContactPoint contactPoint = collision.contacts[0];
 
             // Calculate position slightly offset into the surface of the asteroid
                Vector3 position = contactPoint.point + contactPoint.normal * -1f;
@@ -71,6 +75,8 @@ public class AnchorProjectileMovement : MonoBehaviour
         }
         else
         {
+            GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
+            Destroy(Explosion, 3f);
             // Destroy the projectile immediately on collision with anything else
             Destroy(gameObject);
         }

@@ -63,11 +63,13 @@ public class Spaceship_Health_System : MonoBehaviour
         // If no shields are active, apply damage
         if (!Is_Any_Shield_Active())
         {
+            PlayerDamageVFX.Damage_Break_Event.Invoke();
             Reduce_Health(Damage_Amount);
         }
         else
         {
             // Otherwise, break the first active shield
+            PlayerDamageVFX.Shield_Break_Event.Invoke();
             Shield_Breaker();
         }
     }

@@ -6,9 +6,12 @@ public class CannonBallMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody Rb_Cannon_Projectile;  // Rigidbody component of the cannonball projectile
     [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
-    [SerializeField] private float Torque_Force;              // Rotational force applied to the cannonball
+    [SerializeField] private float Torque_Force;
+    [SerializeField] private GameObject Explosion_VFX;// Rotational force applied to the cannonball
 
     // Destroy the cannonball after 10 seconds to prevent cluttering the scene
+
+    
     private void Start()
     {
         Destroy(gameObject, 10f);
@@ -35,7 +38,12 @@ public class CannonBallMovement : MonoBehaviour
     // On collision with any object, destroy both the cannonball and the collided object
     private void OnCollisionEnter(Collision collision)
     {
+        CameraManager.Camera_Shake_Event.Invoke();
+        CrossHairManager.Hit_Mark_Event.Invoke();
+
+        GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(Explosion,3f);
+
         Destroy(gameObject);
-        Destroy(collision.gameObject);
     }
 }

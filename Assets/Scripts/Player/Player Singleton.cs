@@ -124,6 +124,7 @@ public class PlayerSingleton : MonoBehaviour
             if (Is_Payload_Hide)
             {
                 PayloadManager.Payload_Fade_Event.Invoke(true);
+                Is_Spaceship_At_Rest = false;
                 Is_Payload_Hide = false;
 
             }

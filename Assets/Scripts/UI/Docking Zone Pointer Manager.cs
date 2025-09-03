@@ -52,6 +52,7 @@ public class DockingZonePointerManager : MonoBehaviour
         else
         {
             UIVisualEffectsManager.UI_Fader_Event.Invoke(Indicator_Canvas_Group, 1, 0, 0.2f);
+            Is_Pointer_Active = false;
             StartCoroutine(Delay_Hide());
         }
     }
@@ -68,7 +69,6 @@ public class DockingZonePointerManager : MonoBehaviour
     private IEnumerator Delay_Hide()
     {
         yield return new WaitForSeconds(1f);
-        Is_Pointer_Active = false;
         Docking_Zone_Pointer.SetActive(false);
         Docking_Zone = null;
     }

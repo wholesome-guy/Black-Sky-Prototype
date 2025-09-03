@@ -9,6 +9,8 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
     public UnityEvent Refuel_Event;             // Event triggered when the ship enters or exits refuel station
     public static Action<float> Take_Damage;    // Static action to notify damage with damage amount as float
 
+    public static Action<Vector3> Debris_VFX;
+
     private string Refuel_Station_Area = "Refuel_Station";   // Tag used to identify refuel station objects
 
     // Called when another collider enters this object's trigger collider
@@ -35,7 +37,9 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
     // Called when a collision (non-trigger) happens with this object
     private void OnCollisionEnter(Collision Collided_GameObject)
     {
+        Debris_VFX.Invoke(Collided_GameObject.contacts[0].point);
         // Invoke the Take_Damage event with a fixed damage amount of 5000
         Take_Damage.Invoke(5000);
+        CameraManager.Camera_Shake_Event.Invoke();
     }
 }
