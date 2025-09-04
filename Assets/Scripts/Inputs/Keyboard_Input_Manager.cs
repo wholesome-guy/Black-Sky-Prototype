@@ -29,12 +29,14 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
     public static Action De_Tether;
     public UnityEvent Nitro;
+    public UnityEvent Steering_Automatic_Manual_Switch_Event;
 
     [SerializeField] private float Delay_Duration = 2.0f;
     // Tracks whether the HUD is currently visible
     public bool Is_HUD_On = true;
     public bool Is_Nitro_On = false;
 
+    [SerializeField] private Settings Game_Settings;
     private void Awake()
     {
         // Singleton pattern to ensure only one instance exists
@@ -73,6 +75,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.AsteroidCamera.canceled += Asteroid_Camera_Deactivate;
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed += De_Tether_Fuction;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringFullControlSwitch.performed += Steering_Full_Control_Switch;
     }
 
     private void OnDisable()
@@ -97,6 +101,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.AsteroidCamera.canceled -= Asteroid_Camera_Deactivate;
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed -= De_Tether_Fuction;
+
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringFullControlSwitch.performed -= Steering_Full_Control_Switch;
 
     }
 
@@ -140,11 +146,17 @@ public class Keyboard_Input_Manager : MonoBehaviour
     }
     private void Handling_Wheel_Display_Function(InputAction.CallbackContext context)
     {
-        Handling_Wheel_Display.Invoke();
+        if (Game_Settings.Steering_Full_Control)
+        {
+            Handling_Wheel_Display.Invoke();
+        }
     }
     private void Handling_Wheel_Hide_Function(InputAction.CallbackContext context)
     {
-        Handling_Wheel_Hide.Invoke();
+        if (Game_Settings.Steering_Full_Control)
+        {
+            Handling_Wheel_Hide.Invoke();
+        }
     }
 
     private void Asteroid_Camera_Activate(InputAction.CallbackContext context)
@@ -169,6 +181,13 @@ public class Keyboard_Input_Manager : MonoBehaviour
     {
         yield return new WaitForSeconds(Duration);
         De_Tether.Invoke();
+    }
+
+    private void Steering_Full_Control_Switch(InputAction.CallbackContext context)
+    {
+        Game_Settings.Steering_Full_Control = !Game_Settings.Steering_Full_Control;
+
+        Steering_Automatic_Manual_Switch_Event.Invoke();
     }
 }
 

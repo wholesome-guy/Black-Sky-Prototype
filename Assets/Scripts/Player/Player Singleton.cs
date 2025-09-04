@@ -15,6 +15,8 @@ public class PlayerSingleton : MonoBehaviour
 
     public Rigidbody Player_Rigidbody;
     public Transform Player_Transform;
+    public SpaceShip_Movement_Controller SpaceShip_Movement_Controller;
+
     //Same as Anchor Point
     public Transform Asteroid_Point;
 

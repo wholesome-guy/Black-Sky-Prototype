@@ -125,6 +125,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Steering Full Control Switch"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e8463c1-31fa-4b80-aeb1-8056dd147636"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -314,6 +323,17 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6028b0b5-e834-4c2b-93bf-b2f76693735e"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering Full Control Switch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -361,6 +381,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls_ThrottleWheel = m_SpaceShip_Controls.FindAction("Throttle Wheel", throwIfNotFound: true);
         m_SpaceShip_Controls_SteeringWheel = m_SpaceShip_Controls.FindAction("Steering Wheel", throwIfNotFound: true);
         m_SpaceShip_Controls_AsteroidCamera = m_SpaceShip_Controls.FindAction("Asteroid Camera", throwIfNotFound: true);
+        m_SpaceShip_Controls_SteeringFullControlSwitch = m_SpaceShip_Controls.FindAction("Steering Full Control Switch", throwIfNotFound: true);
         // New action map
         m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
         m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
@@ -442,6 +463,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_SpaceShip_Controls_ThrottleWheel;
     private readonly InputAction m_SpaceShip_Controls_SteeringWheel;
     private readonly InputAction m_SpaceShip_Controls_AsteroidCamera;
+    private readonly InputAction m_SpaceShip_Controls_SteeringFullControlSwitch;
     public struct SpaceShip_ControlsActions
     {
         private @SpaceShipControls m_Wrapper;
@@ -457,6 +479,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         public InputAction @ThrottleWheel => m_Wrapper.m_SpaceShip_Controls_ThrottleWheel;
         public InputAction @SteeringWheel => m_Wrapper.m_SpaceShip_Controls_SteeringWheel;
         public InputAction @AsteroidCamera => m_Wrapper.m_SpaceShip_Controls_AsteroidCamera;
+        public InputAction @SteeringFullControlSwitch => m_Wrapper.m_SpaceShip_Controls_SteeringFullControlSwitch;
         public InputActionMap Get() { return m_Wrapper.m_SpaceShip_Controls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -499,6 +522,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @AsteroidCamera.started += instance.OnAsteroidCamera;
             @AsteroidCamera.performed += instance.OnAsteroidCamera;
             @AsteroidCamera.canceled += instance.OnAsteroidCamera;
+            @SteeringFullControlSwitch.started += instance.OnSteeringFullControlSwitch;
+            @SteeringFullControlSwitch.performed += instance.OnSteeringFullControlSwitch;
+            @SteeringFullControlSwitch.canceled += instance.OnSteeringFullControlSwitch;
         }
 
         private void UnregisterCallbacks(ISpaceShip_ControlsActions instance)
@@ -536,6 +562,9 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             @AsteroidCamera.started -= instance.OnAsteroidCamera;
             @AsteroidCamera.performed -= instance.OnAsteroidCamera;
             @AsteroidCamera.canceled -= instance.OnAsteroidCamera;
+            @SteeringFullControlSwitch.started -= instance.OnSteeringFullControlSwitch;
+            @SteeringFullControlSwitch.performed -= instance.OnSteeringFullControlSwitch;
+            @SteeringFullControlSwitch.canceled -= instance.OnSteeringFullControlSwitch;
         }
 
         public void RemoveCallbacks(ISpaceShip_ControlsActions instance)
@@ -612,6 +641,7 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         void OnThrottleWheel(InputAction.CallbackContext context);
         void OnSteeringWheel(InputAction.CallbackContext context);
         void OnAsteroidCamera(InputAction.CallbackContext context);
+        void OnSteeringFullControlSwitch(InputAction.CallbackContext context);
     }
     public interface INewactionmapActions
     {

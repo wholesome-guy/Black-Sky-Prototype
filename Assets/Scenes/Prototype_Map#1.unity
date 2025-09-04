@@ -774,7 +774,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &124586463
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1573,9 +1573,25 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  Steering_Automatic_Manual_Switch_Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2035940122}
+        m_TargetAssemblyTypeName: Throttle_Handling_Lever, Assembly-CSharp
+        m_MethodName: Steering_Automatic_Manual
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Delay_Duration: 2
   Is_HUD_On: 1
   Is_Nitro_On: 0
+  Game_Settings: {fileID: 11400000, guid: bdc58d2e73e448345af611e6bdc6cc90, type: 2}
 --- !u!1 &221735935
 GameObject:
   m_ObjectHideFlags: 0
@@ -4737,7 +4753,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &805014615
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8567,6 +8583,7 @@ MonoBehaviour:
   Right_Ship_Anchor: {fileID: 1130048837}
   Player_Rigidbody: {fileID: 1349494287}
   Player_Transform: {fileID: 1349494288}
+  SpaceShip_Movement_Controller: {fileID: 1349494286}
   Asteroid_Point: {fileID: 1371593191}
   Left_Cannon_Tip: {fileID: 1351609948}
   Right_Cannon_Tip: {fileID: 53407973}
@@ -8580,7 +8597,7 @@ MonoBehaviour:
   Space_Ship_Index: 0
   SpaceShip_Select_Values: {fileID: 0}
   SpaceShip_1: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
-  SpaceShip_2: {fileID: 11400000, guid: 9d256e356236c034c81c3b41cce6f473, type: 2}
+  SpaceShip_2: {fileID: 11400000, guid: f2d6463265281d14d8726b0a51c02818, type: 2}
 --- !u!114 &1349494291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10017,7 +10034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1512141075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13189,7 +13206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecd4c75adb519b248b5bafdeec560578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpaceShip_Movement_Controller: {fileID: 1349494286}
+  Game_Settings: {fileID: 11400000, guid: bdc58d2e73e448345af611e6bdc6cc90, type: 2}
+  Icon_Script: {fileID: 2035940123}
   Low_Throttle:
     m_PersistentCalls:
       m_Calls:

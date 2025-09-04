@@ -13,7 +13,9 @@ public class Throttle_Handling_Lever : MonoBehaviour
 {
     // Reference to the spaceship movement controller
 
-    [SerializeField] private SpaceShip_Movement_Controller SpaceShip_Movement_Controller;
+    private SpaceShip_Movement_Controller SpaceShip_Movement_Controller;
+    [SerializeField] private Settings Game_Settings;
+    [SerializeField] private ThrottleSteeringIconSprite Icon_Script;
 
  
     // Events triggered based on throttle level
@@ -44,16 +46,31 @@ public class Throttle_Handling_Lever : MonoBehaviour
     void Start()
     {
         // Bind each event to the corresponding method in the movement controller
+        SpaceShip_Movement_Controller = PlayerSingleton.instance.SpaceShip_Movement_Controller;
 
         Low_Throttle.AddListener(SpaceShip_Movement_Controller.Low_Throttle);
-        Low_Handling.AddListener(SpaceShip_Movement_Controller.Low_Handling);
 
         Moderate_Throttle.AddListener(SpaceShip_Movement_Controller.Moderate_Throttle);
-        Moderate_Handling.AddListener(SpaceShip_Movement_Controller.Moderate_Handling);
 
         High_Throttle.AddListener(SpaceShip_Movement_Controller.High_Throttle);
+
+        Low_Handling.AddListener(SpaceShip_Movement_Controller.Low_Handling);
+
+        Moderate_Handling.AddListener(SpaceShip_Movement_Controller.Moderate_Handling);
+
         High_Handling.AddListener(SpaceShip_Movement_Controller.High_Handling);
 
+        if (!Game_Settings.Steering_Full_Control)
+        {
+            Low_Throttle.AddListener(SpaceShip_Movement_Controller.Low_Handling);
+            Moderate_Throttle.AddListener(SpaceShip_Movement_Controller.Moderate_Handling);
+            High_Throttle.AddListener(SpaceShip_Movement_Controller.High_Handling);
+
+            Low_Throttle.AddListener(Icon_Script.Steering_Low);
+            Moderate_Throttle.AddListener(Icon_Script.Steering_Moderate);
+            High_Throttle.AddListener(Icon_Script.Steering_High);
+        }
+       
         // Set initial preset values (low throttle and handling)
 
         Preset_Throttle_Hnadling();
@@ -66,6 +83,30 @@ public class Throttle_Handling_Lever : MonoBehaviour
     private void Handling_Select(int Index)
     {
         Handling_Function(Index);
+    }
+
+    public void Steering_Automatic_Manual()
+    {
+        if (Game_Settings.Steering_Full_Control)
+        {
+            Low_Throttle.RemoveListener(SpaceShip_Movement_Controller.Low_Handling);
+            Moderate_Throttle.RemoveListener(SpaceShip_Movement_Controller.Moderate_Handling);
+            High_Throttle.RemoveListener(SpaceShip_Movement_Controller.High_Handling);
+
+            Low_Throttle.RemoveListener(Icon_Script.Steering_Low);
+            Moderate_Throttle.RemoveListener(Icon_Script.Steering_Moderate);
+            High_Throttle.RemoveListener(Icon_Script.Steering_High);
+        }
+        else
+        {
+            Low_Throttle.AddListener(SpaceShip_Movement_Controller.Low_Handling);
+            Moderate_Throttle.AddListener(SpaceShip_Movement_Controller.Moderate_Handling);
+            High_Throttle.AddListener(SpaceShip_Movement_Controller.High_Handling);
+
+            Low_Throttle.AddListener(Icon_Script.Steering_Low);
+            Moderate_Throttle.AddListener(Icon_Script.Steering_Moderate);
+            High_Throttle.AddListener(Icon_Script.Steering_High);
+        }
     }
 
 
