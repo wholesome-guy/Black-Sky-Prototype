@@ -12,13 +12,18 @@ public class GunTipManager : MonoBehaviour
     private int Index_Projectile; // Current projectile index
 
     private bool Is_Ammo_Loaded = true; // Flag to check if weapon can shoot
+
+    [SerializeField] private MoneyValues Money_Values;
     private void OnEnable()
     {
         ProjectileWheelManager.Projectile_Select_Event += Projectile_Select;
+        Mouse_Input_Manager.Shoot_Action += Shoot_Projectile;
     }
     private void OnDisable()
     {
         ProjectileWheelManager.Projectile_Select_Event -= Projectile_Select;
+        Mouse_Input_Manager.Shoot_Action -= Shoot_Projectile;
+
     }
     // Switches between available ammo types (projectiles)
     private void Start()
@@ -37,12 +42,49 @@ public class GunTipManager : MonoBehaviour
     {
         if (Is_Ammo_Loaded)
         {
+            switch (Index_Projectile)
+            {
+                case 0: 
+                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Cannon_Projectile_Cost);
+                    MoneyManager.Money_Spent = false;
+                    break;
+                case 1:
+                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Anchor_Projectile_Cost);
+                    MoneyManager.Money_Spent = false;
 
-            Instantiate(Projectiles[Index_Projectile], gameObject.transform.position, transform.rotation);
-            Muzzle_Flash.Play();
-            Is_Ammo_Loaded = false;
-            TimerManager.Cannon_Reload_Event.Invoke(Reload_Duration);
-            StartCoroutine(Reload_Ammo());
+                    break;
+                case 2:
+                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Destroy_Projectile_Cost);
+                    MoneyManager.Money_Spent = false;
+
+                    break;
+                case 3:
+                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Data_Projectile_Cost);
+                    MoneyManager.Money_Spent = false;
+
+                    break;
+                case 4:
+                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Mist_Projectile_Cost);
+                    MoneyManager.Money_Spent = false;
+
+                    break;
+                case 5:
+                    MoneyManager.Money_Change_Event.Invoke(Money_Values.BlackHole_Projectile_Cost);
+                    MoneyManager.Money_Spent = false;
+
+                    break;
+
+
+            }
+
+            
+            
+                Instantiate(Projectiles[Index_Projectile], transform.position, transform.rotation);
+                Muzzle_Flash.Play();
+                Is_Ammo_Loaded = false;
+                TimerManager.Cannon_Reload_Event?.Invoke(Reload_Duration);
+                StartCoroutine(Reload_Ammo());
+            
         }
     }
 

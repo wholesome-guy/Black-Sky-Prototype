@@ -91,10 +91,12 @@ public class SpaceShipValues : ScriptableObject
     // Health
     // ============================
 
-     public float Max_Health;                            // Maximum health of the spaceship
+    public float Max_Health;                            // Maximum health of the spaceship
+    public float Regenerate_Health_Amount;
 
 
     public float Payload;
+
 }
 
 

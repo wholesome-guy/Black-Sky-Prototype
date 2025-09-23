@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -9,6 +7,9 @@ public class ThrusterManager : MonoBehaviour
     [SerializeField] private MeshRenderer Left_Thruster;
     [SerializeField] private MeshRenderer Right_Thruster;
     [SerializeField] private VisualEffect Particles_VFX;
+    [SerializeField] private ParticleSystem Wind_Zone_VFX;
+    private ParticleSystem.MainModule Wind_Zone_Main;
+    private ParticleSystem.EmissionModule Wind_Zone_Emission;
 
     private Material Left_Thruster_Material;
     private Material Right_Thruster_Material;
@@ -24,10 +25,31 @@ public class ThrusterManager : MonoBehaviour
     [SerializeField] private float Expected_Thrust_Value_Moderate = 0.85f;
     [SerializeField] private float Expected_Thrust_Value_High = 0.9f;
 
-     private float Velocity_To_Thurst_Constant;
-     private float Low_Velocity_To_Thurst_Constant;
-     private float Moderate_Velocity_To_Thurst_Constant;
-     private float High_Velocity_To_Thurst_Constant;
+    private float Expected_Particle_Speed_Value;
+    [SerializeField] private float Particle_Speed_Value_Low = 200f;
+    [SerializeField] private float Particle_Speed_Value_Moderate = 400f;
+    [SerializeField] private float Particle_Speed_Value_High = 600;
+
+    private float Velocity_To_Particle_Speed_Constant;
+    private float Low_Velocity_To_Particle_Speed_Constant;
+    private float Moderate_Velocity_To_Particle_Speed_Constant;
+    private float High_Velocity_To_Particle_Speed_Constant;
+
+    private float Expected_Particle_Rate_Value;
+    [SerializeField] private float Particle_Rate_Value_Low = 10f;
+    [SerializeField] private float Particle_Rate_Value_Moderate = 50f;
+    [SerializeField] private float Particle_Rate_Value_High = 100;
+
+    private float Velocity_To_Particle_Rate_Constant;
+    private float Low_Velocity_To_Particle_Rate_Constant;
+    private float Moderate_Velocity_To_Particle_Rate_Constant;
+    private float High_Velocity_To_Particle_Rate_Constant;
+
+
+    private float Velocity_To_Thurst_Constant;
+    private float Low_Velocity_To_Thurst_Constant;
+    private float Moderate_Velocity_To_Thurst_Constant;
+    private float High_Velocity_To_Thurst_Constant;
 
     [ColorUsage(true, true)]
     [SerializeField] private Color[] Color1 = new Color[3];
@@ -39,14 +61,48 @@ public class ThrusterManager : MonoBehaviour
     private float Particle_Rate;
 
     public bool Particle_Switch = false;
+
+    private void OnEnable()
+    {
+        Throttle_Handling_Lever.Low_Throttle_Action += Low_Throttle;
+        Throttle_Handling_Lever.Moderate_Throttle_Action += Moderate_Throttle;
+        Throttle_Handling_Lever.High_Throttle_Action += High_Throttle;
+    }
+
+    private void OnDisable()
+    {
+        Throttle_Handling_Lever.Low_Throttle_Action -= Low_Throttle;
+        Throttle_Handling_Lever.Moderate_Throttle_Action -= Moderate_Throttle;
+        Throttle_Handling_Lever.High_Throttle_Action -= High_Throttle;
+    }
+    private void Awake()
+    {
+        if (Left_Thruster != null)
+            Left_Thruster_Material = Left_Thruster.material; // use .material if you want per-instance
+        if (Right_Thruster != null)
+            Right_Thruster_Material = Right_Thruster.material;
+    }
+
     private void Start()
     {
+        
+
         Low_Velocity_To_Thurst_Constant = Expected_Thrust_Value_Low / Low_Throttle_Velocity;
         Moderate_Velocity_To_Thurst_Constant = Expected_Thrust_Value_Moderate / Moderate_Throttle_Velocity;
         High_Velocity_To_Thurst_Constant = Expected_Thrust_Value_High / High_Throttle_Velocity;
 
-        Left_Thruster_Material = Left_Thruster.material;
-        Right_Thruster_Material = Right_Thruster.material;
+        Low_Velocity_To_Particle_Speed_Constant = Particle_Speed_Value_Low / Low_Throttle_Velocity;
+        Moderate_Velocity_To_Particle_Speed_Constant = Particle_Speed_Value_Moderate / Moderate_Throttle_Velocity;
+        High_Velocity_To_Particle_Speed_Constant = Particle_Speed_Value_High / High_Throttle_Velocity;
+
+        Low_Velocity_To_Particle_Rate_Constant = Particle_Rate_Value_Low / Low_Throttle_Velocity;
+        Moderate_Velocity_To_Particle_Rate_Constant = Particle_Rate_Value_Moderate / Moderate_Throttle_Velocity;
+        High_Velocity_To_Particle_Rate_Constant = Particle_Rate_Value_High / High_Throttle_Velocity;
+
+
+        Wind_Zone_Main = Wind_Zone_VFX.main;
+        Wind_Zone_Emission = Wind_Zone_VFX.emission;
+       
         Low_Throttle();
     }
 
@@ -56,6 +112,13 @@ public class ThrusterManager : MonoBehaviour
         
         Left_Thruster_Material.SetFloat("_ThrustPower", Thrust_Value);
         Right_Thruster_Material.SetFloat("_ThrustPower", Thrust_Value);
+
+        float Particle_Speed = Mathf.Clamp(PlayerSingleton.instance.Player_Rigidbody.velocity.magnitude * Velocity_To_Particle_Speed_Constant, 0, Expected_Particle_Speed_Value);
+        Wind_Zone_Main.startSpeed = Particle_Speed;
+
+        float Particle_Rate = Mathf.Clamp(PlayerSingleton.instance.Player_Rigidbody.velocity.magnitude * Velocity_To_Particle_Rate_Constant, 0, Expected_Particle_Rate_Value);
+        Wind_Zone_Emission.rateOverTime = Particle_Rate;
+
 
         bool isMoving = PlayerSingleton.instance.Player_Rigidbody.velocity.sqrMagnitude > 0.01f; // use sqrMagnitude for performance
 
@@ -76,17 +139,34 @@ public class ThrusterManager : MonoBehaviour
     private void Particles_Play()
     {
         Particles_VFX.Play();
+        Wind_Zone_VFX.Play();
     }
     private void Particles_Stop()
     {
         Particles_VFX.Stop();
+        Wind_Zone_VFX.Stop();
+
     }
     public void Low_Throttle()
     {
+
+
+        if (Left_Thruster_Material == null) Debug.LogError("Left_Thruster_Material is NULL!");
+        if (Right_Thruster_Material == null) Debug.LogError("Right_Thruster_Material is NULL!");
+        if (Flame_Trail == null) Debug.LogError("Flame_Trail is NULL!");
+        if (Particles_VFX == null) Debug.LogError("Particles_VFX is NULL!"); 
+
+
         Velocity_To_Thurst_Constant = Low_Velocity_To_Thurst_Constant;
         Expected_Thrust_Value = Expected_Thrust_Value_Low;
         Particle_Rate = 5;
+        Velocity_To_Particle_Speed_Constant = Low_Velocity_To_Particle_Speed_Constant;
+        Velocity_To_Particle_Rate_Constant = Low_Velocity_To_Particle_Rate_Constant;
+        Expected_Particle_Speed_Value = Particle_Speed_Value_Low;
+        Expected_Particle_Rate_Value = Particle_Rate_Value_Low; 
 
+
+        Debug.Assert(Left_Thruster_Material != null, $"{transform.root.name}:{name}:{GetInstanceID()} has a null material");
         Left_Thruster_Material.SetColor("_Colour_1", Color1[0]);
         Left_Thruster_Material.SetColor("_Colour_2", Color2[0]);
 
@@ -106,6 +186,12 @@ public class ThrusterManager : MonoBehaviour
         Velocity_To_Thurst_Constant = Moderate_Velocity_To_Thurst_Constant;
         Expected_Thrust_Value = Expected_Thrust_Value_Moderate;
         Particle_Rate = 10;
+        Velocity_To_Particle_Speed_Constant = Moderate_Velocity_To_Particle_Speed_Constant;
+        Velocity_To_Particle_Rate_Constant = Moderate_Velocity_To_Particle_Rate_Constant;
+        Expected_Particle_Speed_Value = Particle_Speed_Value_Moderate;
+        Expected_Particle_Rate_Value = Particle_Rate_Value_Moderate;
+
+
 
         Left_Thruster_Material.SetColor("_Colour_1", Color1[1]);
         Left_Thruster_Material.SetColor("_Colour_2", Color2[1]);
@@ -126,6 +212,12 @@ public class ThrusterManager : MonoBehaviour
         Velocity_To_Thurst_Constant = High_Velocity_To_Thurst_Constant;
         Expected_Thrust_Value = Expected_Thrust_Value_High;
         Particle_Rate = 15;
+        Velocity_To_Particle_Speed_Constant = High_Velocity_To_Particle_Speed_Constant;
+        Velocity_To_Particle_Rate_Constant = High_Velocity_To_Particle_Rate_Constant;
+        Expected_Particle_Speed_Value = Particle_Speed_Value_High;
+        Expected_Particle_Rate_Value = Particle_Rate_Value_High;
+
+
 
         Left_Thruster_Material.SetColor("_Colour_1", Color1[2]);
         Left_Thruster_Material.SetColor("_Colour_2", Color2[2]);

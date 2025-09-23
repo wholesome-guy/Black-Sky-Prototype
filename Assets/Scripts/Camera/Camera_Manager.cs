@@ -12,6 +12,7 @@ public class CameraManager : MonoBehaviour
 
     public static Action Camera_Shake_Event;
 
+    private WaitForSeconds WaitForSeconds_0_2 = new WaitForSeconds(0.2f);
 
     private void OnEnable()
     {
@@ -43,15 +44,15 @@ public class CameraManager : MonoBehaviour
 
     private void Camera_Shake()
     {
-        StartCoroutine(Camera_Shake_Coroutine(0.2f));
+        StartCoroutine(Camera_Shake_Coroutine());
     }
 
-    private IEnumerator Camera_Shake_Coroutine(float Duration)
+    private IEnumerator Camera_Shake_Coroutine()
     {
         Ideal_Noise_Component.m_AmplitudeGain = 0f;
         Ideal_Noise_Component.m_AmplitudeGain = 10f;
 
-        yield return new WaitForSeconds(Duration);
+        yield return WaitForSeconds_0_2;
 
         Ideal_Noise_Component.m_AmplitudeGain = 0f;
     }

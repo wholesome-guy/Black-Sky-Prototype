@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
+using System;
 
 public class Mouse_Input_Manager : MonoBehaviour
 {
@@ -20,14 +21,14 @@ public class Mouse_Input_Manager : MonoBehaviour
     public float Angle_Mouse_Input;
 
     // Mouse sensitivity multiplier (currently unused but public)
-    public int Mouse_Sensitivity;
+    public float Mouse_Sensitivity;
 
     // Controls whether spaceship rotation is locked
     public bool Is_Rotation_Locked;
     public bool Is_Free_Aim_On = false;
 
     // Event triggered when shooting
-    public UnityEvent Shoot;
+    public static Action Shoot_Action;
 
     public UnityEvent Aim_Released_Event;
 
@@ -123,6 +124,6 @@ public class Mouse_Input_Manager : MonoBehaviour
 
     private void Shoot_Projectile(InputAction.CallbackContext context)
     {
-         Shoot.Invoke();
+        Shoot_Action.Invoke();
     }
 }

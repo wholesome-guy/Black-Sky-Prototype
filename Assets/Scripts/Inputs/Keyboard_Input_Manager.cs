@@ -37,6 +37,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
     public bool Is_Nitro_On = false;
 
     [SerializeField] private Settings Game_Settings;
+
+    private WaitForSeconds WaitForSeconds_Delay_Duration;
     private void Awake()
     {
         // Singleton pattern to ensure only one instance exists
@@ -51,6 +53,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
         // Initialize the generated input actions
         SpaceShip_Controls_Action_Map = new SpaceShipControls();
+
+        WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
     }
 
     private void OnEnable()
@@ -173,13 +177,13 @@ public class Keyboard_Input_Manager : MonoBehaviour
         if(PlayerSingleton.instance.Is_Anchored)
         {
             TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
-            StartCoroutine(Delay_Detether(Delay_Duration));
+            StartCoroutine(Delay_Detether());
         }        
     }
 
-    private IEnumerator Delay_Detether(float Duration)
+    private IEnumerator Delay_Detether()
     {
-        yield return new WaitForSeconds(Duration);
+        yield return WaitForSeconds_Delay_Duration;
         De_Tether.Invoke();
     }
 

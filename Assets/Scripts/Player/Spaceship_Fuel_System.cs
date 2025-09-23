@@ -15,6 +15,9 @@ public class Spaceship_Fuel_System : MonoBehaviour
     private float Asteroid_Fuel_Constant = 1f;
     private float Refuel_Amount;
 
+    private float Fill_Amount_Fuel;
+    private float Fill_Amount_Nitro;
+
     private float Max_Nitro;
     private float Nitro_Comsumption;
     private float Current_Nitro;
@@ -67,6 +70,7 @@ public class Spaceship_Fuel_System : MonoBehaviour
         Is_Refueling = false;
         Fuel_Exhausted_Event_Check = false;
         Nitro_Exhausted_Event_Check = false;
+
         Max_Fuel = SpaceShipValues.Max_Fuel;
         Current_Fuel = Max_Fuel;
         Refuel_Amount = SpaceShipValues.Refuel_Amount;
@@ -108,15 +112,15 @@ public class Spaceship_Fuel_System : MonoBehaviour
     // Smoothly updates the fuel bar and percentage text
     private void Update_Fuel_UI()
     {
-        float Fill_Amount = Mathf.Lerp(Fuel_Fill_Bar.fillAmount, Ratio_Of_Current_To_Max_Fuel, Time.deltaTime);
-        Fuel_Fill_Bar.fillAmount = Fill_Amount;
+        Fill_Amount_Fuel = Mathf.Lerp(Fuel_Fill_Bar.fillAmount, Ratio_Of_Current_To_Max_Fuel, Time.deltaTime);
+        Fuel_Fill_Bar.fillAmount = Fill_Amount_Fuel;
         Fuel_Amount_Text.text = Percentage_Fuel + "%";
     }
     private void Update_Nitro_UI()
     {
-        float Fill_Amount = Mathf.Lerp(Nitro_Fill_Bar.fillAmount, Ratio_Of_Current_To_Max_Nitro, 1f);
+        Fill_Amount_Nitro = Mathf.Lerp(Nitro_Fill_Bar.fillAmount, Ratio_Of_Current_To_Max_Nitro, 1f);
 
-        Nitro_Fill_Bar.fillAmount = Fill_Amount;
+        Nitro_Fill_Bar.fillAmount = Fill_Amount_Nitro;
 
     }
     private void Asteroid_Fuel_Constant_Function()
@@ -188,9 +192,11 @@ public class Spaceship_Fuel_System : MonoBehaviour
     {
         Fuel_Exhausted_Event_Check = false; // Reset exhaustion check when refueling
         Nitro_Exhausted_Event_Check = false;
+
         Fuel_Fill_Bar.gameObject.SetActive(true);
         Current_Fuel += Refuel_Amount * Time.deltaTime;
         Current_Fuel = Mathf.Clamp(Current_Fuel, 0f, Max_Fuel);
+
         Nitro_Fill_Bar.gameObject.SetActive(true);
         Current_Nitro += Renitro_Amount * Time.deltaTime;
         Current_Nitro = Mathf.Clamp(Current_Nitro, 0f, Max_Nitro);

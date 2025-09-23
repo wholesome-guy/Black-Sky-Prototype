@@ -10,6 +10,7 @@ public class Spaceship_Health_System : MonoBehaviour
     // Health values
     private float Max_Health;
     private float Current_Health;
+    private float Regenerate_Health_Amount;
     private float Ratio_Of_Current_To_Max_Health;
 
     // Coroutine reference for UI lerp
@@ -31,10 +32,14 @@ public class Spaceship_Health_System : MonoBehaviour
 
     public UnityEvent Death;                                        // Event triggered on ship death
 
+    private bool Is_Healing;
+
     // Subscribe to the damage event
     private void OnEnable()
     {
         Collision_Manager_SpaceShip.Take_Damage += Shield_Checker;
+
+
     } 
     
     // Unsubscribe to avoid memory leaks
@@ -49,12 +54,19 @@ public class Spaceship_Health_System : MonoBehaviour
     {
         Space_Ship_Values = PlayerSingleton.instance.SpaceShip_Select_Values;
         Max_Health = Space_Ship_Values.Max_Health;
+        Regenerate_Health_Amount = Space_Ship_Values.Regenerate_Health_Amount;
         Current_Health = Max_Health;
         Ratio_Of_Current_To_Max_Health = 1f;
         Health_Fill_Bar.fillAmount = 1;
         Health_Amount_Text.text = "100%";
     }
-
+    private void Update()
+    {
+        if(Is_Healing)
+        {
+            Regenerate_Health();
+        }
+    }
 
 
     // Called when the ship takes damage
@@ -105,6 +117,21 @@ public class Spaceship_Health_System : MonoBehaviour
         Update_Health_UI();
     }
 
+    private void Regenerate_Health()
+    {
+        Current_Health += Regenerate_Health_Amount;
+        Current_Health = Mathf.Clamp(Current_Health, 0, Max_Health); // Prevents health from going below 0
+        Ratio_Of_Current_To_Max_Health = Current_Health / Max_Health;
+        Percentage_Health = Mathf.RoundToInt(Ratio_Of_Current_To_Max_Health * 100);
+        Update_Health_UI();
+
+    }
+
+    public void Is_Healing_Bool_Switch()
+    {
+        Is_Healing =!Is_Healing;
+    }
+
     // Updates the health bar and percentage text in the UI
     private void Update_Health_UI()
     {
@@ -139,6 +166,7 @@ public class Spaceship_Health_System : MonoBehaviour
     {
         yield return new WaitForSeconds(Shield_Regeneration_Time);
         Shields_GameObjects[i].gameObject.SetActive(true);
+        PlayerDamageVFX.Shield_Break_Event.Invoke();
         StartCoroutine(Shield_UI_Lerp(i, 0f, 0.225f, 0.5f));
     }
 

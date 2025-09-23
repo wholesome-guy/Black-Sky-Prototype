@@ -1,0 +1,123 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.VFX;
+
+public class AsteroidDataProjectile : MonoBehaviour
+{
+    [SerializeField] private Rigidbody Rb_Asteroid_Data_Projectile;
+    [SerializeField] private MeshRenderer Mesh_Renderer_Asteroid_Data_Projectile;
+    [SerializeField] private Material Flash_Material;
+    [SerializeField] private VisualEffect Particles_VFX;
+
+    [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
+    [SerializeField] private float Torque_Force;              // Rotational force applied to the cannonball
+    [SerializeField] private GameObject Explosion_VFX;
+
+    [SerializeField] private Material Base_Material;
+    [SerializeField] private Material Scan_Material;
+
+
+    [Range(0,10)]
+    [SerializeField] private float Scan_Duration;
+
+
+    private bool In_Contact_With_Asteroid = false;
+
+    // Destroy the cannonball after 10 seconds to prevent cluttering the scene
+    private void Start()
+    {
+        Destroy(gameObject,15f);
+
+
+        if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
+        {
+            Rb_Asteroid_Data_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+        }
+
+    }
+
+    // Called at fixed intervals to apply physics-based movement
+    void FixedUpdate()
+    {
+        if (!In_Contact_With_Asteroid)
+        {
+            Thrust();
+        }
+    }
+
+    // Applies forward thrust and rotational torque to the cannonball Rigidbody
+    private void Thrust()
+    {
+        Rb_Asteroid_Data_Projectile.AddForce(transform.forward * Thrust_Force, ForceMode.Force);
+        Rb_Asteroid_Data_Projectile.AddTorque(transform.forward * Torque_Force, ForceMode.Force);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Asteroid"))
+        {
+            In_Contact_With_Asteroid = true;
+            Rb_Asteroid_Data_Projectile.velocity = Vector3.zero;
+            Rb_Asteroid_Data_Projectile.angularVelocity = Vector3.zero;
+
+            CrossHairManager.Hit_Mark_Event.Invoke();
+            AsteroidScript Asteroid_Data = collision.gameObject.GetComponent<AsteroidScript>();
+            MeshRenderer Asteroid_Mesh_Renderer = collision.gameObject.GetComponent<MeshRenderer>();
+            Base_Material = Asteroid_Mesh_Renderer.sharedMaterial;
+
+            StartCoroutine(Asteroid_Data_Fetch(Asteroid_Data, Asteroid_Mesh_Renderer));
+            Particles_VFX.Play();
+
+        }
+        else
+        {
+            GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
+            Destroy(Explosion, 3f);
+            Destroy(gameObject);
+        }
+
+        
+    }
+
+
+    private IEnumerator Asteroid_Data_Fetch(AsteroidScript Asteroid_Data, MeshRenderer Asteroid_Mesh_Renderer)
+    {
+        Material[] Material_Array = new Material[2];
+        Material_Array[0] = Base_Material;
+        Material_Array[1] = Scan_Material;
+        Asteroid_Mesh_Renderer.sharedMaterials = Material_Array;
+       
+
+        yield return new WaitForSeconds(Scan_Duration);
+
+        
+        
+            AsteroidInformationManager.Asteroid_Information_Event
+             (Asteroid_Data.Asteroid_Mass, Asteroid_Data.Sell_Value,
+             Asteroid_Data.Asteroid_Elemental_Content[0], Asteroid_Data.Asteroid_Elemental_Content_Percentage[0],
+             Asteroid_Data.Asteroid_Elemental_Content[1], Asteroid_Data.Asteroid_Elemental_Content_Percentage[1],
+             Asteroid_Data.Asteroid_Elemental_Content[2], Asteroid_Data.Asteroid_Elemental_Content_Percentage[2]);
+        
+        
+
+
+        yield return new WaitForSeconds(1f);
+
+        Particles_VFX.Stop();
+        Material[] Material_Array_Normal = new Material[1];
+        Material_Array_Normal[0] = Base_Material;
+        Asteroid_Mesh_Renderer.sharedMaterials = Material_Array_Normal;
+
+        MaterialFlashManager.Object_Single_Flash.Invoke(Mesh_Renderer_Asteroid_Data_Projectile, Mesh_Renderer_Asteroid_Data_Projectile.material, Flash_Material, 5, 0.5f);
+        yield return new WaitForSeconds(4f);
+
+        GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
+        Destroy(Explosion, 3f);
+        Destroy(gameObject);
+
+
+
+    }
+}

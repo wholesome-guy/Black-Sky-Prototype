@@ -43,6 +43,11 @@ public class PlayerSingleton : MonoBehaviour
 
     public int Space_Ship_Index = 0;
     public SpaceShipValues SpaceShip_Select_Values;
+    private GameObject[] SpaceShip_Select_Objects;
+
+    [SerializeField] private GameObject[] SpaceShip_1_Objects;
+    [SerializeField] private GameObject[] SpaceShip_2_Objects;
+
     [SerializeField] private SpaceShipValues SpaceShip_1;
     [SerializeField] private SpaceShipValues SpaceShip_2;
 
@@ -63,12 +68,20 @@ public class PlayerSingleton : MonoBehaviour
         {
             case 0:
                 SpaceShip_Select_Values = SpaceShip_1;
-                break;
+                SpaceShip_Select_Objects = SpaceShip_1_Objects;
+               break;
 
             case 1:
                 SpaceShip_Select_Values = SpaceShip_2;
-                break;
+                SpaceShip_Select_Objects = SpaceShip_2_Objects;
+
+               break;
         }
+
+        Left_Cannon_Tip = SpaceShip_Select_Objects[0];
+        Right_Cannon_Tip = SpaceShip_Select_Objects[1];
+        Left_Ship_Anchor = SpaceShip_Select_Objects[2];
+        Right_Ship_Anchor = SpaceShip_Select_Objects[3];
     }
     
 

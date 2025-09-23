@@ -16,6 +16,7 @@ public class PlayerDamageVFX : MonoBehaviour
 
     [SerializeField] private GameObject Spaceship_1_Drebis;
 
+
     [SerializeField] private float Duration;
 
 
@@ -35,16 +36,18 @@ public class PlayerDamageVFX : MonoBehaviour
         Collision_Manager_SpaceShip.Debris_VFX -= Debris_VFX;
     }
 
-
-
+    
     private void Shield_Break()
     {
         StartCoroutine(Material_Change(SpaceShip_1, Spaceship_1_Material,Shield_Material,Duration));
+        StartCoroutine(Material_Change(SpaceShip_2, Spaceship_2_Material, Shield_Material, Duration));
+
     }
 
     private void Damage_Break()
     {
         StartCoroutine(Material_Change(SpaceShip_1, Spaceship_1_Material, Damage_Material, Duration));
+        StartCoroutine(Material_Change(SpaceShip_2, Spaceship_2_Material, Damage_Material, Duration));
 
     }
 
@@ -52,7 +55,7 @@ public class PlayerDamageVFX : MonoBehaviour
     {
          GameObject Damage_Particle = Instantiate(Spaceship_1_Drebis, Point, Quaternion.identity);
 
-        Destroy(Damage_Particle,2);
+         Destroy(Damage_Particle,2);
     }
 
     private IEnumerator Material_Change(MeshRenderer[] SpaceShip, Material[] Original, Material Change, float Duration)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 /// <summary>
 /// Controls the UI levers for throttle and handling,
@@ -23,6 +24,11 @@ public class Throttle_Handling_Lever : MonoBehaviour
     public UnityEvent Low_Throttle;
     public UnityEvent Moderate_Throttle;
     public UnityEvent High_Throttle;
+
+    public static Action Low_Throttle_Action;
+    public static Action Moderate_Throttle_Action;
+    public static Action High_Throttle_Action;
+
 
     // Events triggered based on handling level
 
@@ -70,10 +76,10 @@ public class Throttle_Handling_Lever : MonoBehaviour
             Moderate_Throttle.AddListener(Icon_Script.Steering_Moderate);
             High_Throttle.AddListener(Icon_Script.Steering_High);
         }
-       
+
         // Set initial preset values (low throttle and handling)
 
-        Preset_Throttle_Hnadling();
+        Preset_Throttle_Handling();
     }
 
     private void Throttle_Select(int Index)
@@ -115,9 +121,10 @@ public class Throttle_Handling_Lever : MonoBehaviour
     /// Also resets the UI sliders to 0.
     /// </summary>
 
-    private void Preset_Throttle_Hnadling()
+    private void Preset_Throttle_Handling()
     {
         Low_Throttle.Invoke();
+        Low_Throttle_Action.Invoke();
         Low_Handling.Invoke();
         
     }
@@ -134,16 +141,19 @@ public class Throttle_Handling_Lever : MonoBehaviour
             case 0:
 
                 Low_Throttle.Invoke();
+                Low_Throttle_Action.Invoke();
                 
                 break;
             case 1:
 
                 Moderate_Throttle.Invoke();
+                Moderate_Throttle_Action.Invoke();
                 
                 break;
             case 2:
 
                 High_Throttle.Invoke();
+                High_Throttle_Action.Invoke();
                 
                 break;
 
