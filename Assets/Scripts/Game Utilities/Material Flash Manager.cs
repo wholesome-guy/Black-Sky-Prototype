@@ -21,6 +21,8 @@ public class MaterialFlashManager : MonoBehaviour
 
     }
 
+    #region Material Flash
+
     private void Material_Single_Flash(MeshRenderer Mesh_Renderer, Material Original_Materials, Material Change, int Iterations, float Duration)
     {
         StartCoroutine(Single_Material_Change(Mesh_Renderer, Original_Materials, Change, Iterations, Duration));
@@ -73,4 +75,7 @@ public class MaterialFlashManager : MonoBehaviour
         }
 
     }
+
+    #endregion
+
 }

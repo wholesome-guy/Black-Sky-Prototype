@@ -17,6 +17,8 @@ public class DockingZonePointerManager : MonoBehaviour
 
     public static Action<bool, Transform> Pointer_Event;
 
+    private WaitForSeconds WaitForSeconds_1 = new WaitForSeconds(1f);
+
     private void OnEnable()
     {
         Pointer_Event += Pointer_Display;
@@ -68,7 +70,7 @@ public class DockingZonePointerManager : MonoBehaviour
 
     private IEnumerator Delay_Hide()
     {
-        yield return new WaitForSeconds(1f);
+        yield return WaitForSeconds_1;
         Docking_Zone_Pointer.SetActive(false);
         Docking_Zone = null;
     }

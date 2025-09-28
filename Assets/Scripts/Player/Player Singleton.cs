@@ -38,7 +38,7 @@ public class PlayerSingleton : MonoBehaviour
     public static Action No_Asteroids_Attached;
 
     public bool Is_Spaceship_At_Rest = false;
-
+    public bool Is_Spaceship_At_Selling_Zone = false;
     private bool Is_Payload_Hide = true;
 
     public int Space_Ship_Index = 0;
@@ -198,6 +198,9 @@ public class PlayerSingleton : MonoBehaviour
         Is_Payload_Hide = true;
         Is_Anchored = false;
         No_Asteroids_Attached.Invoke();
+        Clear_Payload();
+
+        
     }
    
     private void Clear_Payload()

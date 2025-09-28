@@ -14,6 +14,7 @@ public class PayloadManager : MonoBehaviour
     public static Action Update_Payload_Percentage_Event;
     public static Action<bool> Payload_Fade_Event;
 
+    private WaitForSeconds WaitForSeconds_0_5 = new WaitForSeconds(0.5f);
     private void OnEnable()
     {
         Update_Payload_Percentage_Event += Percentage_Payload;
@@ -53,7 +54,7 @@ public class PayloadManager : MonoBehaviour
     }
     private IEnumerator Delay_Hide()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return WaitForSeconds_0_5;
         Payload_Canvas_Group.gameObject.SetActive(false);
     }
 }

@@ -20,9 +20,12 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
 
     [SerializeField] private MoneyValues Money_Values;
 
+    private WaitForSeconds WaitForSeconds_Delay_Duration;
+
     private void Start()
     {
         Player_Singleton = PlayerSingleton.instance;
+        WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
     }
     // Called when another collider enters this object's trigger collider
     private void OnTriggerEnter(Collider Collided_GameObject)
@@ -68,7 +71,7 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
 
     private IEnumerator Leave_Refuel_Station()
     {
-        yield return new WaitForSeconds(Delay_Duration);
+        yield return WaitForSeconds_Delay_Duration;
         PlayerSingleton.instance.Is_Spaceship_At_Rest = false;
         Player_Singleton.Player_Rigidbody.drag = 1;
         Player_Singleton.Player_Rigidbody.angularDrag = 1;

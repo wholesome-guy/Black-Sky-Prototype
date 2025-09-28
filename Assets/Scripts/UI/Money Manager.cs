@@ -17,9 +17,12 @@ public class MoneyManager : MonoBehaviour
     private float Current_Money;
     private float Changed_Money;
 
-    public static Action<int> Money_Change_Event;
+    public static Action<float> Money_Change_Event;
 
     public static bool Money_Spent = false;
+
+    private WaitForSeconds WaitForSeconds_10 = new WaitForSeconds(10f);
+    private WaitForSeconds WaitForSeconds_1 = new WaitForSeconds(1f);
 
     private void OnEnable()
     {
@@ -39,11 +42,19 @@ public class MoneyManager : MonoBehaviour
         Canvas_Group_Change_Text.alpha = 0;
     }
 
-    private void Change_Amount(int Change)
+    private void Change_Amount(float Change)
     {
         if(Money_Spent)
         {
             return;
+        }
+        if (Change > 0)
+        {
+            Change_Amount_Text.color = Color.green;
+        }
+        else
+        {
+            Change_Amount_Text.color = Color.red;   
         }
         Money_Spent = true; 
         Change_Amount_Text.gameObject.SetActive(true);
@@ -74,12 +85,12 @@ public class MoneyManager : MonoBehaviour
         Text.text = Start.ToString();
         UIVisualEffectsManager.UI_Fader_Event.Invoke(Canvas_Group_Change_Text, 1, 0, 0.5f);
 
-        yield return new WaitForSeconds(1f);
+        yield return WaitForSeconds_1;
         Change_Amount_Text.gameObject.SetActive(false);
         Change_Amount_Text.transform.localPosition = Vector3.zero;
         Canvas_Group_Change_Text.alpha = 0;
 
-        yield return new WaitForSeconds(10f);
+        yield return WaitForSeconds_10;
         Money_Spent = false;
     }
 }

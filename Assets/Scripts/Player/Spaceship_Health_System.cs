@@ -34,6 +34,8 @@ public class Spaceship_Health_System : MonoBehaviour
 
     private bool Is_Healing;
 
+    private WaitForSeconds WaitForSeconds_0_6 = new WaitForSeconds(0.6f);
+
     // Subscribe to the damage event
     private void OnEnable()
     {
@@ -166,7 +168,7 @@ public class Spaceship_Health_System : MonoBehaviour
     {
         yield return new WaitForSeconds(Shield_Regeneration_Time);
         Shields_GameObjects[i].gameObject.SetActive(true);
-        PlayerDamageVFX.Shield_Break_Event.Invoke();
+        PlayerDamageVFX.Shield_Regeneration_Event.Invoke();
         StartCoroutine(Shield_UI_Lerp(i, 0f, 0.225f, 0.5f));
     }
 
@@ -200,7 +202,7 @@ public class Spaceship_Health_System : MonoBehaviour
     }
     private IEnumerator Delay_Shield_Break(int i)
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return WaitForSeconds_0_6;
         Shields_GameObjects[i].gameObject.SetActive(false);
     }
 

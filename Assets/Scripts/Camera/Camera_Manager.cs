@@ -8,6 +8,8 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera Ideal_Virtual_Camera;             // Reference to the ideal camera
     [SerializeField] private CinemachineVirtualCamera Asteroid_Vitural_Camera;
+    [SerializeField] private CinemachineVirtualCamera Selling_Vitural_Camera;
+
     private CinemachineBasicMultiChannelPerlin Ideal_Noise_Component;
 
     public static Action Camera_Shake_Event;
@@ -17,10 +19,16 @@ public class CameraManager : MonoBehaviour
     private void OnEnable()
     {
        Camera_Shake_Event += Camera_Shake;
+        SellingZoneManager.Selling_Zone_Enter += Selling_Zone_Enter;
+        SellingZoneManager.Selling_Zone_Exit += Selling_Zone_Exit;
     }
     private void OnDisable()
     {
         Camera_Shake_Event -= Camera_Shake;
+        SellingZoneManager.Selling_Zone_Enter -= Selling_Zone_Enter;
+        SellingZoneManager.Selling_Zone_Exit -= Selling_Zone_Exit;
+
+
     }
     void Start()
     {
@@ -55,5 +63,17 @@ public class CameraManager : MonoBehaviour
         yield return WaitForSeconds_0_2;
 
         Ideal_Noise_Component.m_AmplitudeGain = 0f;
+    }
+
+    private void Selling_Zone_Enter()
+    {
+        Selling_Vitural_Camera.Priority = 1000;
+        Ideal_Virtual_Camera.Priority = 800;
+
+    }
+    private void Selling_Zone_Exit()
+    {
+        Selling_Vitural_Camera.Priority = 800;
+        Ideal_Virtual_Camera.Priority = 1000;
     }
 }

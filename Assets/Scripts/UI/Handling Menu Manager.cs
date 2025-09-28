@@ -18,6 +18,7 @@ public class HandlingMenuManager : MonoBehaviour
     private int Previous_Index;
 
     public static Action<int> Handling_Select_Event;
+    private WaitForSecondsRealtime WaitForSeconds_0_0_1 = new WaitForSecondsRealtime(0.01f);
 
     #region Handling Wheel Images
     [SerializeField] private Image[] Sector_Images = new Image[3];
@@ -139,7 +140,7 @@ public class HandlingMenuManager : MonoBehaviour
 
     private IEnumerator Delay_DeSelect(int t)
     {
-        yield return new WaitForSecondsRealtime(0.01f);
+        yield return WaitForSeconds_0_0_1;
         Handling_Wheel_DeSelect(t);
     }
 

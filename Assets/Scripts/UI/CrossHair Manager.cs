@@ -33,6 +33,8 @@ public class CrossHairManager : MonoBehaviour
     [SerializeField] private GameObject Hit_Marker_Left;
     [SerializeField] private GameObject Hit_Marker_Right;
 
+    private WaitForSeconds WaitForSeconds_0_2_5 = new WaitForSeconds(0.25f);
+
 
     public static Action Hit_Mark_Event;
 
@@ -187,7 +189,7 @@ public class CrossHairManager : MonoBehaviour
         Hit_Marker_Left.SetActive(true);
         Hit_Marker_Right.SetActive(true);
 
-        yield return new WaitForSeconds(0.25f);
+        yield return WaitForSeconds_0_2_5;
 
         Hit_Marker_Left.SetActive(false);
         Hit_Marker_Right.SetActive(false);

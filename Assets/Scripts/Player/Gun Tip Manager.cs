@@ -14,6 +14,8 @@ public class GunTipManager : MonoBehaviour
     private bool Is_Ammo_Loaded = true; // Flag to check if weapon can shoot
 
     [SerializeField] private MoneyValues Money_Values;
+
+    private WaitForSeconds WaitForSeconds_Reload_Time;
     private void OnEnable()
     {
         ProjectileWheelManager.Projectile_Select_Event += Projectile_Select;
@@ -29,6 +31,7 @@ public class GunTipManager : MonoBehaviour
     private void Start()
     {
         Projectiles = Projectiles_Scriptable_Object.Projectile_Gameobjects;
+        WaitForSeconds_Reload_Time = new WaitForSeconds(Reload_Duration);
         Muzzle_Flash.Stop();
         Projectile_Select(0);
     }
@@ -91,7 +94,7 @@ public class GunTipManager : MonoBehaviour
     // Waits for the specified reload duration before allowing the next shot
     IEnumerator Reload_Ammo()
     {
-        yield return new WaitForSecondsRealtime(Reload_Duration);
+        yield return WaitForSeconds_Reload_Time;
         Is_Ammo_Loaded = true;
     }
 }

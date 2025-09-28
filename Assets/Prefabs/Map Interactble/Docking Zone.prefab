@@ -174,12 +174,14 @@ MonoBehaviour:
   Materials:
   - {fileID: 2100000, guid: f95e039583477834a8b48729a075d86a, type: 2}
   - {fileID: 2100000, guid: 4262caeedc94d984690219fdb66f6aaf, type: 2}
-  Materialise_Material: {fileID: 2100000, guid: cc723286a9a1bfc45a6ece3b29e13252,
+  Materialise_Material: {fileID: 2100000, guid: a6b5365565f860c46be3e7f89e82b140,
     type: 2}
   ParticleSystems:
   - {fileID: 3579922286832820263}
   - {fileID: 1668637034328282215}
-  Docking_Mesh_Collider: {fileID: 6533767748350443950}
+  Docking_Mesh_Collider:
+  - {fileID: 6533767748350443950}
+  - {fileID: 3842178730248263752}
 --- !u!136 &3842178730248263752
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -336,7 +338,7 @@ PrefabInstance:
     - target: {fileID: 2954615971056496099, guid: 1783950a6653ca040b0a868929026f4e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4012092120937133887, guid: 1783950a6653ca040b0a868929026f4e,
         type: 3}
@@ -376,7 +378,7 @@ PrefabInstance:
     - target: {fileID: 5684948700615787836, guid: 1783950a6653ca040b0a868929026f4e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -100
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 6181700579298144361, guid: 1783950a6653ca040b0a868929026f4e,
         type: 3}

@@ -23,6 +23,10 @@ public class AsteroidInformationManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Composition3_Text;
 
 
+    private WaitForSeconds WaitForSeconds_10 = new WaitForSeconds(10f);
+
+    private WaitForSeconds WaitForSeconds_2 = new WaitForSeconds(2f);
+
     public static Action<float, float,
         string, float,
         string, float,
@@ -69,12 +73,12 @@ public class AsteroidInformationManager : MonoBehaviour
 
     private IEnumerator Asteroid_Information_Shut_Down()
     {
-        yield return new WaitForSeconds(10f);
+        yield return WaitForSeconds_10;
 
         UIVisualEffectsManager.UI_Fader_Event.Invoke(Canvas_Group_Asteroid_Information, 0, 1, 0.5f);
         Asteroid_Information_Transform.DOScale(0f, 1f);
 
-        yield return new WaitForSeconds(2f);
+        yield return WaitForSeconds_2;
 
         Asteroid_Information_Gameobject.SetActive(false);
     }

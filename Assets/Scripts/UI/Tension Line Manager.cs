@@ -20,6 +20,8 @@ public class TensionLineManager : MonoBehaviour
 
     private bool Is_Tension_Line_Active =false;
 
+    private WaitForSeconds WaitForSeconds_0_5 = new WaitForSeconds(0.5f);
+
     private void OnEnable()
     {
         DockingZoneCollisionManager.On_Player_Docked += Tension_Line_Active;
@@ -81,7 +83,7 @@ public class TensionLineManager : MonoBehaviour
 
     private IEnumerator Delay_Hide()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return WaitForSeconds_0_5;
         Tension_Line.SetActive(false);
         Is_Tension_Line_Active = false;
     }

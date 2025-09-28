@@ -21,14 +21,20 @@ public class DeselectProjectile : MonoBehaviour
 
     private bool In_Contact_With_Asteroid = false;
 
+    private WaitForSeconds WaitForSeconds_4 = new WaitForSeconds(4f);
+    private WaitForSeconds WaitForSeconds_Delay_Duration;
+
     // Destroy the cannonball after 10 seconds to prevent cluttering the scene
     private void Start()
     {
         Destroy(gameObject, 10f);
+        WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
+
         if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
         {
             Rb_Deselect_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
         }
+
 
     }
 
@@ -81,7 +87,7 @@ public class DeselectProjectile : MonoBehaviour
 
             Deselect.Invoke();
             TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
-            yield return new WaitForSeconds(Delay_Duration);
+            yield return WaitForSeconds_Delay_Duration;
 
             Deselect_Asteroid.Invoke(Asteroid_Script);
             if(Asteroid_Tow != null)
@@ -91,7 +97,7 @@ public class DeselectProjectile : MonoBehaviour
             Asteroid_Script.Destroy_Anchors();
 
             MaterialFlashManager.Object_Single_Flash.Invoke(Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile, Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile.material, Flash_Material, 5, 0.5f);
-            yield return new WaitForSeconds(4f);
+            yield return WaitForSeconds_4;
 
             GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
             Destroy(Explosion, 3f);

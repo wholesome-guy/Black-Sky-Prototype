@@ -12,6 +12,8 @@ public class DisplayTextManager : MonoBehaviour
 
     public static Action<string> Display_Text_Event;
 
+    private WaitForSeconds WaitForSeconds_2 = new WaitForSeconds(2f);
+
     private void OnEnable()
     {
         Display_Text_Event += Display_Text_Function;
@@ -37,7 +39,7 @@ public class DisplayTextManager : MonoBehaviour
 
     private IEnumerator Display_Text_Hide()
     {
-        yield return new WaitForSeconds(2f);
+        yield return WaitForSeconds_2;
         UIVisualEffectsManager.UI_Fader_Event.Invoke(Display_Text_Canvas_Group, 1, 0, 0.5f);
         Display_Text_GameObject.SetActive(false);
     }

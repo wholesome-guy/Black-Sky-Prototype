@@ -18,16 +18,19 @@ public class DockingZoneCollisionManager : MonoBehaviour
     [SerializeField] private Material[] Materials;
     [SerializeField] private Material Materialise_Material;
     [SerializeField] private ParticleSystem[] ParticleSystems;
-    [SerializeField] private MeshCollider Docking_Mesh_Collider;
+    [SerializeField] private Collider[] Docking_Mesh_Collider;
 
 
     private WaitForSeconds WaitForSeconds_Delay_Duration;
+    private WaitForSeconds WaitForSeconds_10 = new WaitForSeconds(10f); 
 
     private PlayerSingleton Player_Singleton;
 
     private void Start()
     {
-        StartCoroutine(Mesh_Dissolve_VFX(true, 10f));
+
+        StartCoroutine(Materialise_Effect());
+        
         Player_Singleton = PlayerSingleton.instance;
         WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
 
@@ -54,8 +57,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
         {
             On_Player_Undocked.Invoke();
             DockingZonePointerManager.Pointer_Event(false, gameObject.transform);
-            StartCoroutine(Mesh_Dissolve_VFX(false, 10f));
-            Destroy(gameObject, 10.5f); 
+            StartCoroutine(Delay_On_Player_UnDock());
         }
     }
 
@@ -66,60 +68,25 @@ public class DockingZoneCollisionManager : MonoBehaviour
         On_Player_Docked.Invoke();
 
     }
-
-
-    private IEnumerator Mesh_Dissolve_VFX(bool Materialise ,float Duration)
+    private IEnumerator Delay_On_Player_UnDock()
     {
-        if (Materialise)
+        yield return WaitForSeconds_Delay_Duration;
+        MaterialDissolveManager.Multiple_Mesh_Dissolve_Event.Invoke(true, Mesh_Renderer, Docking_Mesh_Collider, Materialise_Material, Materials, 10f);
+        Destroy(gameObject, 10.5f);
+
+    }
+
+    private IEnumerator Materialise_Effect()
+    {
+        MaterialDissolveManager.Multiple_Mesh_Dissolve_Event.Invoke(false, Mesh_Renderer, Docking_Mesh_Collider, Materialise_Material, Materials,10f);
+
+        yield return WaitForSeconds_10;
+
+        for (int i = 0; i < 2; i++)
         {
-            for (int i = 0; i < Mesh_Renderer.Length; i++) 
-            {
-                Mesh_Renderer[i].sharedMaterial = Materialise_Material;
-            }
-            Docking_Mesh_Collider.enabled = false;
-
-            float Time_Elapsed = 0;
-            while(Time_Elapsed < Duration)
-            {
-                Time_Elapsed += Time.deltaTime;
-                float value = Mathf.Lerp(-100, 30, Time_Elapsed / Duration);
-                Materialise_Material.SetFloat("_Cut_Off_Height", value);
-                yield return null;
-            }
-            Materialise_Material.SetFloat("_Cut_Off_Height", 100);
-
-
-            for (int i = 0; i < ParticleSystems.Length; i++)
-            {
-                Mesh_Renderer[i].sharedMaterial = Materials[i];
-                ParticleSystems[i].Play();
-            }         
-            Is_Player_Docked = false;
-            Docking_Mesh_Collider.enabled = true;
-            CameraManager.Camera_Shake_Event.Invoke();
-            DockingZonePointerManager.Pointer_Event(true, gameObject.transform);
+            ParticleSystems[i].Play();
         }
-
-        else
-        {
-            for (int i = 0; i < Mesh_Renderer.Length; i++)
-            {
-                Mesh_Renderer[i].sharedMaterial = Materialise_Material;
-            }
-            Docking_Mesh_Collider.enabled = false;
-
-
-            float Time_Elapsed = 0;
-            while (Time_Elapsed < Duration)
-            {
-                Time_Elapsed += Time.deltaTime;
-                float value = Mathf.Lerp(50, -100, Time_Elapsed / Duration);
-                Materialise_Material.SetFloat("_Cut_Off_Height", value);
-                yield return null;
-            }
-            Materialise_Material.SetFloat("_Cut_Off_Height", -100);
-                       
-        }
+        DockingZonePointerManager.Pointer_Event(true, gameObject.transform);
     }
     
 }

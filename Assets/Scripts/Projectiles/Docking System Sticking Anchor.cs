@@ -12,8 +12,11 @@ public class DockingSystemStickingAnchor : MonoBehaviour
     [SerializeField] private MoneyValues Money_Values;
     private static bool Is_Docking_Zone_Instantiated = false;
 
+    private PlayerSingleton Player_Singleton;
+
     private void OnEnable()
     {
+        Player_Singleton = PlayerSingleton.instance;
         AnchorProjectileMovement.Sticking_Anchor_Deployed += Docking_Zone_Instantiate;
         DockingZoneCollisionManager.On_Player_Undocked += UnDocked;
         Keyboard_Input_Manager.De_Tether += Docking_Zone_Re_Instantiate;
@@ -46,6 +49,10 @@ public class DockingSystemStickingAnchor : MonoBehaviour
     }
     private void Docking_Zone_Re_Instantiate()
     {
+        if(Player_Singleton.Is_Spaceship_At_Selling_Zone)
+        {
+            return;
+        }
         Vector3 Player_Position = PlayerSingleton.instance.Player_Transform.position;
         Vector3 Random_Position = new Vector3(UnityEngine.Random.Range(-1, +1) * Docking_Distance + Player_Position.x, Player_Position.y, UnityEngine.Random.Range(-1, +1) * Docking_Distance + Player_Position.z);
 

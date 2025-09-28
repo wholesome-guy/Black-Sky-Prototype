@@ -37,6 +37,7 @@ public class ProjectileWheelManager : MonoBehaviour
 
     #endregion
 
+    private WaitForSecondsRealtime WaitForSeconds_0_0_1 = new WaitForSecondsRealtime(0.01f);
 
     private void Start()
     {
@@ -161,7 +162,7 @@ public class ProjectileWheelManager : MonoBehaviour
 
     private IEnumerator Delay_DeSelect(int t)
     {
-        yield return new WaitForSecondsRealtime(0.01f);
+        yield return WaitForSeconds_0_0_1;
         Projectile_Wheel_DeSelect(t);
     }
 

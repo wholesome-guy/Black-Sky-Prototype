@@ -18,6 +18,11 @@ public class AsteroidDataProjectile : MonoBehaviour
     [SerializeField] private Material Base_Material;
     [SerializeField] private Material Scan_Material;
 
+    private WaitForSeconds WaitForSeconds_1 = new WaitForSeconds(1f);
+    private WaitForSeconds WaitForSeconds_4 = new WaitForSeconds(4f);
+    private WaitForSeconds WaitForSeconds_Scan_Duration;
+
+
 
     [Range(0,10)]
     [SerializeField] private float Scan_Duration;
@@ -30,7 +35,7 @@ public class AsteroidDataProjectile : MonoBehaviour
     {
         Destroy(gameObject,15f);
 
-
+        WaitForSeconds_Scan_Duration = new WaitForSeconds(Scan_Duration);
         if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
         {
             Rb_Asteroid_Data_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
@@ -88,22 +93,22 @@ public class AsteroidDataProjectile : MonoBehaviour
         Material_Array[0] = Base_Material;
         Material_Array[1] = Scan_Material;
         Asteroid_Mesh_Renderer.sharedMaterials = Material_Array;
-       
 
-        yield return new WaitForSeconds(Scan_Duration);
+
+        yield return WaitForSeconds_Scan_Duration;
 
         
         
             AsteroidInformationManager.Asteroid_Information_Event
-             (Asteroid_Data.Asteroid_Mass, Asteroid_Data.Sell_Value,
+            (Asteroid_Data.Asteroid_Mass, Asteroid_Data.Sell_Value,
              Asteroid_Data.Asteroid_Elemental_Content[0], Asteroid_Data.Asteroid_Elemental_Content_Percentage[0],
              Asteroid_Data.Asteroid_Elemental_Content[1], Asteroid_Data.Asteroid_Elemental_Content_Percentage[1],
              Asteroid_Data.Asteroid_Elemental_Content[2], Asteroid_Data.Asteroid_Elemental_Content_Percentage[2]);
-        
-        
 
 
-        yield return new WaitForSeconds(1f);
+
+
+        yield return WaitForSeconds_1;
 
         Particles_VFX.Stop();
         Material[] Material_Array_Normal = new Material[1];
@@ -111,7 +116,7 @@ public class AsteroidDataProjectile : MonoBehaviour
         Asteroid_Mesh_Renderer.sharedMaterials = Material_Array_Normal;
 
         MaterialFlashManager.Object_Single_Flash.Invoke(Mesh_Renderer_Asteroid_Data_Projectile, Mesh_Renderer_Asteroid_Data_Projectile.material, Flash_Material, 5, 0.5f);
-        yield return new WaitForSeconds(4f);
+        yield return WaitForSeconds_4;
 
         GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
         Destroy(Explosion, 3f);

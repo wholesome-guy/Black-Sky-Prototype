@@ -19,6 +19,8 @@ public class ThrottleMenuManager : MonoBehaviour
     private int Previous_Index;
 
     public static Action<int> Throttle_Select_Event;
+    private WaitForSecondsRealtime WaitForSeconds_0_0_1 = new WaitForSecondsRealtime(0.01f);
+
 
     #region Throttle Wheel Images
     [SerializeField] private Image[] Sector_Images = new Image[3];
@@ -140,7 +142,7 @@ public class ThrottleMenuManager : MonoBehaviour
 
     private IEnumerator Delay_DeSelect(int t)
     {
-        yield return new WaitForSecondsRealtime(0.01f);
+        yield return WaitForSeconds_0_0_1;
         Throttle_Wheel_DeSelect(t);
     }
 
