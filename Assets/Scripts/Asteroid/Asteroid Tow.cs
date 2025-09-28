@@ -8,6 +8,7 @@ public class AsteroidTow : MonoBehaviour
 {
     private Rigidbody Player_RigidBody;
     private Transform Player_Transform;
+    private PlayerSingleton Player_Singleton;
 
     private Rigidbody Asteroid_RigidBody;
     private AsteroidScript Asteroid_Script;
@@ -26,8 +27,9 @@ public class AsteroidTow : MonoBehaviour
 
     private void Start()
     {
-        Player_Transform = PlayerSingleton.instance.Player_Transform;
-        Player_RigidBody = PlayerSingleton.instance.Player_Rigidbody;
+        Player_Singleton = PlayerSingleton.instance;
+        Player_Transform = Player_Singleton.Player_Transform;
+        Player_RigidBody = Player_Singleton.Player_Rigidbody;
 
         Asteroid_RigidBody = gameObject.GetComponent<Rigidbody>();
 

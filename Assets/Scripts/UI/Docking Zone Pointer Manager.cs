@@ -10,6 +10,7 @@ public class DockingZonePointerManager : MonoBehaviour
     [SerializeField] private GameObject Docking_Zone_Pointer;
     [SerializeField] private CanvasGroup Indicator_Canvas_Group;
     [SerializeField] private Transform Pointer;
+    private PlayerSingleton Player_Singleton;
 
     [SerializeField] private Transform Docking_Zone;
 
@@ -29,6 +30,7 @@ public class DockingZonePointerManager : MonoBehaviour
     }
     private void Start()
     {
+        Player_Singleton  =PlayerSingleton.instance;
         Docking_Zone_Pointer.SetActive(false);
         Indicator_Canvas_Group.alpha = 0f;
         Is_Pointer_Active = false;
@@ -61,7 +63,7 @@ public class DockingZonePointerManager : MonoBehaviour
     private void Pointer_Function()
     {
 
-        Vector3 Pointer_Position = PlayerSingleton.instance.transform.InverseTransformPoint(Docking_Zone.transform.position);
+        Vector3 Pointer_Position = Player_Singleton.transform.InverseTransformPoint(Docking_Zone.transform.position);
 
         float Angle  = Mathf.Atan2(Pointer_Position.x, Pointer_Position.z) *Mathf.Rad2Deg;
 

@@ -8,7 +8,6 @@ public class DeselectProjectile : MonoBehaviour
     [SerializeField] private Rigidbody Rb_Deselect_Projectile;  // Rigidbody component of the cannonball projectile
     [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
     [SerializeField] private float Torque_Force;              // Rotational force applied to the cannonball
-    [SerializeField] private GameObject Explosion_VFX;
 
     
     public static Action<AsteroidScript> Deselect_Asteroid;
@@ -21,18 +20,26 @@ public class DeselectProjectile : MonoBehaviour
 
     private bool In_Contact_With_Asteroid = false;
 
-    private WaitForSeconds WaitForSeconds_4 = new WaitForSeconds(4f);
+    private WaitForSeconds WaitForSeconds_5 = new WaitForSeconds(5f);
     private WaitForSeconds WaitForSeconds_Delay_Duration;
+
+    private Mouse_Input_Manager Mouse_Input_Manager_;
+    private ObjectPoolingManager Object_Pooling_Manager;
+    private PlayerSingleton Player_Singleton;
+    private GameObject Explosion;
 
     // Destroy the cannonball after 10 seconds to prevent cluttering the scene
     private void Start()
     {
         Destroy(gameObject, 10f);
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
+        Player_Singleton = PlayerSingleton.instance;
+        Object_Pooling_Manager = ObjectPoolingManager.Instance;
         WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
 
-        if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
+        if (!Mouse_Input_Manager_.Is_Free_Aim_On)
         {
-            Rb_Deselect_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+            Rb_Deselect_Projectile.velocity = Player_Singleton.Player_Rigidbody.velocity;
         }
 
 
@@ -70,8 +77,11 @@ public class DeselectProjectile : MonoBehaviour
         }
         else
         {
-            GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
-            Destroy(Explosion, 3f);
+            Explosion = Object_Pooling_Manager.Instantiate_Explosion();
+            Explosion.transform.position = transform.position;
+            Explosion.transform.rotation = transform.rotation;
+
+            Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
             Destroy(gameObject);    
         }
     }
@@ -97,10 +107,13 @@ public class DeselectProjectile : MonoBehaviour
             Asteroid_Script.Destroy_Anchors();
 
             MaterialFlashManager.Object_Single_Flash.Invoke(Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile, Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile.material, Flash_Material, 5, 0.5f);
-            yield return WaitForSeconds_4;
+            yield return WaitForSeconds_5;
 
-            GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
-            Destroy(Explosion, 3f);
+            Explosion = Object_Pooling_Manager.Instantiate_Explosion();
+            Explosion.transform.position = transform.position;
+            Explosion.transform.rotation = transform.rotation;
+
+            Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
             // Destroy the projectile immediately on collision with anything else
             Destroy(gameObject);
 

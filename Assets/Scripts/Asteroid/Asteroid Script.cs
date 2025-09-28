@@ -34,10 +34,13 @@ public class AsteroidScript : MonoBehaviour
 
     #endregion
 
-   
+    private PlayerSingleton Player_Singleton;
+
     void Start()
     {
         Asteroid_RigidBody.mass = Asteroid_Mass;
+        Player_Singleton = PlayerSingleton.instance;
+
     }
     private void FixedUpdate()
     {
@@ -61,7 +64,7 @@ public class AsteroidScript : MonoBehaviour
 
     private void Asteroid_Positioner()
     {
-        Vector3 Direction_Of_Position = PlayerSingleton.instance.Asteroid_Point.position - gameObject.transform.position;
+        Vector3 Direction_Of_Position = Player_Singleton.Asteroid_Point.position - gameObject.transform.position;
 
         Asteroid_RigidBody.AddForce(Direction_Of_Position * AsteroidData.Asteroid_Tether_PullForce(Asteroid_Mass),ForceMode.Force);
     }

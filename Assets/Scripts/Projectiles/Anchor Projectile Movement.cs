@@ -10,7 +10,11 @@ public class AnchorProjectileMovement : MonoBehaviour
     [SerializeField] private float Torque_Force;
     [SerializeField] private GameObject Sticking_Anchor;
     [SerializeField] private bool Is_Right;
-    [SerializeField] private GameObject Explosion_VFX;
+
+    private ObjectPoolingManager Object_Pooling_Manager;
+    private GameObject Explosion;
+    private Mouse_Input_Manager Mouse_Input_Manager_;
+    private PlayerSingleton Player_Singleton;
 
     // Event invoked when the sticking anchor is deployed, passing the contact normal vector
     public static Action<Vector3> Sticking_Anchor_Deployed;
@@ -19,9 +23,13 @@ public class AnchorProjectileMovement : MonoBehaviour
     {
         // Destroy the projectile after 10 seconds to prevent lingering objects
         Destroy(gameObject, 10f);
-        if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
+
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
+        Player_Singleton = PlayerSingleton.instance;
+        Object_Pooling_Manager = ObjectPoolingManager.Instance;
+        if (!Mouse_Input_Manager_.Is_Free_Aim_On)
         {
-            Rb_Anchor_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+            Rb_Anchor_Projectile.velocity = Player_Singleton.Player_Rigidbody.velocity;
         }
 
     }
@@ -77,8 +85,11 @@ public class AnchorProjectileMovement : MonoBehaviour
         else
         {
 
-            GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
-            Destroy(Explosion, 3f);
+            Explosion = Object_Pooling_Manager.Instantiate_Explosion();
+            Explosion.transform.position = transform.position;
+            Explosion.transform.rotation = transform.rotation;
+
+            Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
             // Destroy the projectile immediately on collision with anything else
             Destroy(gameObject);
         }

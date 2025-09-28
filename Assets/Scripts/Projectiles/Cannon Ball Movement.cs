@@ -7,17 +7,24 @@ public class CannonBallMovement : MonoBehaviour
     [SerializeField] private Rigidbody Rb_Cannon_Projectile;  // Rigidbody component of the cannonball projectile
     [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
     [SerializeField] private float Torque_Force;
-    [SerializeField] private GameObject Explosion_VFX;// Rotational force applied to the cannonball
 
-    // Destroy the cannonball after 10 seconds to prevent cluttering the scene
+    private ObjectPoolingManager Object_Pooling_Manager;
+    private GameObject Explosion;
+
+
+    private Mouse_Input_Manager Mouse_Input_Manager_;
+    private PlayerSingleton Player_Singleton;
 
     
     private void Start()
     {
+        Object_Pooling_Manager = ObjectPoolingManager.Instance;
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
+        Player_Singleton = PlayerSingleton.instance;
         Destroy(gameObject, 10f);
-        if (!Mouse_Input_Manager.instance.Is_Free_Aim_On)
+        if (!Mouse_Input_Manager_.Is_Free_Aim_On)
         {
-            Rb_Cannon_Projectile.velocity = PlayerSingleton.instance.Player_Rigidbody.velocity;
+            Rb_Cannon_Projectile.velocity = Player_Singleton.Player_Rigidbody.velocity;
         }
 
     }
@@ -41,8 +48,11 @@ public class CannonBallMovement : MonoBehaviour
         CameraManager.Camera_Shake_Event.Invoke();
         CrossHairManager.Hit_Mark_Event.Invoke();
 
-        GameObject Explosion = Instantiate(Explosion_VFX, gameObject.transform.position, gameObject.transform.rotation);
-        Destroy(Explosion,3f);
+        Explosion = Object_Pooling_Manager.Instantiate_Explosion();
+        Explosion.transform.position = transform.position;
+        Explosion.transform.rotation = transform.rotation;
+
+        Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
 
         Destroy(gameObject);
     }

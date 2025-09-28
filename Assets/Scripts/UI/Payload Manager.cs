@@ -15,6 +15,8 @@ public class PayloadManager : MonoBehaviour
     public static Action<bool> Payload_Fade_Event;
 
     private WaitForSeconds WaitForSeconds_0_5 = new WaitForSeconds(0.5f);
+
+    private PlayerSingleton Player_Singleton;
     private void OnEnable()
     {
         Update_Payload_Percentage_Event += Percentage_Payload;
@@ -28,7 +30,8 @@ public class PayloadManager : MonoBehaviour
     }
     private void Start()
     {
-        SpaceShip_Values = PlayerSingleton.instance.SpaceShip_Select_Values;
+        Player_Singleton = PlayerSingleton.instance;
+        SpaceShip_Values = Player_Singleton.SpaceShip_Select_Values;
         Percentage_Payload();
         Payload_Canvas_Group.gameObject.SetActive(false);
         Payload_Canvas_Group.alpha = 0f;
@@ -48,7 +51,7 @@ public class PayloadManager : MonoBehaviour
     }
     private void Percentage_Payload()
     {
-        Payload_Ratio = PlayerSingleton.instance.Asteroid_Mass / SpaceShip_Values.Payload;
+        Payload_Ratio = Player_Singleton.Asteroid_Mass / SpaceShip_Values.Payload;
         string Payload_Text = Mathf.Clamp(Mathf.RoundToInt(Payload_Ratio * 100),0,100) + "%";
         Percentage_Text.text = Payload_Text;
     }

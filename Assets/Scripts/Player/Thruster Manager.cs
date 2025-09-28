@@ -62,6 +62,9 @@ public class ThrusterManager : MonoBehaviour
 
     public bool Particle_Switch = false;
 
+    private PlayerSingleton Player_Singleton;
+    private float Player_Velocity;
+
     private void OnEnable()
     {
         Throttle_Handling_Lever.Low_Throttle_Action += Low_Throttle;
@@ -85,7 +88,7 @@ public class ThrusterManager : MonoBehaviour
 
     private void Start()
     {
-        
+        Player_Singleton = PlayerSingleton.instance;
 
         Low_Velocity_To_Thurst_Constant = Expected_Thrust_Value_Low / Low_Throttle_Velocity;
         Moderate_Velocity_To_Thurst_Constant = Expected_Thrust_Value_Moderate / Moderate_Throttle_Velocity;
@@ -108,19 +111,20 @@ public class ThrusterManager : MonoBehaviour
 
     private void Update()
     {
-        Thrust_Value = Mathf.Clamp(PlayerSingleton.instance.Player_Rigidbody.velocity.magnitude*Velocity_To_Thurst_Constant,0,Expected_Thrust_Value);
+        Player_Velocity = Player_Singleton.Player_Rigidbody.velocity.magnitude;
+        Thrust_Value = Mathf.Clamp(Player_Velocity * Velocity_To_Thurst_Constant,0,Expected_Thrust_Value);
         
         Left_Thruster_Material.SetFloat("_ThrustPower", Thrust_Value);
         Right_Thruster_Material.SetFloat("_ThrustPower", Thrust_Value);
 
-        float Particle_Speed = Mathf.Clamp(PlayerSingleton.instance.Player_Rigidbody.velocity.magnitude * Velocity_To_Particle_Speed_Constant, 0, Expected_Particle_Speed_Value);
+        float Particle_Speed = Mathf.Clamp(Player_Velocity * Velocity_To_Particle_Speed_Constant, 0, Expected_Particle_Speed_Value);
         Wind_Zone_Main.startSpeed = Particle_Speed;
 
-        float Particle_Rate = Mathf.Clamp(PlayerSingleton.instance.Player_Rigidbody.velocity.magnitude * Velocity_To_Particle_Rate_Constant, 0, Expected_Particle_Rate_Value);
+        float Particle_Rate = Mathf.Clamp(Player_Velocity * Velocity_To_Particle_Rate_Constant, 0, Expected_Particle_Rate_Value);
         Wind_Zone_Emission.rateOverTime = Particle_Rate;
 
 
-        bool isMoving = PlayerSingleton.instance.Player_Rigidbody.velocity.sqrMagnitude > 0.01f; // use sqrMagnitude for performance
+        bool isMoving = Player_Velocity > 0.01f; 
 
         if (isMoving && !Particle_Switch)
         {

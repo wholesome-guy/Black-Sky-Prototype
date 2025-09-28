@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class DockingSystemStickingAnchor : MonoBehaviour
 {
-    [SerializeField] private GameObject Docking_Zone;
     [SerializeField] private float Docking_Distance;
     private GameObject Current_Docking_Zone;
 
@@ -13,7 +12,13 @@ public class DockingSystemStickingAnchor : MonoBehaviour
     private static bool Is_Docking_Zone_Instantiated = false;
 
     private PlayerSingleton Player_Singleton;
+    private ObjectPoolingManager Object_Pooling_Manager;
 
+    private void Awake()
+    {
+        Object_Pooling_Manager = ObjectPoolingManager.Instance;
+
+    }
     private void OnEnable()
     {
         Player_Singleton = PlayerSingleton.instance;
@@ -38,7 +43,9 @@ public class DockingSystemStickingAnchor : MonoBehaviour
 
             Vector3 Docking_Direction = new Vector3(Direction.x, Direction.y, Direction.z) * Docking_Distance;
 
-            Current_Docking_Zone = Instantiate(Docking_Zone, Docking_Direction, Quaternion.identity);
+            Current_Docking_Zone = Object_Pooling_Manager.Instantiate_Docking_Zone();
+            Current_Docking_Zone.transform.position = Docking_Direction;
+            Current_Docking_Zone.transform.rotation = Quaternion.identity;
 
             Is_Docking_Zone_Instantiated = true;
 
@@ -58,7 +65,9 @@ public class DockingSystemStickingAnchor : MonoBehaviour
 
         if (!Is_Docking_Zone_Instantiated)
         {
-            Current_Docking_Zone = Instantiate(Docking_Zone, Random_Position, Quaternion.identity);
+            Current_Docking_Zone = Object_Pooling_Manager.Instantiate_Docking_Zone();
+            Current_Docking_Zone.transform.position = Random_Position;
+            Current_Docking_Zone.transform.rotation = Quaternion.identity;
 
             Is_Docking_Zone_Instantiated = true;
 
@@ -72,7 +81,7 @@ public class DockingSystemStickingAnchor : MonoBehaviour
         if(Current_Docking_Zone != null)
         {
             DockingZonePointerManager.Pointer_Event(false, Current_Docking_Zone.gameObject.transform);
-            Destroy(Current_Docking_Zone.gameObject);
+            Object_Pooling_Manager.Destroy_Docking_Zone(1f, Current_Docking_Zone);
             Is_Docking_Zone_Instantiated = false;
 
         }

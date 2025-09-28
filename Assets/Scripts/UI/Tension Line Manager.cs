@@ -22,6 +22,8 @@ public class TensionLineManager : MonoBehaviour
 
     private WaitForSeconds WaitForSeconds_0_5 = new WaitForSeconds(0.5f);
 
+    private PlayerSingleton Player_Singleton;
+    private float Player_Velocity;
     private void OnEnable()
     {
         DockingZoneCollisionManager.On_Player_Docked += Tension_Line_Active;
@@ -36,6 +38,7 @@ public class TensionLineManager : MonoBehaviour
 
     private void Start()
     {
+        Player_Singleton = PlayerSingleton.instance;
         Tension_Line_Inactive();
         Tension_Line_Canvas_Group.alpha = 0f;
     }
@@ -63,9 +66,10 @@ public class TensionLineManager : MonoBehaviour
 
     private void Anchor_Movement()
     {
+        Player_Velocity =Player_Singleton.Player_Rigidbody.velocity.magnitude;
         // 400/ 245 = 1.632 , Height/ Max speed ratio
-        Anchor.rectTransform.localPosition = new Vector3(0,PlayerSingleton.instance.Player_Rigidbody.velocity.magnitude * 1.632f , 0 );
-        string Tension_Meter = Mathf.RoundToInt(PlayerSingleton.instance.Player_Rigidbody.velocity.magnitude * AsteroidData.Fake_Tension_Velocity_Constant) + "MN";
+        Anchor.rectTransform.localPosition = new Vector3(0, Player_Velocity * 1.632f , 0 );
+        string Tension_Meter = Mathf.RoundToInt(Player_Velocity * AsteroidData.Fake_Tension_Velocity_Constant) + "MN";
         Tension_Text.text = Tension_Meter;
         if (Anchor.rectTransform.localPosition.y > 242f)
         {

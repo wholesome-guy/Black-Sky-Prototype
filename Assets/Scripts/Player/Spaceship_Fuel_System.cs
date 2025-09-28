@@ -42,6 +42,10 @@ public class Spaceship_Fuel_System : MonoBehaviour
     private bool Nitro_Exhausted_Event_Check;
     private bool Is_Refueling;                                  // Tracks if ship is in refueling mode
 
+
+    private PlayerSingleton Player_Singleton;
+    private Keyboard_Input_Manager Keyboard_Input_Manager_;
+
     // Sets fuel consumption for low throttle level
     public void Low_Throttle_Fuel_Compustion()
     {
@@ -61,12 +65,15 @@ public class Spaceship_Fuel_System : MonoBehaviour
     }
     private void Awake()
     {
-        SpaceShipValues = PlayerSingleton.instance.SpaceShip_Select_Values;
+        Player_Singleton = PlayerSingleton.instance;
+
+        SpaceShipValues = Player_Singleton.SpaceShip_Select_Values;
 
     }
     // Initialization on game start
     private void Start()
     {
+        Keyboard_Input_Manager_ = Keyboard_Input_Manager.instance;
         Is_Refueling = false;
         Fuel_Exhausted_Event_Check = false;
         Nitro_Exhausted_Event_Check = false;
@@ -125,19 +132,19 @@ public class Spaceship_Fuel_System : MonoBehaviour
     }
     private void Asteroid_Fuel_Constant_Function()
     {
-        if(PlayerSingleton.instance.Asteroid_Mass < 1000)
+        if(Player_Singleton.Asteroid_Mass < 1000)
         {
             Asteroid_Fuel_Constant = 1.0f;
         }
-        else if (PlayerSingleton.instance.Asteroid_Mass > 1000 && PlayerSingleton.instance.Asteroid_Mass <= 10000)
+        else if (Player_Singleton.Asteroid_Mass > 1000 && Player_Singleton.Asteroid_Mass <= 10000)
         {
             Asteroid_Fuel_Constant = 1.5f;
         }
-        else if(PlayerSingleton.instance.Asteroid_Mass > 10000 && PlayerSingleton.instance.Asteroid_Mass <= 50000)
+        else if(Player_Singleton.Asteroid_Mass > 10000 && Player_Singleton.Asteroid_Mass <= 50000)
         {
             Asteroid_Fuel_Constant = 2.0f;
         }
-        else if (PlayerSingleton.instance.Asteroid_Mass > 50000 && PlayerSingleton.instance.Asteroid_Mass <= 100000)
+        else if (Player_Singleton.Asteroid_Mass > 50000 && Player_Singleton.Asteroid_Mass <= 100000)
         {
             Asteroid_Fuel_Constant = 2.5f;
         }
@@ -146,7 +153,7 @@ public class Spaceship_Fuel_System : MonoBehaviour
     // Handles gradual fuel consumption when input is active
     private void Fuel_Consumption_Function()
     {
-        if (Keyboard_Input_Manager.instance.Keyboard_Input.y != 0 && !Keyboard_Input_Manager.instance.Is_Nitro_On)
+        if (Keyboard_Input_Manager_.Keyboard_Input.y != 0 && !Keyboard_Input_Manager_.Is_Nitro_On)
         {
             Current_Fuel -= Fuel_Consumption * Asteroid_Fuel_Constant * Time.deltaTime;
             Current_Fuel = Mathf.Clamp(Current_Fuel, 0f, Max_Fuel);
@@ -154,7 +161,7 @@ public class Spaceship_Fuel_System : MonoBehaviour
     }
     private void Nitro_Consumption_Function()
     {
-        if (Keyboard_Input_Manager.instance.Is_Nitro_On)
+        if (Keyboard_Input_Manager_.Is_Nitro_On)
         {
             Current_Nitro -= Nitro_Comsumption * Time.deltaTime;
             Current_Nitro = Mathf.Clamp(Current_Nitro, 0f, Max_Nitro);

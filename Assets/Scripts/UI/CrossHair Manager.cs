@@ -38,6 +38,7 @@ public class CrossHairManager : MonoBehaviour
 
     public static Action Hit_Mark_Event;
 
+    private Mouse_Input_Manager Mouse_Input_Manager_;
     private void OnEnable()
     {
         Hit_Mark_Event += Hit_Marker_Function;
@@ -53,6 +54,7 @@ public class CrossHairManager : MonoBehaviour
         Cannonn_Left_Tip = PlayerSingleton.instance.Left_Cannon_Tip;
         Cannonn_Right_Tip = PlayerSingleton.instance.Right_Cannon_Tip;
         Max_Shoot_Distance = PlayerSingleton.instance.Max_Shoot_Distance;
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
 
         Hit_Marker_Left.SetActive(false);
         Hit_Marker_Right.SetActive(false);
@@ -65,7 +67,7 @@ public class CrossHairManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Mouse_Input_Manager.instance.Is_Free_Aim_On)
+        if (Mouse_Input_Manager_.Is_Free_Aim_On)
         {
             Ray_To_Mouse();
         }
@@ -125,7 +127,7 @@ public class CrossHairManager : MonoBehaviour
 
     public void Crosshair_Hover()
     {
-        if (Mouse_Input_Manager.instance.Is_Free_Aim_On && UIVisualEffectsManager.Is_Pointer_Hovering)
+        if (Mouse_Input_Manager_.Is_Free_Aim_On && UIVisualEffectsManager.Is_Pointer_Hovering)
         {
             CrossHair_Left.gameObject.SetActive(false);
             CrossHair_Right.gameObject.SetActive(false);

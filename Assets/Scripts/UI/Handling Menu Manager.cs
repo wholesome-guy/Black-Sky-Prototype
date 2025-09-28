@@ -36,8 +36,11 @@ public class HandlingMenuManager : MonoBehaviour
     [SerializeField] private Image Inner_Ring;
 
     #endregion
+
+    private Mouse_Input_Manager Mouse_Input_Manager_;
     private void Start()
     {
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
         Handling_Wheel.SetActive(false);
         Handling_Icon_Text.gameObject.SetActive(false);
         Handling_Wheel_Canvas_Group.alpha = 0f;
@@ -78,13 +81,13 @@ public class HandlingMenuManager : MonoBehaviour
 
     private void Angle_Selector()
     {
-        if (Mouse_Input_Manager.instance.Angle_Mouse_Input > 0)
+        if (Mouse_Input_Manager_.Angle_Mouse_Input > 0)
         {
-            Handling_Select(Mouse_Input_Manager.instance.Angle_Mouse_Input);
+            Handling_Select(Mouse_Input_Manager_.Angle_Mouse_Input);
         }
         else
         {
-            Handling_Select(360 + Mouse_Input_Manager.instance.Angle_Mouse_Input);
+            Handling_Select(360 + Mouse_Input_Manager_.Angle_Mouse_Input);
         }
     }
 

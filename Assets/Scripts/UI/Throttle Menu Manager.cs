@@ -21,6 +21,8 @@ public class ThrottleMenuManager : MonoBehaviour
     public static Action<int> Throttle_Select_Event;
     private WaitForSecondsRealtime WaitForSeconds_0_0_1 = new WaitForSecondsRealtime(0.01f);
 
+    private Mouse_Input_Manager Mouse_Input_Manager_;
+
 
     #region Throttle Wheel Images
     [SerializeField] private Image[] Sector_Images = new Image[3];
@@ -40,6 +42,7 @@ public class ThrottleMenuManager : MonoBehaviour
     #endregion
     private void Start()
     {
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
         Throttle_Wheel.SetActive(false);
         Throttle_Icon_Text.gameObject.SetActive(false);
         Throttle_Wheel_Canvas_Group.alpha = 0f;
@@ -80,13 +83,13 @@ public class ThrottleMenuManager : MonoBehaviour
 
     private void Angle_Selector()
     {
-        if(Mouse_Input_Manager.instance.Angle_Mouse_Input > 0)
+        if(Mouse_Input_Manager_.Angle_Mouse_Input > 0)
         {
-            Throttle_Select(Mouse_Input_Manager.instance.Angle_Mouse_Input);
+            Throttle_Select(Mouse_Input_Manager_.Angle_Mouse_Input);
         }
         else
         {
-            Throttle_Select(360 + Mouse_Input_Manager.instance.Angle_Mouse_Input);
+            Throttle_Select(360 + Mouse_Input_Manager_.Angle_Mouse_Input);
         }
     }
 

@@ -39,8 +39,11 @@ public class ProjectileWheelManager : MonoBehaviour
 
     private WaitForSecondsRealtime WaitForSeconds_0_0_1 = new WaitForSecondsRealtime(0.01f);
 
+    private Mouse_Input_Manager Mouse_Input_Manager_;
+
     private void Start()
     {
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
         Projectile_Wheel.SetActive(false);
         Projectile_Wheel_Canvas_Group.alpha = 0.0f;
     }
@@ -80,13 +83,13 @@ public class ProjectileWheelManager : MonoBehaviour
 
     private void Angle_Selector()
     {
-        if (Mouse_Input_Manager.instance.Angle_Mouse_Input > 0)
+        if (Mouse_Input_Manager_.Angle_Mouse_Input > 0)
         {
-            Projectile_Select(Mouse_Input_Manager.instance.Angle_Mouse_Input);
+            Projectile_Select(Mouse_Input_Manager_.Angle_Mouse_Input);
         }
         else
         {
-            Projectile_Select(360 + Mouse_Input_Manager.instance.Angle_Mouse_Input);
+            Projectile_Select(360 + Mouse_Input_Manager_.Angle_Mouse_Input);
         }
     }
 

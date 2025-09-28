@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Compass_Element : MonoBehaviour
 {
-    [SerializeField] private Transform Player;               // Reference to the player's transform
+     private Transform Player;               // Reference to the player's transform
     [SerializeField] private RectTransform Compass;           // Reference to the UI compass RectTransform
     [SerializeField] private float Compass_Sensitivity;       // Sensitivity multiplier for compass movement
 
@@ -15,6 +15,10 @@ public class Compass_Element : MonoBehaviour
     [SerializeField] private float Upper_Snap_Value;           // Upper threshold to snap the compass back to center
 
 
+    private void Start()
+    {
+        Player = PlayerSingleton.instance.Player_Transform;
+    }
     // Called once per frame, after all Update calls
     void LateUpdate()
     {

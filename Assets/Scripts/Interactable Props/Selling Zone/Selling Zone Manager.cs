@@ -91,7 +91,6 @@ public class SellingZoneManager : MonoBehaviour
 
     private IEnumerator Asteroid_Pull_To_Sell()
     {
-        yield return Wait_For_Seconds_1;
 
         Asteroid_Rigidbody.DOMove(Selling_Dock_Transform.position, 5f);
 

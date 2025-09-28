@@ -15,7 +15,6 @@ public class PlayerDamageVFX : MonoBehaviour
     [SerializeField] private Material[] Spaceship_1_Material;
     [SerializeField] private Material[] Spaceship_2_Material;
 
-    [SerializeField] private GameObject Spaceship_1_Drebis;
 
 
     [SerializeField] private float Duration;
@@ -26,10 +25,14 @@ public class PlayerDamageVFX : MonoBehaviour
     public static Action Damage_Break_Event;
     public static Action Shield_Regeneration_Event;
 
+    private ObjectPoolingManager Object_Pooling_Manager;
+    private GameObject Damage_Particle;
+
 
     private void Start()
     {
         WaitForSeconds_Duration = new WaitForSeconds(Duration);
+        Object_Pooling_Manager = ObjectPoolingManager.Instance;
     }
     private void OnEnable()
     {
@@ -69,9 +72,11 @@ public class PlayerDamageVFX : MonoBehaviour
 
     private void Debris_VFX(Vector3 Point)
     {
-         GameObject Damage_Particle = Instantiate(Spaceship_1_Drebis, Point, Quaternion.identity);
+        Damage_Particle = Object_Pooling_Manager.Instantiate_Hit_Particle();
+        Damage_Particle.transform.position = Point;
+        Damage_Particle.transform.rotation = transform.rotation;
 
-         Destroy(Damage_Particle,2);
+        Object_Pooling_Manager.Destroy_Hit_Particle(3f, Damage_Particle);
     }
 
     private IEnumerator Material_Change(MeshRenderer[] SpaceShip, Material[] Original, Material Change, float Duration)

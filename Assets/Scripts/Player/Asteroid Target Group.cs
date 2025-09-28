@@ -15,6 +15,7 @@ public class AsteroidTargetGroup : MonoBehaviour
     public static Action Asteroid_Camera_Event;
     public static Action No_Asteroid_Camera_Event;
 
+    private PlayerSingleton Player_Singleton;
     private void OnEnable()
     {
         Asteroid_Camera_Event += Target_Group;
@@ -28,6 +29,7 @@ public class AsteroidTargetGroup : MonoBehaviour
     }
     private void Start()
     {
+        Player_Singleton = PlayerSingleton.instance;
         Asteroid_Camera_Composer = Asteroid_Camera.GetCinemachineComponent<CinemachineComposer>();
         No_Asteroids_Camera();
     }
@@ -38,7 +40,8 @@ public class AsteroidTargetGroup : MonoBehaviour
 
         CinemachineTargetGroup.Target[] Targets = new CinemachineTargetGroup.Target[PlayerSingleton.instance.Asteroid_Transfroms.Length];
 
-        for (int i = 0; i < PlayerSingleton.instance.Asteroid_Transfroms.Length; i++)
+        int Lenght = Player_Singleton.Asteroid_Transfroms.Length;
+        for (int i = 0; i < Lenght; i++)
         {
             Targets[i] = new CinemachineTargetGroup.Target
             {
@@ -53,6 +56,6 @@ public class AsteroidTargetGroup : MonoBehaviour
     private void No_Asteroids_Camera()
     {
         Asteroid_Camera_Composer.m_TrackedObjectOffset = new Vector3 (0, 35f, 0);
-        Asteroid_Camera.LookAt = PlayerSingleton.instance.Player_Transform;
+        Asteroid_Camera.LookAt = Player_Singleton.Player_Transform;
     }
 }

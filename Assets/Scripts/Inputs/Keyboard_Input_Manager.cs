@@ -39,6 +39,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
     [SerializeField] private Settings Game_Settings;
 
     private WaitForSeconds WaitForSeconds_Delay_Duration;
+    private PlayerSingleton Player_Singleton;
+
     private void Awake()
     {
         // Singleton pattern to ensure only one instance exists
@@ -55,6 +57,12 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map = new SpaceShipControls();
 
         WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
+
+
+    }
+    private void Start()
+    {
+        Player_Singleton = PlayerSingleton.instance;
     }
 
     private void OnEnable()
@@ -174,7 +182,7 @@ public class Keyboard_Input_Manager : MonoBehaviour
 
     private void De_Tether_Fuction(InputAction.CallbackContext context)
     {
-        if(PlayerSingleton.instance.Is_Anchored)
+        if(Player_Singleton.Is_Anchored)
         {
             TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
             StartCoroutine(Delay_Detether());

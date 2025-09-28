@@ -45,14 +45,20 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private bool Is_Fuel_Exhuasted;
     private bool Is_Nitro_Exhuasted;
 
+    private PlayerSingleton Player_Singleton;
+    private Keyboard_Input_Manager Keyboard_Input_Manager_;
+    private Mouse_Input_Manager Mouse_Input_Manager_;
 
-    
-    
+
     private void Start()
     {
         // Assign the ship's mass from config values
 
-        SpaceShipValues = PlayerSingleton.instance.SpaceShip_Select_Values;
+        Player_Singleton = PlayerSingleton.instance;
+        Keyboard_Input_Manager_ = Keyboard_Input_Manager.instance;
+        Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
+
+        SpaceShipValues = Player_Singleton.SpaceShip_Select_Values;
 
         Rb.mass = SpaceShipValues.Mass;
         Nitro = SpaceShipValues.Nitro;
@@ -70,7 +76,7 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!PlayerSingleton.instance.Is_Spaceship_At_Rest)
+        if (!Player_Singleton.Is_Spaceship_At_Rest)
         {
             // Apply movement only if fuel is available
             if (!Is_Fuel_Exhuasted)
@@ -80,12 +86,12 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
             // Apply rotation only if rotation is not locked
 
-            if (!Mouse_Input_Manager.instance.Is_Rotation_Locked)
+            if (!Mouse_Input_Manager_.Is_Rotation_Locked)
             {
                 Rotational_Movement();
             }
 
-            if (Keyboard_Input_Manager.instance.Is_Nitro_On && !Is_Nitro_Exhuasted)
+            if (Keyboard_Input_Manager_.Is_Nitro_On && !Is_Nitro_Exhuasted)
             {
                 Nitro_Function();
             }
@@ -185,8 +191,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     private void Throttle_Function()
     {
-        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.y * Throttle , ForceMode.Force);
-        if (Keyboard_Input_Manager.instance.Keyboard_Input.y != 0)
+        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager_.Keyboard_Input.y * Throttle , ForceMode.Force);
+        if (Keyboard_Input_Manager_.Keyboard_Input.y != 0)
         {
             Throttle = Mathf.MoveTowards(Throttle, Max_Throttle, (Max_Throttle) / SpaceShipValues.Min_To_Max_Duartion_Throttle * Time.fixedDeltaTime);
         }
@@ -198,15 +204,15 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     }
     private void Nitro_Function()
     {
-        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.y * Nitro, ForceMode.Force);
+        Rb.AddForce(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager_.Keyboard_Input.y * Nitro, ForceMode.Force);
     }
 
     // Applies roll torque based on horizontal input
 
     private void Roll_Function()
     {
-        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager.instance.Keyboard_Input.x * Roll, ForceMode.Force);
-        if (Keyboard_Input_Manager.instance.Keyboard_Input.x != 0)
+        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.forward) * Keyboard_Input_Manager_.Keyboard_Input.x * Roll, ForceMode.Force);
+        if (Keyboard_Input_Manager_.Keyboard_Input.x != 0)
         {
             // if (Roll_Coroutine != null) { StopCoroutine(Roll_Coroutine); }
             // Roll_Coroutine = StartCoroutine(Lerping_Routine(Min_Roll, Max_Roll, SpaceShipValues.Min_To_Max_Duartion_Roll, (float Value) => Roll = Value));
@@ -224,8 +230,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     private void Pitch_Function()
     {
         
-        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.right) * Mouse_Input_Manager.instance.Normalised_Mouse_Input.y * Pitch * -1 * Mouse_Input_Manager.instance.Mouse_Sensitivity, ForceMode.Force);
-        if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.y != 0)
+        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.right) * Mouse_Input_Manager_.Normalised_Mouse_Input.y * Pitch * -1 * Mouse_Input_Manager_.Mouse_Sensitivity, ForceMode.Force);
+        if (Mouse_Input_Manager_.Normalised_Mouse_Input.y != 0)
         {
             // if (Pitch_Coroutine != null) { StopCoroutine(Pitch_Coroutine); }
             // Pitch_Coroutine = StartCoroutine(Lerping_Routine(Min_Pitch, Max_Pitch, SpaceShipValues.Min_To_Max_Duartion_Pitch, (float Value) => Pitch = Value));
@@ -243,8 +249,8 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
 
     private void Yaw_Function()
     {
-        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.up) * Mouse_Input_Manager.instance.Normalised_Mouse_Input.x * Yaw * Mouse_Input_Manager.instance.Mouse_Sensitivity, ForceMode.Force);
-        if (Mouse_Input_Manager.instance.Normalised_Mouse_Input.x != 0)
+        Rb.AddTorque(Rb.transform.TransformDirection(Vector3.up) * Mouse_Input_Manager_.Normalised_Mouse_Input.x * Yaw * Mouse_Input_Manager_.Mouse_Sensitivity, ForceMode.Force);
+        if (Mouse_Input_Manager_.Normalised_Mouse_Input.x != 0)
         {
             // if (Yaw_Coroutine != null) { StopCoroutine(Yaw_Coroutine); }
             // Yaw_Coroutine = StartCoroutine(Lerping_Routine(Min_Yaw, Max_Yaw, SpaceShipValues.Min_To_Max_Duartion_Yaw, (float Value) => Yaw = Value));
@@ -259,9 +265,9 @@ public class SpaceShip_Movement_Controller : MonoBehaviour
     }
     private void Dampening_Velocity()
     {
-        if (PlayerSingleton.instance.Is_Anchored)
+        if (Player_Singleton.Is_Anchored)
         {
-            float dampening = (1 - PlayerSingleton.instance.Dampening_Factor);
+            float dampening = (1 - Player_Singleton.Dampening_Factor);
             Rb.velocity *= dampening;
             Rb.angularVelocity *= dampening;
         }       

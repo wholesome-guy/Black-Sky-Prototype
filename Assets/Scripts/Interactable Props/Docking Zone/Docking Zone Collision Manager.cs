@@ -25,16 +25,20 @@ public class DockingZoneCollisionManager : MonoBehaviour
     private WaitForSeconds WaitForSeconds_10 = new WaitForSeconds(10f); 
 
     private PlayerSingleton Player_Singleton;
+    private ObjectPoolingManager Object_Pooling_Manager;
 
     private void Start()
     {
 
-        StartCoroutine(Materialise_Effect());
-        
         Player_Singleton = PlayerSingleton.instance;
+        Object_Pooling_Manager = ObjectPoolingManager.Instance;
         WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
 
+    }
 
+    private void OnEnable()
+    {
+        StartCoroutine(Materialise_Effect());
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -72,7 +76,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
     {
         yield return WaitForSeconds_Delay_Duration;
         MaterialDissolveManager.Multiple_Mesh_Dissolve_Event.Invoke(true, Mesh_Renderer, Docking_Mesh_Collider, Materialise_Material, Materials, 10f);
-        Destroy(gameObject, 10.5f);
+        Object_Pooling_Manager.Destroy_Docking_Zone(10.5f, gameObject);
 
     }
 
