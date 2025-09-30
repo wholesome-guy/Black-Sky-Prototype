@@ -6,9 +6,12 @@ using UnityEngine;
 public class AnchorProjectileMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody Rb_Anchor_Projectile;
+    [SerializeField] private TrailRenderer Trail_Renderer;
     [SerializeField] private float Thrust_Force;
     [SerializeField] private float Torque_Force;
-    [SerializeField] private GameObject Sticking_Anchor;
+     private GameObject Sticking_Anchor;
+    [SerializeField] private GameObject Left_Sticking_Anchor;
+    [SerializeField] private GameObject Right_Sticking_Anchor;
     [SerializeField] private bool Is_Right;
 
     private ObjectPoolingManager Object_Pooling_Manager;
@@ -19,14 +22,30 @@ public class AnchorProjectileMovement : MonoBehaviour
     // Event invoked when the sticking anchor is deployed, passing the contact normal vector
     public static Action<Vector3> Sticking_Anchor_Deployed;
 
-    private void Start()
-    {
-        // Destroy the projectile after 10 seconds to prevent lingering objects
-        Destroy(gameObject, 10f);
 
+    private void Awake()
+    {
         Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
         Player_Singleton = PlayerSingleton.instance;
         Object_Pooling_Manager = ObjectPoolingManager.Instance;
+    }
+    private void OnEnable()
+    {
+
+        Rb_Anchor_Projectile.velocity = Vector3.zero;
+        Rb_Anchor_Projectile.angularVelocity = Vector3.zero;
+
+        if(Is_Right)
+        {
+            Sticking_Anchor = Right_Sticking_Anchor;
+        }
+        else
+        {
+            Sticking_Anchor = Left_Sticking_Anchor;
+        }
+
+        Destroy_Projectile(10f);
+
         if (!Mouse_Input_Manager_.Is_Free_Aim_On)
         {
             Rb_Anchor_Projectile.velocity = Player_Singleton.Player_Rigidbody.velocity;
@@ -80,18 +99,30 @@ public class AnchorProjectileMovement : MonoBehaviour
             }
 
             // Destroy this projectile since it has stuck
-            Destroy(gameObject);
+            Destroy_Projectile(0.05f);
+
         }
         else
         {
 
             Explosion = Object_Pooling_Manager.Instantiate_Explosion();
-            Explosion.transform.position = transform.position;
-            Explosion.transform.rotation = transform.rotation;
+            Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
             Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
             // Destroy the projectile immediately on collision with anything else
-            Destroy(gameObject);
+            Destroy_Projectile(0.05f);
+        }
+    }
+    private void Destroy_Projectile(float duration)
+    {
+        if (Is_Right)
+        {
+            Object_Pooling_Manager.Destroy_Anchor_Projectile_Right(duration, gameObject, Trail_Renderer);
+        }
+        else
+        {
+            Object_Pooling_Manager.Destroy_Anchor_Projectile_Left(duration, gameObject, Trail_Renderer);
+
         }
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4135560136552403296}
   m_Layer: 0
-  m_Name: Explosion VFX Cannon Ball
+  m_Name: 'Explosion VFX '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

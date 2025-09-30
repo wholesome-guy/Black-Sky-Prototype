@@ -267,7 +267,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf69f47721120a418f58d5358c018de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Docking_Zone: {fileID: 1506096395084546718, guid: 7b67524de9caf9849b574d3a6d303b60,
-    type: 3}
   Docking_Distance: 100
   Money_Values: {fileID: 11400000, guid: d960eec79245d4c4db8800e0b021eec1, type: 2}

@@ -4835,7 +4835,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c42a69b8d31764f4085704f5a6189845, type: 2}
+  - {fileID: 2100000, guid: 4c226c8cc0092d746bea1b267e56e4e6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4857,7 +4857,7 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 4
-  m_MeshDistribution: 0
+  m_MeshDistribution: 1
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -4879,11 +4879,11 @@ ParticleSystemRenderer:
   m_VertexStreams: 00010304
   m_UseCustomTrailVertexStreams: 0
   m_TrailVertexStreams: 00010304
-  m_Mesh: {fileID: 70948873267775455, guid: 161b008bef5e40e42a472e7c26a2a60f, type: 3}
+  m_Mesh: {fileID: 4711208715938537054, guid: d50ccff9ceb0bb640bed399a984a9dfd, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MeshWeighting: 1
+  m_MeshWeighting: 10
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
@@ -4898,7 +4898,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7073135995890613180}
   m_Layer: 0
-  m_Name: Damage Partticle VFX
+  m_Name: Hit Particles VFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

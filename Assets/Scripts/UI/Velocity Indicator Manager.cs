@@ -10,7 +10,7 @@ public class VelocityIndicatorManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI Velocity_Text;
     private Rigidbody Player_Rigidbody;
     private float Player_Velocity;
-    private StringBuilder sb = new StringBuilder();
+    private string Velocity_Unit = " m/s";
     void Start()
     {
         Player_Rigidbody = PlayerSingleton.instance.Player_Rigidbody;
@@ -26,10 +26,7 @@ public class VelocityIndicatorManager : MonoBehaviour
     {
         Player_Velocity = Mathf.RoundToInt(Player_Rigidbody.velocity.magnitude);
 
-        sb.Clear();
-        sb.Append(Player_Velocity);
-        sb.Append(" m/s");
-        Velocity_Text.text = sb.ToString();
+        Velocity_Text.text = Player_Velocity + Velocity_Unit;
 
     }
 }

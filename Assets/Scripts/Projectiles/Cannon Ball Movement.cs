@@ -5,6 +5,7 @@ using UnityEngine;
 public class CannonBallMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody Rb_Cannon_Projectile;  // Rigidbody component of the cannonball projectile
+    public TrailRenderer TrailRenderer;
     [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
     [SerializeField] private float Torque_Force;
 
@@ -16,12 +17,21 @@ public class CannonBallMovement : MonoBehaviour
     private PlayerSingleton Player_Singleton;
 
     
-    private void Start()
+    private void Awake()
     {
         Object_Pooling_Manager = ObjectPoolingManager.Instance;
         Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
         Player_Singleton = PlayerSingleton.instance;
-        Destroy(gameObject, 10f);
+       
+    }
+    private void OnEnable()
+    {
+
+        Rb_Cannon_Projectile.velocity = Vector3.zero;
+        Rb_Cannon_Projectile.angularVelocity = Vector3.zero;
+
+        Object_Pooling_Manager.Destroy_Cannon_Ball(10f, gameObject,TrailRenderer);
+
         if (!Mouse_Input_Manager_.Is_Free_Aim_On)
         {
             Rb_Cannon_Projectile.velocity = Player_Singleton.Player_Rigidbody.velocity;
@@ -49,11 +59,10 @@ public class CannonBallMovement : MonoBehaviour
         CrossHairManager.Hit_Mark_Event.Invoke();
 
         Explosion = Object_Pooling_Manager.Instantiate_Explosion();
-        Explosion.transform.position = transform.position;
-        Explosion.transform.rotation = transform.rotation;
+        Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
         Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
 
-        Destroy(gameObject);
+        Object_Pooling_Manager.Destroy_Cannon_Ball(0.05f, gameObject, TrailRenderer);
     }
 }

@@ -38,7 +38,6 @@ public class MaterialFlashManager : MonoBehaviour
         {
 
                 Mesh_Renderer.sharedMaterial = Change;
-            
 
             yield return new WaitForSeconds(Duration);
 

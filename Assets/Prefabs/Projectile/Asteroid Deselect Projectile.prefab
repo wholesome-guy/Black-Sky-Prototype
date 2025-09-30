@@ -99,10 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb_Deselect_Projectile: {fileID: 718587859951917762}
+  Trail_Renderer: {fileID: 3388330461479754031}
   Thrust_Force: 50000
   Torque_Force: 100
-  Explosion_VFX: {fileID: 2453768173034396746, guid: 4d1c41736d550644f8105436ed4b8d02,
-    type: 3}
   Delay_Duration: 2
   Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile: {fileID: 5418822819406834606}
   Flash_Material: {fileID: 2100000, guid: d0468446ec8897b46a8737a1bdae79fe, type: 2}
@@ -257,6 +256,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4d55c9bb4ebb684a93cf1c4d2b2c50c, type: 3}
+--- !u!96 &3388330461479754031 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 2391583504684916759, guid: d4d55c9bb4ebb684a93cf1c4d2b2c50c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1023821371828828472}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9206298558625238477 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8211768425006183669, guid: d4d55c9bb4ebb684a93cf1c4d2b2c50c,

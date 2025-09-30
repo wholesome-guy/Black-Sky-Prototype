@@ -648,6 +648,7 @@ MonoBehaviour:
   Muzzle_Flash: {fileID: 1771017511}
   Projectiles: []
   Reload_Duration: 1
+  Is_Right: 1
   Money_Values: {fileID: 11400000, guid: d960eec79245d4c4db8800e0b021eec1, type: 2}
 --- !u!1 &70399030
 GameObject:
@@ -1478,6 +1479,16 @@ MonoBehaviour:
   Hit_Particle_VFX: {fileID: 6539334516162515640, guid: 5f05f230f57949a448fafff32a373ddb,
     type: 3}
   Docking_Zone: {fileID: 1506096395084546718, guid: 7b67524de9caf9849b574d3a6d303b60,
+    type: 3}
+  Cannon_Ball: {fileID: 8249992972278347666, guid: 29f0a82cd73b3aa4db7f3d2f7be1a191,
+    type: 3}
+  Anchor_Projectile_Left: {fileID: 899791320091772847, guid: dc3f7c296e96bd942948ca14ed127497,
+    type: 3}
+  Anchor_Projectile_Right: {fileID: 899791320091772847, guid: 4a22d7536edda034fb75a392ae51601d,
+    type: 3}
+  Deselect_Projectile: {fileID: 4213363537141442194, guid: d4434e8cbdc84f641b8bfede9fef8cdc,
+    type: 3}
+  Data_Projectile: {fileID: 8249992972278347666, guid: 5c565c05e8d1e6b428354fba874e4d6a,
     type: 3}
 --- !u!1 &137685437
 GameObject:
@@ -5205,6 +5216,7 @@ MonoBehaviour:
   Muzzle_Flash: {fileID: 1716906344}
   Projectiles: []
   Reload_Duration: 1
+  Is_Right: 0
   Money_Values: {fileID: 11400000, guid: d960eec79245d4c4db8800e0b021eec1, type: 2}
 --- !u!1 &501363694
 GameObject:
@@ -5256,6 +5268,7 @@ MonoBehaviour:
   Muzzle_Flash: {fileID: 1163038265}
   Projectiles: []
   Reload_Duration: 1
+  Is_Right: 1
   Money_Values: {fileID: 11400000, guid: d960eec79245d4c4db8800e0b021eec1, type: 2}
 --- !u!1 &508110414
 GameObject:
@@ -10136,7 +10149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4044717213e31446939f7bd49c896ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 35, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: -7.5, z: 0}
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
@@ -12014,6 +12027,7 @@ MonoBehaviour:
   Muzzle_Flash: {fileID: 741074626}
   Projectiles: []
   Reload_Duration: 1
+  Is_Right: 0
   Money_Values: {fileID: 11400000, guid: d960eec79245d4c4db8800e0b021eec1, type: 2}
 --- !u!1 &1363746394
 GameObject:
@@ -18067,7 +18081,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2034580415}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000028065992, y: 0.9926993, z: -0.12061561, w: 0.000000023099075}
+  m_LocalRotation: {x: -0.000000003112551, y: 0.90855765, z: -0.41775963, w: -0.0000000067692802}
   m_LocalPosition: {x: 0, y: 46.4, z: 46.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

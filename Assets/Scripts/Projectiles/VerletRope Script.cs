@@ -30,7 +30,7 @@ public class VerletRopeScript : MonoBehaviour
     [SerializeField] private Vector3 Tension_Vector = new Vector3(0, -2, 0);
     [SerializeField] private int Number_Of_Constrain_Run = 50;
 
- 
+    private Vector3[] Segment_Positions;
     private void OnEnable()
     {
         DockingZoneCollisionManager.On_Player_Docked += Start_Line_Renderer;
@@ -49,6 +49,9 @@ public class VerletRopeScript : MonoBehaviour
     {
         Line_Renderer.enabled = false;
         Ship_Anchor = StickingAnchorScript.Ship_Anchor;
+
+        Segment_Positions = new Vector3[Number_Of_Rope_Segment];
+        Line_Renderer.positionCount = Number_Of_Rope_Segment;
 
         Verlet_Rope_Setup();
     }
@@ -84,9 +87,7 @@ public class VerletRopeScript : MonoBehaviour
 
     private void Draw_Verlet_Rope()
     {
-        
-        Vector3[] Segment_Positions = new Vector3[Number_Of_Rope_Segment];
-        Line_Renderer.positionCount = Number_Of_Rope_Segment;
+
 
         for (int i = 0;i < Number_Of_Rope_Segment;i++)
         {

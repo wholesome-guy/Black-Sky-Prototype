@@ -73,8 +73,7 @@ public class PlayerDamageVFX : MonoBehaviour
     private void Debris_VFX(Vector3 Point)
     {
         Damage_Particle = Object_Pooling_Manager.Instantiate_Hit_Particle();
-        Damage_Particle.transform.position = Point;
-        Damage_Particle.transform.rotation = transform.rotation;
+        Damage_Particle.transform.SetLocalPositionAndRotation(Point,Quaternion.identity);
 
         Object_Pooling_Manager.Destroy_Hit_Particle(3f, Damage_Particle);
     }

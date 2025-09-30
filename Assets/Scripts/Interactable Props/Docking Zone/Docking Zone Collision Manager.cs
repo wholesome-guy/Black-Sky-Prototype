@@ -38,6 +38,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
 
     private void OnEnable()
     {
+        Is_Player_Docked = false;
         StartCoroutine(Materialise_Effect());
     }
     private void OnTriggerEnter(Collider other)

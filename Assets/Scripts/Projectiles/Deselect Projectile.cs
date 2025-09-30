@@ -6,10 +6,10 @@ using UnityEngine;
 public class DeselectProjectile : MonoBehaviour
 {
     [SerializeField] private Rigidbody Rb_Deselect_Projectile;  // Rigidbody component of the cannonball projectile
+    [SerializeField] private TrailRenderer Trail_Renderer;
     [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
     [SerializeField] private float Torque_Force;              // Rotational force applied to the cannonball
 
-    
     public static Action<AsteroidScript> Deselect_Asteroid;
     public static Action Deselect;
 
@@ -28,13 +28,19 @@ public class DeselectProjectile : MonoBehaviour
     private PlayerSingleton Player_Singleton;
     private GameObject Explosion;
 
-    // Destroy the cannonball after 10 seconds to prevent cluttering the scene
-    private void Start()
+    private void Awake()
     {
-        Destroy(gameObject, 10f);
         Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
         Player_Singleton = PlayerSingleton.instance;
         Object_Pooling_Manager = ObjectPoolingManager.Instance;
+    }
+    private void OnEnable()
+    {
+        Rb_Deselect_Projectile.velocity = Vector3.zero;
+        Rb_Deselect_Projectile.angularVelocity = Vector3.zero;
+
+        Object_Pooling_Manager.Destroy_Deselect_Projectile(10f, gameObject, Trail_Renderer);
+        In_Contact_With_Asteroid = false;
         WaitForSeconds_Delay_Duration = new WaitForSeconds(Delay_Duration);
 
         if (!Mouse_Input_Manager_.Is_Free_Aim_On)
@@ -69,20 +75,25 @@ public class DeselectProjectile : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Asteroid"))
         {
+            
+
             In_Contact_With_Asteroid = true;
             Rb_Deselect_Projectile.velocity = Vector3.zero;
             Rb_Deselect_Projectile.angularVelocity = Vector3.zero;
+
+
             StartCoroutine(Deselect_Asteroid_Function(collision));
             CrossHairManager.Hit_Mark_Event.Invoke();
         }
         else
         {
             Explosion = Object_Pooling_Manager.Instantiate_Explosion();
-            Explosion.transform.position = transform.position;
-            Explosion.transform.rotation = transform.rotation;
+            Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
             Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
-            Destroy(gameObject);    
+
+            Object_Pooling_Manager.Destroy_Deselect_Projectile(0.05f, gameObject, Trail_Renderer);
+
         }
     }
 
@@ -90,10 +101,11 @@ public class DeselectProjectile : MonoBehaviour
     {
         AsteroidScript Asteroid_Script = Asteroid.transform.GetComponent<AsteroidScript>();
         AsteroidTow Asteroid_Tow = Asteroid.transform.GetComponent<AsteroidTow>();
-
+        Rigidbody Asteroid_Rb = Asteroid.transform.GetComponent<Rigidbody>();
 
         if (Asteroid_Script.Is_Asteroid_Anchored)
         {
+            Asteroid_Rb.constraints = RigidbodyConstraints.FreezeAll;
 
             Deselect.Invoke();
             TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
@@ -105,18 +117,29 @@ public class DeselectProjectile : MonoBehaviour
                 Asteroid_Tow.Destroy_Tow_Script();
             }
             Asteroid_Script.Destroy_Anchors();
+            Asteroid_Rb.constraints = RigidbodyConstraints.None;
 
             MaterialFlashManager.Object_Single_Flash.Invoke(Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile, Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile.material, Flash_Material, 5, 0.5f);
             yield return WaitForSeconds_5;
 
             Explosion = Object_Pooling_Manager.Instantiate_Explosion();
-            Explosion.transform.position = transform.position;
-            Explosion.transform.rotation = transform.rotation;
+            Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
             Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
-            // Destroy the projectile immediately on collision with anything else
-            Destroy(gameObject);
+            Object_Pooling_Manager.Destroy_Deselect_Projectile(0.05f, gameObject, Trail_Renderer);
 
+        }
+
+        else
+        {
+            MaterialFlashManager.Object_Single_Flash.Invoke(Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile, Mesh_Renderer_Asteroid_Anchor_Deselect_Projectile.material, Flash_Material, 5, 0.5f);
+            yield return WaitForSeconds_5;
+
+            Explosion = Object_Pooling_Manager.Instantiate_Explosion();
+            Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
+
+            Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
+            Object_Pooling_Manager.Destroy_Deselect_Projectile(0.05f, gameObject, Trail_Renderer);
         }
     }
 

@@ -99,13 +99,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rb_Anchor_Projectile: {fileID: 5008330367453671247}
+  Trail_Renderer: {fileID: 1135652431495934736}
   Thrust_Force: 50000
   Torque_Force: 100
-  Sticking_Anchor: {fileID: 9123693907432465404, guid: 4d2efedb1185e5746b30e2cd900df327,
+  Left_Sticking_Anchor: {fileID: 9123693907432465404, guid: 41f33267b0839994f9e56956b62ff08f,
+    type: 3}
+  Right_Sticking_Anchor: {fileID: 9123693907432465404, guid: 4d2efedb1185e5746b30e2cd900df327,
     type: 3}
   Is_Right: 1
-  Explosion_VFX: {fileID: 2453768173034396746, guid: 4d1c41736d550644f8105436ed4b8d02,
-    type: 3}
 --- !u!1 &8158158747191890436
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,6 +258,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4d55c9bb4ebb684a93cf1c4d2b2c50c, type: 3}
+--- !u!96 &1135652431495934736 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 2391583504684916759, guid: d4d55c9bb4ebb684a93cf1c4d2b2c50c,
+    type: 3}
+  m_PrefabInstance: {fileID: 3382829320915522311}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6846657290291980274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8211768425006183669, guid: d4d55c9bb4ebb684a93cf1c4d2b2c50c,

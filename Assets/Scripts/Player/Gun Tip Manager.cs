@@ -12,8 +12,16 @@ public class GunTipManager : MonoBehaviour
     private int Index_Projectile; // Current projectile index
 
     private bool Is_Ammo_Loaded = true; // Flag to check if weapon can shoot
+    [SerializeField] private bool Is_Right;
 
     [SerializeField] private MoneyValues Money_Values;
+
+    private ObjectPoolingManager Object_Pooling_Manager;
+
+    private GameObject Cannon_Ball;
+    private GameObject Anchor_Projectile;
+    private GameObject Deselect_Projectile;
+    private GameObject Data_Projectile;
 
     private WaitForSeconds WaitForSeconds_Reload_Time;
     private void OnEnable()
@@ -30,6 +38,7 @@ public class GunTipManager : MonoBehaviour
     // Switches between available ammo types (projectiles)
     private void Start()
     {
+        Object_Pooling_Manager = ObjectPoolingManager.Instance;
         Projectiles = Projectiles_Scriptable_Object.Projectile_Gameobjects;
         WaitForSeconds_Reload_Time = new WaitForSeconds(Reload_Duration);
         Muzzle_Flash.Stop();
@@ -48,32 +57,53 @@ public class GunTipManager : MonoBehaviour
             switch (Index_Projectile)
             {
                 case 0: 
-                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Cannon_Projectile_Cost);
-                    MoneyManager.Money_Spent = false;
+
+                    Spend_Money(Money_Values.Cannon_Projectile_Cost);
+
+                    Cannon_Ball = Object_Pooling_Manager.Instantiate_Cannon_Ball();
+                    Cannon_Ball.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
+
                     break;
                 case 1:
-                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Anchor_Projectile_Cost);
-                    MoneyManager.Money_Spent = false;
+                    Spend_Money(Money_Values.Anchor_Projectile_Cost);
+                    
+
+                    if (Is_Right)
+                    {
+                        Anchor_Projectile = Object_Pooling_Manager.Instantiate_Anchor_Projectile_Right();
+                        Anchor_Projectile.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
+                    }
+                    else
+                    {
+                        Anchor_Projectile = Object_Pooling_Manager.Instantiate_Anchor_Projectile_Left();
+                        Anchor_Projectile.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
+                    }
 
                     break;
                 case 2:
-                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Destroy_Projectile_Cost);
-                    MoneyManager.Money_Spent = false;
+                    Spend_Money(Money_Values.Destroy_Projectile_Cost);
+                    
+
+                    Deselect_Projectile = Object_Pooling_Manager.Instantiate_Deselect_Projectile();
+                    Deselect_Projectile.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
                     break;
                 case 3:
-                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Data_Projectile_Cost);
-                    MoneyManager.Money_Spent = false;
+                    Spend_Money(Money_Values.Data_Projectile_Cost);
+                    
+
+                    Data_Projectile = Object_Pooling_Manager.Instantiate_Data_Projectile();
+                    Data_Projectile.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
                     break;
                 case 4:
-                    MoneyManager.Money_Change_Event.Invoke(Money_Values.Mist_Projectile_Cost);
-                    MoneyManager.Money_Spent = false;
+                    Spend_Money(Money_Values.Mist_Projectile_Cost);
+                    
 
                     break;
                 case 5:
-                    MoneyManager.Money_Change_Event.Invoke(Money_Values.BlackHole_Projectile_Cost);
-                    MoneyManager.Money_Spent = false;
+                    Spend_Money(Money_Values.BlackHole_Projectile_Cost);
+                    
 
                     break;
 
@@ -82,7 +112,7 @@ public class GunTipManager : MonoBehaviour
 
             
             
-                Instantiate(Projectiles[Index_Projectile], transform.position, transform.rotation);
+               // Instantiate(Projectiles[Index_Projectile], transform.position, transform.rotation);
                 Muzzle_Flash.Play();
                 Is_Ammo_Loaded = false;
                 TimerManager.Cannon_Reload_Event?.Invoke(Reload_Duration);
@@ -96,5 +126,11 @@ public class GunTipManager : MonoBehaviour
     {
         yield return WaitForSeconds_Reload_Time;
         Is_Ammo_Loaded = true;
+    }
+
+    private void Spend_Money(int Cost)
+    {
+        MoneyManager.Money_Change_Event.Invoke(Cost);
+        MoneyManager.Money_Spent = false;
     }
 }

@@ -51,6 +51,7 @@ public class CrossHairManager : MonoBehaviour
 
     private void Start()
     {
+        useGUILayout = false;
         Cannonn_Left_Tip = PlayerSingleton.instance.Left_Cannon_Tip;
         Cannonn_Right_Tip = PlayerSingleton.instance.Right_Cannon_Tip;
         Max_Shoot_Distance = PlayerSingleton.instance.Max_Shoot_Distance;
@@ -74,11 +75,7 @@ public class CrossHairManager : MonoBehaviour
 
         Crosshair_RayCaster();
     }
-    private void LateUpdate()
-    {
-        Debug.DrawRay(Cannonn_Left_Tip.transform.position,Cannonn_Left_Tip.transform.forward * Max_Shoot_Distance,Color.yellow);
-        Debug.DrawRay(Cannonn_Right_Tip.transform.position, Cannonn_Right_Tip.transform.forward * Max_Shoot_Distance, Color.yellow);
-    }
+   
 
 
     private void Crosshair_RayCaster()

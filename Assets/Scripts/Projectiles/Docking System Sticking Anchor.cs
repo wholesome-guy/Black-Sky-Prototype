@@ -44,8 +44,7 @@ public class DockingSystemStickingAnchor : MonoBehaviour
             Vector3 Docking_Direction = new Vector3(Direction.x, Direction.y, Direction.z) * Docking_Distance;
 
             Current_Docking_Zone = Object_Pooling_Manager.Instantiate_Docking_Zone();
-            Current_Docking_Zone.transform.position = Docking_Direction;
-            Current_Docking_Zone.transform.rotation = Quaternion.identity;
+            Current_Docking_Zone.transform.SetLocalPositionAndRotation(Docking_Direction,Quaternion.identity);
 
             Is_Docking_Zone_Instantiated = true;
 
@@ -66,8 +65,8 @@ public class DockingSystemStickingAnchor : MonoBehaviour
         if (!Is_Docking_Zone_Instantiated)
         {
             Current_Docking_Zone = Object_Pooling_Manager.Instantiate_Docking_Zone();
-            Current_Docking_Zone.transform.position = Random_Position;
-            Current_Docking_Zone.transform.rotation = Quaternion.identity;
+            Current_Docking_Zone.transform.SetLocalPositionAndRotation(Random_Position, Quaternion.identity);
+
 
             Is_Docking_Zone_Instantiated = true;
 

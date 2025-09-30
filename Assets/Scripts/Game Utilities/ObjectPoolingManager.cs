@@ -112,5 +112,159 @@ public class ObjectPoolingManager : MonoBehaviour
     }
     #endregion
 
+    #region Cannon Ball
+    [SerializeField] private GameObject Cannon_Ball;
+    private Queue<GameObject> Cannon_Ball_Pool = new Queue<GameObject>();
+    private int Cannon_Ball_Pool_Count;
+    public GameObject Instantiate_Cannon_Ball()
+    {
+        Cannon_Ball_Pool_Count = Cannon_Ball_Pool.Count;
+        if (Cannon_Ball_Pool_Count > 0)
+        {
+            GameObject Object = Cannon_Ball_Pool.Dequeue();
+            Object.SetActive(true);
+            return Object;
+        }
+        return Instantiate(Cannon_Ball);
+    }
+
+    public void Destroy_Cannon_Ball(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        StartCoroutine(Delay_Destroy_Cannon_Ball(Wait_Duration, Object, Trail_Renderer));
+    }
+
+    private IEnumerator Delay_Destroy_Cannon_Ball(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        yield return new WaitForSeconds(Wait_Duration);
+       
+        Trail_Renderer.Clear();
+        Object.SetActive(false);
+        Cannon_Ball_Pool.Enqueue(Object);
+    }
+    #endregion
+
+    #region Anchor Projectile Left
+    [SerializeField] private GameObject Anchor_Projectile_Left;
+    private Queue<GameObject> Anchor_Projectile_Left_Pool = new Queue<GameObject>();
+    private int Anchor_Projectile_Left_Pool_Count;
+    public GameObject Instantiate_Anchor_Projectile_Left()
+    {
+        Anchor_Projectile_Left_Pool_Count = Anchor_Projectile_Left_Pool.Count;
+        if (Anchor_Projectile_Left_Pool_Count > 0)
+        {
+            GameObject Object = Anchor_Projectile_Left_Pool.Dequeue();
+            Object.SetActive(true);
+            return Object;
+        }
+        return Instantiate(Anchor_Projectile_Left);
+    }
+
+    public void Destroy_Anchor_Projectile_Left(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        StartCoroutine(Delay_Destroy_Anchor_Projectile_Left(Wait_Duration, Object, Trail_Renderer));
+    }
+
+    private IEnumerator Delay_Destroy_Anchor_Projectile_Left(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        yield return new WaitForSeconds(Wait_Duration);
+
+        Trail_Renderer.Clear();
+        Object.SetActive(false);
+        Anchor_Projectile_Left_Pool.Enqueue(Object);
+    }
+    #endregion
+
+    #region Anchor Projectile Right
+    [SerializeField] private GameObject Anchor_Projectile_Right;
+    private Queue<GameObject> Anchor_Projectile_Right_Pool = new Queue<GameObject>();
+    private int Anchor_Projectile_Right_Pool_Count;
+    public GameObject Instantiate_Anchor_Projectile_Right()
+    {
+        Anchor_Projectile_Right_Pool_Count = Anchor_Projectile_Right_Pool.Count;
+        if (Anchor_Projectile_Right_Pool_Count > 0)
+        {
+            GameObject Object = Anchor_Projectile_Right_Pool.Dequeue();
+            Object.SetActive(true);
+            return Object;
+        }
+        return Instantiate(Anchor_Projectile_Right);
+    }
+
+    public void Destroy_Anchor_Projectile_Right(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        StartCoroutine(Delay_Destroy_Anchor_Projectile_Right(Wait_Duration, Object, Trail_Renderer));
+    }
+
+    private IEnumerator Delay_Destroy_Anchor_Projectile_Right(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        yield return new WaitForSeconds(Wait_Duration);
+
+        Trail_Renderer.Clear();
+        Object.SetActive(false);
+        Anchor_Projectile_Right_Pool.Enqueue(Object);
+    }
+    #endregion
+
+    #region Deselect Projectile
+    [SerializeField] private GameObject Deselect_Projectile;
+    private Queue<GameObject> Deselect_Projectile_Pool = new Queue<GameObject>();
+    private int Deselect_Projectile_Pool_Count;
+    public GameObject Instantiate_Deselect_Projectile()
+    {
+        Deselect_Projectile_Pool_Count = Deselect_Projectile_Pool.Count;
+        if (Deselect_Projectile_Pool_Count > 0)
+        {
+            GameObject Object = Deselect_Projectile_Pool.Dequeue();
+            Object.SetActive(true);
+            return Object;
+        }
+        return Instantiate(Deselect_Projectile);
+    }
+
+    public void Destroy_Deselect_Projectile(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        StartCoroutine(Delay_Destroy_Deselect_Projectile(Wait_Duration, Object, Trail_Renderer));
+    }
+
+    private IEnumerator Delay_Destroy_Deselect_Projectile(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        yield return new WaitForSeconds(Wait_Duration);
+
+        Trail_Renderer.Clear();
+        Object.SetActive(false);
+        Deselect_Projectile_Pool.Enqueue(Object);
+    }
+    #endregion
+
+    #region Data Projectile
+    [SerializeField] private GameObject Data_Projectile;
+    private Queue<GameObject> Data_Projectile_Pool = new Queue<GameObject>();
+    private int Data_Projectile_Pool_Count;
+    public GameObject Instantiate_Data_Projectile()
+    {
+        Data_Projectile_Pool_Count = Data_Projectile_Pool.Count;
+        if (Data_Projectile_Pool_Count > 0)
+        {
+            GameObject Object = Data_Projectile_Pool.Dequeue();
+            Object.SetActive(true);
+            return Object;
+        }
+        return Instantiate(Data_Projectile);
+    }
+
+    public void Destroy_Data_Projectile(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        StartCoroutine(Delay_Destroy_Data_Projectile(Wait_Duration, Object, Trail_Renderer));
+    }
+
+    private IEnumerator Delay_Destroy_Data_Projectile(float Wait_Duration, GameObject Object, TrailRenderer Trail_Renderer)
+    {
+        yield return new WaitForSeconds(Wait_Duration);
+
+        Trail_Renderer.Clear();
+        Object.SetActive(false);
+        Data_Projectile_Pool.Enqueue(Object);
+    }
+    #endregion
 
 }

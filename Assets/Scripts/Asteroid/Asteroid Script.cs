@@ -19,7 +19,7 @@ public class AsteroidScript : MonoBehaviour
 
     [SerializeField] private Rigidbody Asteroid_RigidBody;
     [SerializeField] private MeshRenderer Mesh_Renderer_Asteroid;
-    [SerializeField] private Material Asteroid_Material;
+     public Material Asteroid_Material;
     [SerializeField] private Material Flash_Material;
 
     #region State Boolean

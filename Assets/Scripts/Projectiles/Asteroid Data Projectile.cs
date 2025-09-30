@@ -10,6 +10,7 @@ public class AsteroidDataProjectile : MonoBehaviour
     [SerializeField] private MeshRenderer Mesh_Renderer_Asteroid_Data_Projectile;
     [SerializeField] private Material Flash_Material;
     [SerializeField] private VisualEffect Particles_VFX;
+    [SerializeField] private TrailRenderer Trail_Renderer;
 
     [SerializeField] private float Thrust_Force;              // Forward force applied to the cannonball
     [SerializeField] private float Torque_Force;              // Rotational force applied to the cannonball
@@ -33,15 +34,22 @@ public class AsteroidDataProjectile : MonoBehaviour
     private Mouse_Input_Manager Mouse_Input_Manager_;
     private PlayerSingleton Player_Singleton;
 
-
-
-    // Destroy the cannonball after 10 seconds to prevent cluttering the scene
-    private void Start()
+    private void Awake()
     {
-        Destroy(gameObject,15f);
         Mouse_Input_Manager_ = Mouse_Input_Manager.instance;
         Player_Singleton = PlayerSingleton.instance;
         Object_Pooling_Manager = ObjectPoolingManager.Instance;
+    }
+
+    // Destroy the cannonball after 10 seconds to prevent cluttering the scene
+    private void OnEnable()
+    {
+        Rb_Asteroid_Data_Projectile.velocity = Vector3.zero;
+        Rb_Asteroid_Data_Projectile.angularVelocity = Vector3.zero;
+        In_Contact_With_Asteroid = false;
+
+        Object_Pooling_Manager.Destroy_Data_Projectile(15f, gameObject, Trail_Renderer);
+
         WaitForSeconds_Scan_Duration = new WaitForSeconds(Scan_Duration);
 
 
@@ -79,7 +87,8 @@ public class AsteroidDataProjectile : MonoBehaviour
             CrossHairManager.Hit_Mark_Event.Invoke();
             AsteroidScript Asteroid_Data = collision.gameObject.GetComponent<AsteroidScript>();
             MeshRenderer Asteroid_Mesh_Renderer = collision.gameObject.GetComponent<MeshRenderer>();
-            Base_Material = Asteroid_Mesh_Renderer.sharedMaterial;
+            Base_Material = Asteroid_Data.Asteroid_Material;
+
 
             StartCoroutine(Asteroid_Data_Fetch(Asteroid_Data, Asteroid_Mesh_Renderer));
             Particles_VFX.Play();
@@ -88,14 +97,13 @@ public class AsteroidDataProjectile : MonoBehaviour
         else
         {
             Explosion = Object_Pooling_Manager.Instantiate_Explosion();
-            Explosion.transform.position = transform.position;
-            Explosion.transform.rotation = transform.rotation;
+            Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
             Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
-            Destroy(gameObject);
+            Object_Pooling_Manager.Destroy_Data_Projectile(0.05f, gameObject, Trail_Renderer);
         }
 
-        
+
     }
 
 
@@ -131,11 +139,10 @@ public class AsteroidDataProjectile : MonoBehaviour
         yield return WaitForSeconds_4;
 
         Explosion = Object_Pooling_Manager.Instantiate_Explosion();
-        Explosion.transform.position = transform.position;
-        Explosion.transform.rotation = transform.rotation;
+        Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 
         Object_Pooling_Manager.Destroy_Explosion(5f, Explosion);
-        Destroy(gameObject);
+        Object_Pooling_Manager.Destroy_Data_Projectile(0.05f, gameObject, Trail_Renderer);
 
 
 
