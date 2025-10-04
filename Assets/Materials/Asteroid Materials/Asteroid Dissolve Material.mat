@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Texture:
-        m_Texture: {fileID: 2800000, guid: 381dc94015845fc46aa7e38d53267e26, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0e07b1d2a3cdbd74492063f9fadda2eb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -116,7 +116,7 @@ Material:
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _Disolve_Width: 0.06
-    - _Dissolve_Amount: 0.8495495
+    - _Dissolve_Amount: 1
     - _Dissolve_Scale: 16
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -142,10 +142,10 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Base_Colour: {r: 0, g: 4.2445407, b: 4.612132, a: 1}
+    - _Base_Colour: {r: 0.7379107, g: 0.6444799, b: 0.5209957, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Dissolve_Colour: {r: 23.968628, g: 0.1254902, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

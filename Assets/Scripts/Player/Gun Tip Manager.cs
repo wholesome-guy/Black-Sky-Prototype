@@ -5,9 +5,7 @@ using UnityEngine.VFX;
 
 public class GunTipManager : MonoBehaviour
 {
-    [SerializeField] private Projectiles Projectiles_Scriptable_Object;
     [SerializeField] private VisualEffect Muzzle_Flash;
-    [SerializeField] private GameObject[] Projectiles; // Array of different projectile prefabs
     [SerializeField] private float Reload_Duration = 5f; // Time between consecutive shots
     private int Index_Projectile; // Current projectile index
 
@@ -39,7 +37,6 @@ public class GunTipManager : MonoBehaviour
     private void Start()
     {
         Object_Pooling_Manager = ObjectPoolingManager.Instance;
-        Projectiles = Projectiles_Scriptable_Object.Projectile_Gameobjects;
         WaitForSeconds_Reload_Time = new WaitForSeconds(Reload_Duration);
         Muzzle_Flash.Stop();
         Projectile_Select(0);

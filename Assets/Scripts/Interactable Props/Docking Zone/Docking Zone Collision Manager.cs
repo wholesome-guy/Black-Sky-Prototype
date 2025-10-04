@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI;
 
 public class DockingZoneCollisionManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
     [SerializeField] private Material Materialise_Material;
     [SerializeField] private ParticleSystem[] ParticleSystems;
     [SerializeField] private Collider[] Docking_Mesh_Collider;
+    [SerializeField] private VisualEffect Disintegrate_VFX;
 
 
     private WaitForSeconds WaitForSeconds_Delay_Duration;
@@ -39,6 +41,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
     private void OnEnable()
     {
         Is_Player_Docked = false;
+        Disintegrate_VFX.Play();
         StartCoroutine(Materialise_Effect());
     }
     private void OnTriggerEnter(Collider other)

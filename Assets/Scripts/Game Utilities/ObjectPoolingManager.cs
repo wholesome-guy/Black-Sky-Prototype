@@ -18,13 +18,44 @@ public class ObjectPoolingManager : MonoBehaviour
         {
             Instance = this;
         }
+
+
     }
     #endregion
+    private void Start()
+    {
+        Preload_Prefabs();
+    }
+
+    private void Preload_Prefabs()
+    {
+        Preload_Explosion();
+        Preload_Hit_Particle();
+        Preload_Docking_Zone();
+
+        Preload_Cannon_Ball();
+        Preload_Anchor_Projectile_Left();
+        Preload_Anchor_Projectile_Right();
+        Preload_Deselect_Projectile();
+        Preload_Data_Projectile(); 
+    }
 
     #region Explosion
     [SerializeField] private GameObject Explosion_VFX;
     private Queue<GameObject> Explosion_VFX_Pool =new Queue<GameObject>();
     private int Explosion_Pool_Count;
+
+    [SerializeField] private int Explosion_PreLoad_Count = 4;
+    private void Preload_Explosion()
+    {
+        for (int i = 0;i < Explosion_PreLoad_Count;i++)
+        {
+            GameObject Object = Instantiate(Explosion_VFX);
+            Object.SetActive(false);
+            Explosion_VFX_Pool.Enqueue(Object);
+        }
+    }
+
 
     public GameObject Instantiate_Explosion()
     {
@@ -56,6 +87,17 @@ public class ObjectPoolingManager : MonoBehaviour
     [SerializeField] private GameObject Hit_Particle_VFX;
     private Queue<GameObject> Hit_Particle_VFX_Pool = new Queue<GameObject>();
     private int Hit_Particle_Pool_Count;
+
+    [SerializeField] private int Hit_Particle_PreLoad_Count = 10;
+    private void Preload_Hit_Particle()
+    {
+        for (int i = 0; i < Hit_Particle_PreLoad_Count; i++)
+        {
+            GameObject Object = Instantiate(Hit_Particle_VFX);
+            Object.SetActive(false);
+            Hit_Particle_VFX_Pool.Enqueue(Object);
+        }
+    }
     public GameObject Instantiate_Hit_Particle()
     {
         Hit_Particle_Pool_Count = Hit_Particle_VFX_Pool.Count;
@@ -86,6 +128,17 @@ public class ObjectPoolingManager : MonoBehaviour
     [SerializeField] private GameObject Docking_Zone;
     private Queue<GameObject> Docking_Zone_Pool = new Queue<GameObject>();
     private int Docking_Zone_Pool_Count;
+
+    [SerializeField] private int Docking_Zone_PreLoad_Count = 2;
+    private void Preload_Docking_Zone()
+    {
+        for (int i = 0; i < Docking_Zone_PreLoad_Count; i++)
+        {
+            GameObject Object = Instantiate(Docking_Zone);
+            Object.SetActive(false);
+            Docking_Zone_Pool.Enqueue(Object);
+        }
+    }
     public GameObject Instantiate_Docking_Zone()
     {
         Docking_Zone_Pool_Count = Docking_Zone_Pool.Count;
@@ -116,6 +169,17 @@ public class ObjectPoolingManager : MonoBehaviour
     [SerializeField] private GameObject Cannon_Ball;
     private Queue<GameObject> Cannon_Ball_Pool = new Queue<GameObject>();
     private int Cannon_Ball_Pool_Count;
+
+    [SerializeField] private int Cannon_Ball_PreLoad_Count = 4;
+    private void Preload_Cannon_Ball()
+    {
+        for (int i = 0; i < Cannon_Ball_PreLoad_Count; i++)
+        {
+            GameObject Object = Instantiate(Cannon_Ball);
+            Object.SetActive(false);
+            Cannon_Ball_Pool.Enqueue(Object);
+        }
+    }
     public GameObject Instantiate_Cannon_Ball()
     {
         Cannon_Ball_Pool_Count = Cannon_Ball_Pool.Count;
@@ -147,6 +211,17 @@ public class ObjectPoolingManager : MonoBehaviour
     [SerializeField] private GameObject Anchor_Projectile_Left;
     private Queue<GameObject> Anchor_Projectile_Left_Pool = new Queue<GameObject>();
     private int Anchor_Projectile_Left_Pool_Count;
+
+    [SerializeField] private int Anchor_Projectile_Left_PreLoad_Count = 4;
+    private void Preload_Anchor_Projectile_Left()
+    {
+        for (int i = 0; i < Anchor_Projectile_Left_PreLoad_Count; i++)
+        {
+            GameObject Object = Instantiate(Anchor_Projectile_Left);
+            Object.SetActive(false);
+            Anchor_Projectile_Left_Pool.Enqueue(Object);
+        }
+    }
     public GameObject Instantiate_Anchor_Projectile_Left()
     {
         Anchor_Projectile_Left_Pool_Count = Anchor_Projectile_Left_Pool.Count;
@@ -178,6 +253,17 @@ public class ObjectPoolingManager : MonoBehaviour
     [SerializeField] private GameObject Anchor_Projectile_Right;
     private Queue<GameObject> Anchor_Projectile_Right_Pool = new Queue<GameObject>();
     private int Anchor_Projectile_Right_Pool_Count;
+
+    [SerializeField] private int Anchor_Projectile_Right_PreLoad_Count = 4;
+    private void Preload_Anchor_Projectile_Right()
+    {
+        for (int i = 0; i < Anchor_Projectile_Right_PreLoad_Count; i++)
+        {
+            GameObject Object = Instantiate(Anchor_Projectile_Right);
+            Object.SetActive(false);
+            Anchor_Projectile_Right_Pool.Enqueue(Object);
+        }
+    }
     public GameObject Instantiate_Anchor_Projectile_Right()
     {
         Anchor_Projectile_Right_Pool_Count = Anchor_Projectile_Right_Pool.Count;
@@ -209,6 +295,17 @@ public class ObjectPoolingManager : MonoBehaviour
     [SerializeField] private GameObject Deselect_Projectile;
     private Queue<GameObject> Deselect_Projectile_Pool = new Queue<GameObject>();
     private int Deselect_Projectile_Pool_Count;
+
+    [SerializeField] private int Deselect_Projectile_PreLoad_Count = 4;
+    private void Preload_Deselect_Projectile()
+    {
+        for (int i = 0; i < Deselect_Projectile_PreLoad_Count; i++)
+        {
+            GameObject Object = Instantiate(Deselect_Projectile);
+            Object.SetActive(false);
+            Deselect_Projectile_Pool.Enqueue(Object);
+        }
+    }
     public GameObject Instantiate_Deselect_Projectile()
     {
         Deselect_Projectile_Pool_Count = Deselect_Projectile_Pool.Count;
@@ -240,6 +337,17 @@ public class ObjectPoolingManager : MonoBehaviour
     [SerializeField] private GameObject Data_Projectile;
     private Queue<GameObject> Data_Projectile_Pool = new Queue<GameObject>();
     private int Data_Projectile_Pool_Count;
+
+    [SerializeField] private int Data_Projectile_PreLoad_Count = 4;
+    private void Preload_Data_Projectile()
+    {
+        for (int i = 0; i < Data_Projectile_PreLoad_Count; i++)
+        {
+            GameObject Object = Instantiate(Data_Projectile);
+            Object.SetActive(false);
+            Data_Projectile_Pool.Enqueue(Object);
+        }
+    }
     public GameObject Instantiate_Data_Projectile()
     {
         Data_Projectile_Pool_Count = Data_Projectile_Pool.Count;

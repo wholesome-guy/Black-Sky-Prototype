@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SellingZoneManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class SellingZoneManager : MonoBehaviour
     [SerializeField] private Material Scan_Material_Asteroid;
 
     [SerializeField] private Transform Selling_Dock_Transform;
+
+    [SerializeField] private VisualEffect Visual_Effect_VFX;
 
     #region Asteroid and Player Data
     private AsteroidScript Asteroid_Script;
@@ -44,6 +47,8 @@ public class SellingZoneManager : MonoBehaviour
         Player_Singleton = PlayerSingleton.instance;
 
         Player_Rigidbody = Player_Singleton.Player_Rigidbody;
+        Visual_Effect_VFX.Stop();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -112,6 +117,7 @@ public class SellingZoneManager : MonoBehaviour
         yield return Wait_For_Seconds_025;
 
         MaterialDissolveManager.Single_Mesh_Dissolve_Event.Invoke(true, Asteriod_Mesh_Renderer, Asteroid_Collider, Dissolve_Material_Asteroid, Base_Material, 10f);
+        Visual_Effect_VFX.Play();
 
         yield return Wait_For_Seconds_6;
 
