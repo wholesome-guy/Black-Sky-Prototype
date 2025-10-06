@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerDamageVFX : MonoBehaviour
 {
+    [SerializeField] private MeshRenderer[] SpaceShip_0;
     [SerializeField] private MeshRenderer[] SpaceShip_1;
     [SerializeField] private MeshRenderer[] SpaceShip_2;
 
@@ -12,6 +13,7 @@ public class PlayerDamageVFX : MonoBehaviour
     [SerializeField] private Material Damage_Material;
     [SerializeField] private Material Shield_Rengeration_Material;
 
+    [SerializeField] private Material[] Spaceship_0_Material;
     [SerializeField] private Material[] Spaceship_1_Material;
     [SerializeField] private Material[] Spaceship_2_Material;
 
@@ -52,6 +54,7 @@ public class PlayerDamageVFX : MonoBehaviour
     
     private void Shield_Break()
     {
+        StartCoroutine(Material_Change(SpaceShip_0, Spaceship_0_Material, Shield_Material, Duration));
         StartCoroutine(Material_Change(SpaceShip_1, Spaceship_1_Material,Shield_Material,Duration));
         StartCoroutine(Material_Change(SpaceShip_2, Spaceship_2_Material, Shield_Material, Duration));
 
@@ -59,6 +62,7 @@ public class PlayerDamageVFX : MonoBehaviour
 
     private void Damage_Break()
     {
+        StartCoroutine(Material_Change(SpaceShip_0, Spaceship_0_Material, Damage_Material, Duration));
         StartCoroutine(Material_Change(SpaceShip_1, Spaceship_1_Material, Damage_Material, Duration));
         StartCoroutine(Material_Change(SpaceShip_2, Spaceship_2_Material, Damage_Material, Duration));
 
@@ -66,6 +70,7 @@ public class PlayerDamageVFX : MonoBehaviour
 
     private void Shield_Rengeneration()
     {
+        StartCoroutine(Material_Change(SpaceShip_0, Spaceship_0_Material, Shield_Rengeration_Material, Duration));
         StartCoroutine(Material_Change(SpaceShip_1, Spaceship_1_Material, Shield_Rengeration_Material, Duration));
         StartCoroutine(Material_Change(SpaceShip_2, Spaceship_2_Material, Shield_Rengeration_Material, Duration));
     }

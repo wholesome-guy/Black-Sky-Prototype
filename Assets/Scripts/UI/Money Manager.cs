@@ -8,7 +8,6 @@ using UnityEngine;
 public class MoneyManager : MonoBehaviour
 {
 
-    [SerializeField] private float Beginning_Debt = 0;
 
     [SerializeField] private TextMeshProUGUI Money_Amount;
     [SerializeField] private TextMeshProUGUI Change_Amount_Text;
@@ -16,6 +15,8 @@ public class MoneyManager : MonoBehaviour
 
     private float Current_Money;
     private float Changed_Money;
+    private string Player_Money_Key = "Current_Player_Money";
+
 
     public static Action<float> Money_Change_Event;
 
@@ -36,8 +37,8 @@ public class MoneyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Current_Money = Beginning_Debt;
-        Money_Amount.text = Current_Money.ToString();
+        Current_Money = PlayerPrefs.GetFloat(Player_Money_Key);
+        Money_Amount.text = MoneyNotation.Money_Notate_Function(Current_Money);
         Change_Amount_Text.gameObject.SetActive(false);
         Canvas_Group_Change_Text.alpha = 0;
     }
@@ -53,8 +54,12 @@ public class MoneyManager : MonoBehaviour
             Change_Amount_Text.color = Color.green;
         }
         else
-        {
-            Change_Amount_Text.color = Color.red;   
+        { if(PlayerPrefs.GetFloat(Player_Money_Key) < Change)
+            {
+                return;
+            }
+            Change_Amount_Text.color = Color.red;
+
         }
         Money_Spent = true; 
         Change_Amount_Text.gameObject.SetActive(true);
@@ -64,9 +69,12 @@ public class MoneyManager : MonoBehaviour
         Changed_Money = Current_Money + Change;
         StartCoroutine(Money_Lerp(Current_Money,Changed_Money,2.5f,Money_Amount));
 
-        Change_Amount_Text.text = Change.ToString();
+        Change_Amount_Text.text = MoneyNotation.Money_Notate_Function(Change);
         Current_Money += Change;
-        Money_Amount.text = Current_Money.ToString();
+        PlayerPrefs.SetFloat(Player_Money_Key, Current_Money);
+        Money_Amount.text = MoneyNotation.Money_Notate_Function(Current_Money);
+
+
 
     }
 
@@ -78,11 +86,10 @@ public class MoneyManager : MonoBehaviour
             Time_Elapsed += Time.deltaTime;
 
             float value = Mathf.Lerp(Start, End, Time_Elapsed/Duration);
-            Text.text = Mathf.RoundToInt(value).ToString();
+            Text.SetText("{0}", Mathf.RoundToInt(value));
             yield return null;
         }
-        Start = End;
-        Text.text = Start.ToString();
+        Text.text = MoneyNotation.Money_Notate_Function(End);
         UIVisualEffectsManager.UI_Fader_Event.Invoke(Canvas_Group_Change_Text, 1, 0, 0.5f);
 
         yield return WaitForSeconds_1;

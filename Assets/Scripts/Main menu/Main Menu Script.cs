@@ -13,7 +13,8 @@ public class MainMenuScript : MonoBehaviour
 
     [SerializeField] private GameObject Main_Menu_Screen;
     [SerializeField] private GameObject Select_SpaceShip;
-    [SerializeField] private GameObject Econmony_Screen;
+    [SerializeField] private GameObject Economy_Screen;
+    [SerializeField] private GameObject To_Wife_Screen;
     [SerializeField] private GameObject Quit_Screen;
 
 
@@ -28,7 +29,10 @@ public class MainMenuScript : MonoBehaviour
         Main_Menu_Screen.SetActive(true);
         Select_SpaceShip.SetActive(false);
         Transition_Screen.gameObject.SetActive(false);
-        //Econmony_Screen.SetActive(false);
+        Economy_Screen.SetActive(false);
+
+
+
     }
 
 
@@ -77,24 +81,25 @@ public class MainMenuScript : MonoBehaviour
 
     #endregion
 
-    #region Economy Button
+    #region To Wife Button
 
-    [Header("Economy Button")]
+    [Header("To Wife Button")]
 
-    [SerializeField] private Transform Economy_Button_Object;
-    [SerializeField] private TextMeshProUGUI Economy_Button_Text;
-    [SerializeField] private GameObject Economy_Button_BackGround;
+    [SerializeField] private Transform To_Wife_Button_Object;
+    [SerializeField] private TextMeshProUGUI To_Wife_Button_Text;
+    [SerializeField] private GameObject To_Wife_Button_BackGround;
 
 
-    public void On_Hover_Economy_Button()
+    public void On_Hover_To_Wife_Button()
     {
-        On_Hover_Button(Economy_Button_Object, Economy_Button_Text, Economy_Button_BackGround,500,100);
+        On_Hover_Button(To_Wife_Button_Object, To_Wife_Button_Text, To_Wife_Button_BackGround, 500,100);
     }
 
-    public void On_Unhover_Economy_Button()
+    public void On_Unhover_To_Wife_Button()
     {
-        On_Unhover_Button(Economy_Button_Object, Economy_Button_Text, Economy_Button_BackGround);
+        On_Unhover_Button(To_Wife_Button_Object, To_Wife_Button_Text, To_Wife_Button_BackGround);
     }
+
 
     #endregion
 
@@ -118,6 +123,59 @@ public class MainMenuScript : MonoBehaviour
     }
 
     #endregion
+
+    #region Economy Button
+
+    [Header("Economy Button")]
+
+    [SerializeField] private Transform Economy_Button_Object;
+    [SerializeField] private Image Economy_Button_Image;
+
+    [SerializeField] private Color Economy_Hover_Colour;
+    [SerializeField] private Color Economy_Unhover_Colour;
+    
+
+    public void On_Hover_Economy_Button()
+    {
+        Economy_Button_Object.transform.DOScale(1.5f, 0.25f);
+
+        Economy_Button_Image.color = Economy_Hover_Colour;
+    }
+
+    public void On_Unhover_Economy_Button()
+    {
+        Economy_Button_Object.transform.DOScale(1.0f, 0.25f);
+
+        Economy_Button_Image.color = Economy_Unhover_Colour;
+    }
+
+    public void On_Click_Economy_Button()
+    {
+        StartCoroutine(Economy_Button_Transition());
+    }
+
+    private IEnumerator Economy_Button_Transition()
+    {
+        Transition_Screen.gameObject.SetActive(true);
+        Transition_Screen.DOLocalMoveX(0f, 1f);
+
+        Mouse.current.WarpCursorPosition(Wrap_Position);
+
+        yield return WaitForSeconds_1;
+
+
+        Economy_Screen.SetActive(true);
+        Main_Menu_Screen.SetActive(false);
+
+        On_Unhover_Economy_Button();
+
+        Transition_Screen.localPosition = Transition_Screen_Reset_Position;
+
+    }
+
+
+    #endregion
+
 
     #region Settings Button
 

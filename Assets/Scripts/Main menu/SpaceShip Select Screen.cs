@@ -12,6 +12,8 @@ public class SpaceShipSelectScreen : MonoBehaviour
 
     [SerializeField] private Color Lighter;
     [SerializeField] private Color Darker;
+    [SerializeField] private Color Redder;
+    [SerializeField] private Color Greener;
 
     [SerializeField] private GameObject Main_Menu_Screen;
     [SerializeField] private GameObject Select_SpaceShip;
@@ -27,11 +29,16 @@ public class SpaceShipSelectScreen : MonoBehaviour
 
     private void Start()
     {
+        Reset_All_SpaceShip();
+
+        Transition_Screen.localPosition = Transition_Screen_Reset_Position;
+    }
+
+    public void Reset_All_SpaceShip()
+    {
         On_Unhover_SpaceShip_0();
         On_Unhover_SpaceShip_1();
         On_Unhover_SpaceShip_2();
-
-        Transition_Screen.localPosition = Transition_Screen_Reset_Position;
     }
 
 
@@ -43,22 +50,29 @@ public class SpaceShipSelectScreen : MonoBehaviour
     [SerializeField] private Image SpaceShip_0_Silhouette;
     [SerializeField] private TextMeshProUGUI[] Ligter_On_Hover_SpaceShip_0_Texts = new TextMeshProUGUI[4];
 
+    private string SpaceShip_0_String = "SpaceShip_0";
+
     public void On_Hover_SpaceShip_0()
     {
-        On_Hover_Spaceship(SpaceShip_0_Object, Ligter_On_Hover_SpaceShip_0_Images, SpaceShip_0_Silhouette, Ligter_On_Hover_SpaceShip_0_Texts);
+        On_Hover_Spaceship(SpaceShip_0_Object, Ligter_On_Hover_SpaceShip_0_Images, SpaceShip_0_Silhouette, Ligter_On_Hover_SpaceShip_0_Texts, SpaceShip_0_String);
     }
     public void On_Unhover_SpaceShip_0()
     {
-        On_Unhover_Spaceship(SpaceShip_0_Object, Ligter_On_Hover_SpaceShip_0_Images, SpaceShip_0_Silhouette, Ligter_On_Hover_SpaceShip_0_Texts);
+        On_Unhover_Spaceship(SpaceShip_0_Object, Ligter_On_Hover_SpaceShip_0_Images, SpaceShip_0_Silhouette, Ligter_On_Hover_SpaceShip_0_Texts, SpaceShip_0_String);
     }
 
     public void On_Click_SpaceShip_0()
     {
+        if (PlayerPrefs.GetInt(SpaceShip_0_String) == 0)
+        {
+            return;
+        }
         StartCoroutine(SpaceShip_0_Button_Transition());
     }
 
     private IEnumerator SpaceShip_0_Button_Transition()
     {
+        
         Transition_Screen.gameObject.SetActive(true);
         Transition_Screen.DOLocalMoveX(0f, 1f);
 
@@ -80,18 +94,23 @@ public class SpaceShipSelectScreen : MonoBehaviour
     [SerializeField] private Image[] Ligter_On_Hover_SpaceShip_1_Images = new Image[7];
     [SerializeField] private Image SpaceShip_1_Silhouette;
     [SerializeField] private TextMeshProUGUI[] Ligter_On_Hover_SpaceShip_1_Texts = new TextMeshProUGUI[4];
+    private string SpaceShip_1_String = "SpaceShip_1";
 
     public void On_Hover_SpaceShip_1()
     {
-        On_Hover_Spaceship(SpaceShip_1_Object, Ligter_On_Hover_SpaceShip_1_Images, SpaceShip_1_Silhouette, Ligter_On_Hover_SpaceShip_1_Texts);
+        On_Hover_Spaceship(SpaceShip_1_Object, Ligter_On_Hover_SpaceShip_1_Images, SpaceShip_1_Silhouette, Ligter_On_Hover_SpaceShip_1_Texts, SpaceShip_1_String);
     }
     public void On_Unhover_SpaceShip_1()
     {
-        On_Unhover_Spaceship(SpaceShip_1_Object, Ligter_On_Hover_SpaceShip_1_Images, SpaceShip_1_Silhouette, Ligter_On_Hover_SpaceShip_1_Texts);
+        On_Unhover_Spaceship(SpaceShip_1_Object, Ligter_On_Hover_SpaceShip_1_Images, SpaceShip_1_Silhouette, Ligter_On_Hover_SpaceShip_1_Texts, SpaceShip_1_String);
     }
 
     public void On_Click_SpaceShip_1()
     {
+        if (PlayerPrefs.GetInt(SpaceShip_1_String) == 0)
+        {
+            return;
+        }
         StartCoroutine(SpaceShip_1_Button_Transition());
     }
 
@@ -118,17 +137,23 @@ public class SpaceShipSelectScreen : MonoBehaviour
     [SerializeField] private Image SpaceShip_2_Silhouette;
     [SerializeField] private TextMeshProUGUI[] Ligter_On_Hover_SpaceShip_2_Texts = new TextMeshProUGUI[4];
 
+    private string SpaceShip_2_String = "SpaceShip_2";
+
     public void On_Hover_SpaceShip_2()
     {
-        On_Hover_Spaceship(SpaceShip_2_Object, Ligter_On_Hover_SpaceShip_2_Images, SpaceShip_2_Silhouette, Ligter_On_Hover_SpaceShip_2_Texts);
+        On_Hover_Spaceship(SpaceShip_2_Object, Ligter_On_Hover_SpaceShip_2_Images, SpaceShip_2_Silhouette, Ligter_On_Hover_SpaceShip_2_Texts, SpaceShip_2_String);
     }
     public void On_Unhover_SpaceShip_2()
     {
-        On_Unhover_Spaceship(SpaceShip_2_Object, Ligter_On_Hover_SpaceShip_2_Images, SpaceShip_2_Silhouette, Ligter_On_Hover_SpaceShip_2_Texts);
+        On_Unhover_Spaceship(SpaceShip_2_Object, Ligter_On_Hover_SpaceShip_2_Images, SpaceShip_2_Silhouette, Ligter_On_Hover_SpaceShip_2_Texts,SpaceShip_2_String);
     }
 
     public void On_Click_SpaceShip_2()
     {
+        if (PlayerPrefs.GetInt(SpaceShip_2_String) == 0)
+        {
+            return;
+        }
         StartCoroutine(SpaceShip_2_Button_Transition());
     }
 
@@ -189,7 +214,7 @@ public class SpaceShipSelectScreen : MonoBehaviour
 
 
     #region Select SpaceShip
-    private void On_Hover_Spaceship(Transform Object_SpaceShip, Image[] Lighter_On_Hover,Image SpaceShip_Silhouette, TextMeshProUGUI[] SpaceShip_Texts)
+    private void On_Hover_Spaceship(Transform Object_SpaceShip, Image[] Lighter_On_Hover,Image SpaceShip_Silhouette, TextMeshProUGUI[] SpaceShip_Texts,string SpaceShip_Store_Key)
     {
         Object_SpaceShip.DOScale(1f, 0.25f);
         
@@ -202,10 +227,17 @@ public class SpaceShipSelectScreen : MonoBehaviour
             SpaceShip_Texts[i].color = Lighter;
         }
 
-        SpaceShip_Silhouette.color = Darker;
+        switch (PlayerPrefs.GetInt(SpaceShip_Store_Key))
+        {
+            case 0: SpaceShip_Silhouette.color = Redder; 
+                break;
+            case 1: SpaceShip_Silhouette.color = Greener;
+                break;
+        }
+
         BackGround.color = Darker;
     }
-    private void On_Unhover_Spaceship(Transform Object_SpaceShip, Image[] Lighter_On_Hover, Image SpaceShip_Silhouette, TextMeshProUGUI[] SpaceShip_Texts)
+    private void On_Unhover_Spaceship(Transform Object_SpaceShip, Image[] Lighter_On_Hover, Image SpaceShip_Silhouette, TextMeshProUGUI[] SpaceShip_Texts, string SpaceShip_Store_Key)
     {
         Object_SpaceShip.DOScale(0.85f, 0.25f);
 
@@ -218,7 +250,16 @@ public class SpaceShipSelectScreen : MonoBehaviour
             SpaceShip_Texts[i].color = Darker;
         }
 
-        SpaceShip_Silhouette.color = Lighter;
+        switch (PlayerPrefs.GetInt(SpaceShip_Store_Key))
+        {
+            case 0:
+                SpaceShip_Silhouette.color = Redder;
+                break;
+            case 1:
+                SpaceShip_Silhouette.color = Greener;
+                break;
+        }
+
         BackGround.color = Lighter;
     }
     #endregion
