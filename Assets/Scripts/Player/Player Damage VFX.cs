@@ -26,6 +26,7 @@ public class PlayerDamageVFX : MonoBehaviour
     public static Action Shield_Break_Event;
     public static Action Damage_Break_Event;
     public static Action Shield_Regeneration_Event;
+    public static Action<Vector3> Debris_Event;
 
     private ObjectPoolingManager Object_Pooling_Manager;
     private GameObject Damage_Particle;
@@ -42,6 +43,7 @@ public class PlayerDamageVFX : MonoBehaviour
         Damage_Break_Event += Damage_Break;
         Shield_Regeneration_Event += Shield_Rengeneration;
         Collision_Manager_SpaceShip.Debris_VFX += Debris_VFX;
+        Debris_Event += Debris_VFX;
     }
     private void OnDisable()
     {
@@ -49,9 +51,11 @@ public class PlayerDamageVFX : MonoBehaviour
         Damage_Break_Event -= Damage_Break;
         Shield_Regeneration_Event -= Shield_Rengeneration;
         Collision_Manager_SpaceShip.Debris_VFX -= Debris_VFX;
+        Debris_Event -= Debris_VFX;
+
     }
 
-    
+
     private void Shield_Break()
     {
         StartCoroutine(Material_Change(SpaceShip_0, Spaceship_0_Material, Shield_Material, Duration));

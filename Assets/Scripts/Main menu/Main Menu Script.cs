@@ -122,6 +122,11 @@ public class MainMenuScript : MonoBehaviour
         On_Unhover_Button(Quit_Button_Object, Quit_Button_Text, Quit_Button_BackGround);
     }
 
+    public void On_Click_Quit_Button()
+    {
+        Application.Quit();
+    }
+
     #endregion
 
     #region Economy Button
@@ -137,7 +142,7 @@ public class MainMenuScript : MonoBehaviour
 
     public void On_Hover_Economy_Button()
     {
-        Economy_Button_Object.transform.DOScale(1.5f, 0.25f);
+        Economy_Button_Object.transform.DOScale(1.2f, 0.25f);
 
         Economy_Button_Image.color = Economy_Hover_Colour;
     }
@@ -203,6 +208,11 @@ public class MainMenuScript : MonoBehaviour
         Settings_Button_Image.transform.DOLocalRotate(Rotate_Unhover, 0.25f);
         Settings_Button_Image.color = Text_Colour_Unhover;
         Settings_Button_BackGround.SetActive(false);
+    }
+
+    public void On_Click_Settings_Button()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
     #endregion

@@ -31,6 +31,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
     public UnityEvent Nitro;
     public UnityEvent Steering_Automatic_Manual_Switch_Event;
 
+    public UnityEvent Pause_Event;
+
     [SerializeField] private float Delay_Duration = 2.0f;
     // Tracks whether the HUD is currently visible
     public bool Is_HUD_On = true;
@@ -89,6 +91,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed += De_Tether_Fuction;
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringFullControlSwitch.performed += Steering_Full_Control_Switch;
+
+        SpaceShip_Controls_Action_Map.UIControls.Pause.performed += Pause_Function;
     }
 
     private void OnDisable()
@@ -115,6 +119,8 @@ public class Keyboard_Input_Manager : MonoBehaviour
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.UnTether.performed -= De_Tether_Fuction;
 
         SpaceShip_Controls_Action_Map.SpaceShip_Controls.SteeringFullControlSwitch.performed -= Steering_Full_Control_Switch;
+
+        SpaceShip_Controls_Action_Map.UIControls.Pause.performed -= Pause_Function;
 
     }
 
@@ -200,6 +206,19 @@ public class Keyboard_Input_Manager : MonoBehaviour
         Game_Settings.Steering_Full_Control = !Game_Settings.Steering_Full_Control;
 
         Steering_Automatic_Manual_Switch_Event.Invoke();
+    }
+
+    private void Pause_Function(InputAction.CallbackContext context)
+    {
+        Pause_Event.Invoke();
+    }
+    public void On_Pause()
+    {
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Disable();
+    }
+    public void Off_Pause()
+    {
+        SpaceShip_Controls_Action_Map.SpaceShip_Controls.Enable();
     }
 }
 

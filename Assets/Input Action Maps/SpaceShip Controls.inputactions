@@ -316,11 +316,11 @@
             ]
         },
         {
-            "name": "New action map",
+            "name": "UI Controls",
             "id": "60814cb8-5e43-4ae7-9eb4-32e4b819425e",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Pause",
                     "type": "Button",
                     "id": "cc00e2c1-1f8b-41da-8de8-bd62d90a1dca",
                     "expectedControlType": "",
@@ -333,11 +333,11 @@
                 {
                     "name": "",
                     "id": "4a95f89f-86ec-46bb-adfd-6b730b05ddc7",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

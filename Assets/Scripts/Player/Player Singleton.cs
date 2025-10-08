@@ -38,6 +38,7 @@ public class PlayerSingleton : MonoBehaviour
     public static Action No_Asteroids_Attached;
 
     public bool Is_Spaceship_At_Rest = false;
+    public bool Is_Spaceship_Able_To_Shoot = true;
     public bool Is_Spaceship_At_Selling_Zone = false;
     private bool Is_Payload_Hide = true;
 

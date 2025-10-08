@@ -19,6 +19,7 @@ public class MoneyManager : MonoBehaviour
 
 
     public static Action<float> Money_Change_Event;
+    public static Action Money_Saved;
 
     public static bool Money_Spent = false;
 
@@ -28,11 +29,14 @@ public class MoneyManager : MonoBehaviour
     private void OnEnable()
     {
         Money_Change_Event += Change_Amount;
+        Money_Saved += Save_Money_Value;
     }
 
     private void OnDisable()
     {
         Money_Change_Event -= Change_Amount;
+        Money_Saved -= Save_Money_Value;
+
     }
     // Start is called before the first frame update
     void Start()
@@ -54,13 +58,10 @@ public class MoneyManager : MonoBehaviour
             Change_Amount_Text.color = Color.green;
         }
         else
-        { if(PlayerPrefs.GetFloat(Player_Money_Key) < Change)
-            {
-                return;
-            }
+        { 
             Change_Amount_Text.color = Color.red;
-
         }
+
         Money_Spent = true; 
         Change_Amount_Text.gameObject.SetActive(true);
         UIVisualEffectsManager.UI_Fader_Event.Invoke(Canvas_Group_Change_Text,0,1,2f);
@@ -71,7 +72,10 @@ public class MoneyManager : MonoBehaviour
 
         Change_Amount_Text.text = MoneyNotation.Money_Notate_Function(Change);
         Current_Money += Change;
-        PlayerPrefs.SetFloat(Player_Money_Key, Current_Money);
+        if(Change < 0)
+        {
+            Save_Money_Value();
+        }
         Money_Amount.text = MoneyNotation.Money_Notate_Function(Current_Money);
 
 
@@ -99,5 +103,10 @@ public class MoneyManager : MonoBehaviour
 
         yield return WaitForSeconds_10;
         Money_Spent = false;
+    }
+
+    private void Save_Money_Value()
+    {
+        PlayerPrefs.SetFloat(Player_Money_Key, Current_Money);
     }
 }

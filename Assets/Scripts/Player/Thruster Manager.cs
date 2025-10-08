@@ -155,12 +155,6 @@ public class ThrusterManager : MonoBehaviour
     {
 
 
-        if (Left_Thruster_Material == null) Debug.LogError("Left_Thruster_Material is NULL!");
-        if (Right_Thruster_Material == null) Debug.LogError("Right_Thruster_Material is NULL!");
-        if (Flame_Trail == null) Debug.LogError("Flame_Trail is NULL!");
-        if (Particles_VFX == null) Debug.LogError("Particles_VFX is NULL!"); 
-
-
         Velocity_To_Thurst_Constant = Low_Velocity_To_Thurst_Constant;
         Expected_Thrust_Value = Expected_Thrust_Value_Low;
         Particle_Rate = 5;
@@ -170,7 +164,6 @@ public class ThrusterManager : MonoBehaviour
         Expected_Particle_Rate_Value = Particle_Rate_Value_Low; 
 
 
-        Debug.Assert(Left_Thruster_Material != null, $"{transform.root.name}:{name}:{GetInstanceID()} has a null material");
         Left_Thruster_Material.SetColor("_Colour_1", Color1[0]);
         Left_Thruster_Material.SetColor("_Colour_2", Color2[0]);
 

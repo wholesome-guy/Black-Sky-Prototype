@@ -16,7 +16,8 @@ public class EconomyScreenManager : MonoBehaviour
     private void Start()
     {
         Take_Loan_Function(100000f);
-        Money_Counter_Text.text = MoneyNotation.Money_Notate_Function(PlayerPrefs.GetFloat(Player_Money_Key));
+        float Money = PlayerPrefs.GetFloat(Player_Money_Key);
+        Money_Counter_Text.text = MoneyNotation.Money_Notate_Function(Money);
         Pay_Back_Loan_Function();
         Shop_Price_Setter();
 
@@ -40,8 +41,8 @@ public class EconomyScreenManager : MonoBehaviour
     [SerializeField] private Color Positive_Money_Gain;
     [SerializeField] private Color Negative_Money_Gain;
     private Color Money_Color;
-    private string Player_Money_Key = "Current_Player_Money";
 
+    private string Player_Money_Key = "Current_Player_Money";
     private float Total_Money;
     private float Money_Plus_Change;
 
@@ -99,7 +100,6 @@ public class EconomyScreenManager : MonoBehaviour
 
     #region Take Loan
 
-
     #region BackEnd
 
     [Header("Take Loan")]
@@ -107,6 +107,7 @@ public class EconomyScreenManager : MonoBehaviour
     [SerializeField] private float Upper_Loan_Limit;
     [SerializeField] private float Change_Amount;
     [SerializeField] private TextMeshProUGUI Take_Loan_Amount_Text;
+
     private float Take_Loan_Amount = 0;
 
 
@@ -404,10 +405,6 @@ public class EconomyScreenManager : MonoBehaviour
     }
 
     #endregion;
-
-
-
-
 
     #region Basic button Functions 
 

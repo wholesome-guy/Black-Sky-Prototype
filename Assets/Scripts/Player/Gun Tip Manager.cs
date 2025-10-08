@@ -15,6 +15,7 @@ public class GunTipManager : MonoBehaviour
     [SerializeField] private MoneyValues Money_Values;
 
     private ObjectPoolingManager Object_Pooling_Manager;
+    private PlayerSingleton Player_Singleton;
 
     private GameObject Cannon_Ball;
     private GameObject Anchor_Projectile;
@@ -37,6 +38,7 @@ public class GunTipManager : MonoBehaviour
     private void Start()
     {
         Object_Pooling_Manager = ObjectPoolingManager.Instance;
+        Player_Singleton = PlayerSingleton.instance;
         WaitForSeconds_Reload_Time = new WaitForSeconds(Reload_Duration);
         Muzzle_Flash.Stop();
         Projectile_Select(0);
@@ -49,7 +51,7 @@ public class GunTipManager : MonoBehaviour
     // Instantiates a projectile if ammo is loaded, then starts the reload coroutine
     public void Shoot_Projectile()
     {
-        if (Is_Ammo_Loaded)
+        if (Is_Ammo_Loaded && Player_Singleton.Is_Spaceship_Able_To_Shoot)
         {
             switch (Index_Projectile)
             {

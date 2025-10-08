@@ -5,22 +5,6 @@ using UnityEngine;
 public class LoanManager : MonoBehaviour
 {
 
-    public static LoanManager instance;
-    void Awake()
-    {
-        // Singleton pattern
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
-
 
 
 

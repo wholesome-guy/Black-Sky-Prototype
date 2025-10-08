@@ -11,6 +11,7 @@ TagManager:
   - Docking Zone
   - Asteroid_Point
   - Selling_Zone
+  - Exit Zone
   layers:
   - Default
   - TransparentFX

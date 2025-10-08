@@ -70,6 +70,7 @@ public class AnchorProjectileMovement : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         CameraManager.Camera_Shake_Event.Invoke();
+        PlayerDamageVFX.Debris_Event.Invoke(collision.contacts[0].point);
 
         // Check if projectile collided with an asteroid
         if (collision.gameObject.CompareTag("Asteroid"))

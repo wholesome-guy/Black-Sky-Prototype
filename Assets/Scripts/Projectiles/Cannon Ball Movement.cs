@@ -58,6 +58,8 @@ public class CannonBallMovement : MonoBehaviour
         CameraManager.Camera_Shake_Event.Invoke();
         CrossHairManager.Hit_Mark_Event.Invoke();
 
+        PlayerDamageVFX.Debris_Event.Invoke(collision.contacts[0].point);
+
         Explosion = Object_Pooling_Manager.Instantiate_Explosion();
         Explosion.transform.SetLocalPositionAndRotation(transform.position, transform.rotation);
 

@@ -12,7 +12,9 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
     public static Action<Vector3> Debris_VFX;
 
     private string Refuel_Station_Area = "Refuel_Station";   // Tag used to identify refuel station objects
-    private string Docking_Station_Area = "Docking Zone";   // Tag used to identify refuel station objects
+    private string Docking_Station_Area = "Docking Zone";   // Tag used to identify docking zone objects
+    private string Exit_Area = "Exit Zone";
+
 
     [Range(0,10)]
     [SerializeField] private int Delay_Duration = 5;
@@ -35,7 +37,9 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
         {
             Refuel_Event.Invoke();
             MoneyManager.Money_Change_Event.Invoke(Money_Values.Refuel_Station_Cost);
+
             Player_Singleton.Is_Spaceship_At_Rest = true;
+            Player_Singleton.Is_Spaceship_Able_To_Shoot = false;
             Player_Singleton.Player_Rigidbody.drag = 10;
             Player_Singleton.Player_Rigidbody.angularDrag = 10;
             TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
@@ -47,6 +51,15 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
         {
             MoneyManager.Money_Change_Event.Invoke(Money_Values.Docking_Station_Cost);
         }
+
+        if(Collided_GameObject.CompareTag(Exit_Area))
+        {
+            ExitScreenManager.Exit_Screen_Event.Invoke();
+            Player_Singleton.Is_Spaceship_At_Rest = true;
+            Player_Singleton.Is_Spaceship_Able_To_Shoot = false;
+
+        }
+
     }
 
     // Called when another collider exits this object's trigger collider
@@ -72,7 +85,8 @@ public class Collision_Manager_SpaceShip : MonoBehaviour
     private IEnumerator Leave_Refuel_Station()
     {
         yield return WaitForSeconds_Delay_Duration;
-        PlayerSingleton.instance.Is_Spaceship_At_Rest = false;
+        Player_Singleton.Is_Spaceship_At_Rest = false;
+        Player_Singleton.Is_Spaceship_Able_To_Shoot = true; ;
         Player_Singleton.Player_Rigidbody.drag = 1;
         Player_Singleton.Player_Rigidbody.angularDrag = 1;
 

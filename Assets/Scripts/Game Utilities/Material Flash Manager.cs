@@ -17,7 +17,7 @@ public class MaterialFlashManager : MonoBehaviour
     private void OnDisable()
     {
         Object_Array_Flash -= Material_Array_Flash;
-        Object_Single_Flash += Material_Single_Flash;
+        Object_Single_Flash -= Material_Single_Flash;
 
     }
 
@@ -57,15 +57,15 @@ public class MaterialFlashManager : MonoBehaviour
         {
             for (int k = 0; k < Mesh_Renderer.Length; k++)
             {
-                Mesh_Renderer[i].sharedMaterial = Original_Materials[i];
-                Mesh_Renderer[i].sharedMaterial = Change;   
+                Mesh_Renderer[k].sharedMaterial = Original_Materials[k];
+                Mesh_Renderer[k].sharedMaterial = Change;   
             }
 
             yield return new WaitForSeconds(Duration);
 
             for (int k = 0; k < Mesh_Renderer.Length; k++)
             {
-                Mesh_Renderer[i].sharedMaterial = Original_Materials[i];
+                Mesh_Renderer[k].sharedMaterial = Original_Materials[k];
             }
 
             yield return new WaitForSeconds(Duration);

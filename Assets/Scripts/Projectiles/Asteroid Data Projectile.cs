@@ -78,6 +78,8 @@ public class AsteroidDataProjectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        PlayerDamageVFX.Debris_Event.Invoke(collision.contacts[0].point);
+
         if (collision.gameObject.CompareTag("Asteroid"))
         {
             In_Contact_With_Asteroid = true;

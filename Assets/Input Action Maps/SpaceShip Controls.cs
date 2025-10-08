@@ -338,11 +338,11 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""New action map"",
+            ""name"": ""UI Controls"",
             ""id"": ""60814cb8-5e43-4ae7-9eb4-32e4b819425e"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Pause"",
                     ""type"": ""Button"",
                     ""id"": ""cc00e2c1-1f8b-41da-8de8-bd62d90a1dca"",
                     ""expectedControlType"": """",
@@ -355,11 +355,11 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""4a95f89f-86ec-46bb-adfd-6b730b05ddc7"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -382,15 +382,15 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         m_SpaceShip_Controls_SteeringWheel = m_SpaceShip_Controls.FindAction("Steering Wheel", throwIfNotFound: true);
         m_SpaceShip_Controls_AsteroidCamera = m_SpaceShip_Controls.FindAction("Asteroid Camera", throwIfNotFound: true);
         m_SpaceShip_Controls_SteeringFullControlSwitch = m_SpaceShip_Controls.FindAction("Steering Full Control Switch", throwIfNotFound: true);
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
+        // UI Controls
+        m_UIControls = asset.FindActionMap("UI Controls", throwIfNotFound: true);
+        m_UIControls_Pause = m_UIControls.FindAction("Pause", throwIfNotFound: true);
     }
 
     ~@SpaceShipControls()
     {
         UnityEngine.Debug.Assert(!m_SpaceShip_Controls.enabled, "This will cause a leak and performance issues, SpaceShipControls.SpaceShip_Controls.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Newactionmap.enabled, "This will cause a leak and performance issues, SpaceShipControls.Newactionmap.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_UIControls.enabled, "This will cause a leak and performance issues, SpaceShipControls.UIControls.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -583,51 +583,51 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
     }
     public SpaceShip_ControlsActions @SpaceShip_Controls => new SpaceShip_ControlsActions(this);
 
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private List<INewactionmapActions> m_NewactionmapActionsCallbackInterfaces = new List<INewactionmapActions>();
-    private readonly InputAction m_Newactionmap_Newaction;
-    public struct NewactionmapActions
+    // UI Controls
+    private readonly InputActionMap m_UIControls;
+    private List<IUIControlsActions> m_UIControlsActionsCallbackInterfaces = new List<IUIControlsActions>();
+    private readonly InputAction m_UIControls_Pause;
+    public struct UIControlsActions
     {
         private @SpaceShipControls m_Wrapper;
-        public NewactionmapActions(@SpaceShipControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public UIControlsActions(@SpaceShipControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Pause => m_Wrapper.m_UIControls_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_UIControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
-        public void AddCallbacks(INewactionmapActions instance)
+        public static implicit operator InputActionMap(UIControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IUIControlsActions instance)
         {
-            if (instance == null || m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            if (instance == null || m_Wrapper.m_UIControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UIControlsActionsCallbackInterfaces.Add(instance);
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(INewactionmapActions instance)
+        private void UnregisterCallbacks(IUIControlsActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(INewactionmapActions instance)
+        public void RemoveCallbacks(IUIControlsActions instance)
         {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_UIControlsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(INewactionmapActions instance)
+        public void SetCallbacks(IUIControlsActions instance)
         {
-            foreach (var item in m_Wrapper.m_NewactionmapActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_UIControlsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_UIControlsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
+    public UIControlsActions @UIControls => new UIControlsActions(this);
     public interface ISpaceShip_ControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -643,8 +643,8 @@ public partial class @SpaceShipControls: IInputActionCollection2, IDisposable
         void OnAsteroidCamera(InputAction.CallbackContext context);
         void OnSteeringFullControlSwitch(InputAction.CallbackContext context);
     }
-    public interface INewactionmapActions
+    public interface IUIControlsActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

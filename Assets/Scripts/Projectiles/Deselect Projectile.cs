@@ -71,6 +71,7 @@ public class DeselectProjectile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         CameraManager.Camera_Shake_Event.Invoke();
+        PlayerDamageVFX.Debris_Event.Invoke(collision.contacts[0].point);
 
 
         if (collision.gameObject.CompareTag("Asteroid"))

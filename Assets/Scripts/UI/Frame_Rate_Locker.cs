@@ -1,33 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using TMPro; // Required for TextMeshProUGUI
 
-public class Frame_Rate_Locker : MonoBehaviour
+public class FPSCounter : MonoBehaviour
 {
-    [SerializeField] private int FPS = 60;
+    public TextMeshProUGUI fpsText; // Assign this in the Inspector
+    public float updateInterval = 0.5f; // How often to update the FPS display
 
-    [SerializeField] private TextMeshProUGUI FPS_Counter;
-    [SerializeField] private float Polling_Time = 3f;
-    private float Time_Clock;
-    private int Frame_Count;
+    private float accum = 0; // FPS accumulated over the interval
+    private int frames = 0; // Frames drawn over the interval
+    private float timeleft; // Left time for current interval
 
-    private void Update()
+    void Start()
     {
-        Time_Clock += Time.deltaTime;
-        Frame_Count++;
-
-
-        if(Time_Clock >= Polling_Time)
-        {
-            int Frame_Rate = Mathf.RoundToInt(Frame_Count / Time_Clock);
-            FPS_Counter.text = Frame_Count.ToString() + " FPS";
-
-
-            Time_Clock -= Polling_Time;
-            Frame_Count = 0;
-        }
+        timeleft = updateInterval;
     }
 
+    void Update()
+    {
+        timeleft -= Time.deltaTime;
+        accum += Time.timeScale / Time.deltaTime;
+        ++frames;
 
+        // Interval ended - update GUI text and start new interval
+        if (timeleft <= 0.0)
+        {
+            // Calculate the FPS
+            float fps = accum / frames;
+            string format = System.String.Format("{0:F2} FPS", fps);
+            fpsText.text = format;
+
+            if (fps < 30)
+                fpsText.color = Color.yellow;
+            else
+                if (fps < 10)
+                fpsText.color = Color.red;
+            else
+                fpsText.color = Color.green;
+
+            timeleft = updateInterval;
+            accum = 0.0f;
+            frames = 0;
+        }
+    }
 }

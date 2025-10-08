@@ -53,6 +53,7 @@ public class DockingZoneCollisionManager : MonoBehaviour
                 TimerManager.Timer_Delay_Event.Invoke(Delay_Duration);
                 StartCoroutine(Delay_On_Player_Dock());
                 Player_Singleton.Is_Spaceship_At_Rest = true;
+                Player_Singleton.Is_Spaceship_Able_To_Shoot = false;
 
             }
             
@@ -66,6 +67,8 @@ public class DockingZoneCollisionManager : MonoBehaviour
             On_Player_Undocked.Invoke();
             DockingZonePointerManager.Pointer_Event(false, gameObject.transform);
             StartCoroutine(Delay_On_Player_UnDock());
+            Player_Singleton.Is_Spaceship_Able_To_Shoot = true;
+
         }
     }
 
