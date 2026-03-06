@@ -76,6 +76,7 @@ public class Mouse_Input_Manager : MonoBehaviour
     private void Start()
     {
         Is_Rotation_Locked = false;
+        Cursor.visible = false;
     }
 
     private void Update()
